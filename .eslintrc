@@ -1,0 +1,99 @@
+{
+  "overrides": [
+    {
+      "files": [
+        "**/test/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "react/prop-types": 0,
+        "global-require": 1
+      }
+    },
+    {
+      "files": [
+        "**/*.stories.js"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": 0
+      }
+    }
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks"
+  ],
+  "rules": {
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "computed-property-spacing": [
+      "error",
+      "always"
+    ],
+    "import/no-unresolved": 0,
+    "import/prefer-default-export": 1,
+    "linebreak-style": 0,
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-shadow": 0,
+    "object-curly-newline": [
+      "error",
+      {
+        "consistent": true
+      }
+    ],
+    "object-property-newline": [
+      "error",
+      {
+        "allowAllPropertiesOnSameLine": true
+      }
+    ],
+    "react/jsx-filename-extension": 0,
+    "react/sort-comp": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-no-duplicate-props": [
+      "error",
+      {
+        "ignoreCase": false
+      }
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "semi-style": [
+      "error",
+      "first"
+    ],
+    "space-in-parens": [
+      "error",
+      "always",
+      {
+        "exceptions": [
+          "empty"
+        ]
+      }
+    ]
+  }
+}
