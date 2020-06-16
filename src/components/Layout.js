@@ -4,7 +4,6 @@ import { withPrefix } from 'gatsby'
 
 import useSiteMetadata from '../hooks/use-site-metadata'
 
-import Footer from './Footer'
 import Navbar from './Navbar'
 
 import '../theme.sass'
@@ -13,6 +12,7 @@ const TemplateWrapper = ( { children } ) => {
   const { title, description } = useSiteMetadata()
   return (
     <div>
+
       <Helmet>
         <html lang="en" />
         <title>{title}</title>
@@ -51,9 +51,11 @@ const TemplateWrapper = ( { children } ) => {
           content={`${withPrefix( '/' )}img/og-image.jpg`}
         />
       </Helmet>
+
       <Navbar />
+
       <div>{children}</div>
-      <Footer />
+
     </div>
   )
 }
