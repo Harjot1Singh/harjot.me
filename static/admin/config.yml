@@ -37,6 +37,16 @@ collections:
       - { label: Publish Date, name: date, widget: datetime }
       - { label: Description, name: description, widget: text }
       - { label: Tags, name: tags, widget: list }
+      - {
+          label: Related Projects,
+          name: related-projects,
+          required: false,
+          widget: relation,
+          collection: projects,
+          valueField: title,
+          searchFields: [title],
+          multiple: true
+        }
       - { label: Body, name: body, widget: markdown }
 
   - name: projects
@@ -50,8 +60,8 @@ collections:
           widget: hidden,
           default: project-post,
         }
-      - { label: Title, name: description, widget: string }
-      - { label: Featured Image, name: featuredimage, widget: image }
+      - { label: Title, name: title, widget: string }
+      - { label: Image, name: image, widget: image }
       - { label: Date, name: date, widget: datetime }
       - { label: Technologies, name: technologies, widget: list }
       - { label: Tags, name: tags, widget: list }
@@ -112,8 +122,8 @@ collections:
               name: projects,
               widget: relation,
               collection: projects,
-              valueField: name,
-              searchFields: [name],
+              valueField: title,
+              searchFields: [title],
               multiple: true
             }
 
