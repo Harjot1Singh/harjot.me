@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+
 import Layout from '../components/Layout'
 import Features from '../components/Features'
 import Testimonials from '../components/Testimonials'
 import Pricing from '../components/Pricing'
 import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
 
-export const ProductPageTemplate = ({
+export const ProductPageTemplate = ( {
   image,
   title,
   heading,
@@ -17,14 +18,12 @@ export const ProductPageTemplate = ({
   testimonials,
   fullImage,
   pricing,
-}) => (
+} ) => (
   <div className="content">
     <div
       className="full-width-image-container margin-top-0"
       style={{
-        backgroundImage: `url(${
-          !!image.childImageSharp ? image.childImageSharp.fluid.src : image
-        })`,
+        backgroundImage: `url(${image.childImageSharp ? image.childImageSharp.fluid.src : image})`,
       }}
     >
       <h2
@@ -105,30 +104,30 @@ export const ProductPageTemplate = ({
 )
 
 ProductPageTemplate.propTypes = {
-  image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  image: PropTypes.oneOfType( [ PropTypes.object, PropTypes.string ] ),
   title: PropTypes.string,
   heading: PropTypes.string,
   description: PropTypes.string,
-  intro: PropTypes.shape({
+  intro: PropTypes.shape( {
     blurbs: PropTypes.array,
-  }),
-  main: PropTypes.shape({
+  } ),
+  main: PropTypes.shape( {
     heading: PropTypes.string,
     description: PropTypes.string,
-    image1: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    image2: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    image3: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  }),
+    image1: PropTypes.oneOfType( [ PropTypes.object, PropTypes.string ] ),
+    image2: PropTypes.oneOfType( [ PropTypes.object, PropTypes.string ] ),
+    image3: PropTypes.oneOfType( [ PropTypes.object, PropTypes.string ] ),
+  } ),
   testimonials: PropTypes.array,
-  fullImage: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  pricing: PropTypes.shape({
+  fullImage: PropTypes.oneOfType( [ PropTypes.object, PropTypes.string ] ),
+  pricing: PropTypes.shape( {
     heading: PropTypes.string,
     description: PropTypes.string,
     plans: PropTypes.array,
-  }),
+  } ),
 }
 
-const ProductPage = ({ data }) => {
+const ProductPage = ( { data } ) => {
   const { frontmatter } = data.markdownRemark
 
   return (
@@ -149,11 +148,11 @@ const ProductPage = ({ data }) => {
 }
 
 ProductPage.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
+  data: PropTypes.shape( {
+    markdownRemark: PropTypes.shape( {
       frontmatter: PropTypes.object,
-    }),
-  }),
+    } ),
+  } ),
 }
 
 export default ProductPage
