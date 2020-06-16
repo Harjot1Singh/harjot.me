@@ -45,7 +45,7 @@ collections:
           collection: projects,
           valueField: title,
           searchFields: [title],
-          multiple: true
+          multiple: true,
         }
       - { label: Body, name: body, widget: markdown }
 
@@ -83,6 +83,7 @@ collections:
           - { label: Name, name: name, widget: string }
           - { label: Roles, name: roles, widget: list }
           - { label: Profile Picture, name: profilePicture, widget: image }
+          - { label: CV, name: cv, widget: file }
           - {
               label: Icon Links,
               name: iconLinks,
@@ -91,7 +92,7 @@ collections:
                 [
                   { label: URL, name: url, widget: string },
                   { label: Icon, name: icon, widget: image },
-                ]
+                ],
             }
 
       - file: src/content/sections/about.md
@@ -124,7 +125,7 @@ collections:
               collection: projects,
               valueField: title,
               searchFields: [title],
-              multiple: true
+              multiple: true,
             }
 
       - file: src/content/sections/contact.md
@@ -145,6 +146,6 @@ collections:
                 [
                   { label: URL, name: url, widget: string },
                   { label: Icon, name: icon, widget: image },
-                ]
-            }          
+                ],
+            }
           - { label: Body, name: body, widget: markdown }
