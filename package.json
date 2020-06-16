@@ -5,6 +5,7 @@
   "author": "Harjot Singh",
   "dependencies": {
     "bulma": "^0.9.0",
+    "clsx": "^1.1.1",
     "gatsby": "^2.20.35",
     "gatsby-image": "^2.3.5",
     "gatsby-plugin-netlify": "^2.2.4",

@@ -5,14 +5,28 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../../components/Layout'
 
-const TagsPage = ({
+const tagPageQuery = graphql`
+  query TagsQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allMarkdownRemark(limit: 1000) {
+      group(field: frontmatter___tags) {
+        fieldValue
+        totalCount
+      }
+    }
+  }
+`
+
+const TagsPage = ( {
   data: {
     allMarkdownRemark: { group },
-    site: {
-      siteMetadata: { title },
-    },
+    site: { siteMetadata: { title } },
   },
-}) => (
+} ) => (
   <Layout>
     <section className="section">
       <Helmet title={`Tags | ${title}`} />
@@ -44,19 +58,3 @@ const TagsPage = ({
 )
 
 export default TagsPage
-
-export const tagPageQuery = graphql`
-  query TagsQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(limit: 1000) {
-      group(field: frontmatter___tags) {
-        fieldValue
-        totalCount
-      }
-    }
-  }
-`

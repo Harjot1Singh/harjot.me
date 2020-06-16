@@ -3,17 +3,33 @@ import PropTypes from 'prop-types'
 import { kebabCase } from 'lodash'
 import { Helmet } from 'react-helmet'
 import { graphql, Link } from 'gatsby'
+
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
-export const BlogPostTemplate = ({
+const pageQuery = graphql`
+  query BlogPostByID($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      id
+      html
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        title
+        description
+        tags
+      }
+    }
+  }
+`
+
+export const BlogPostTemplate = ( {
   content,
   contentComponent,
   description,
   tags,
   title,
   helmet,
-}) => {
+} ) => {
   const PostContent = contentComponent || Content
 
   return (
@@ -87,17 +103,3 @@ BlogPost.propTypes = {
 
 export default BlogPost
 
-export const pageQuery = graphql`
-  query BlogPostByID($id: String!) {
-    markdownRemark(id: { eq: $id }) {
-      id
-      html
-      frontmatter {
-        date(formatString: "MMMM DD, YYYY")
-        title
-        description
-        tags
-      }
-    }
-  }
-`
