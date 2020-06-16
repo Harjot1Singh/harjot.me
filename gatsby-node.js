@@ -1,4 +1,4 @@
-const _ = require( 'lodash' )
+const { kebabCase } = require( 'lodash' )
 const path = require( 'path' )
 const { createFilePath } = require( 'gatsby-source-filesystem' )
 const { fmImagesToRelative } = require( 'gatsby-remark-relative-images' )
@@ -23,52 +23,40 @@ exports.createPages = ( { actions, graphql } ) => {
         }
       }
     }
-  ` ).then( ( result ) => {
-    if ( result.errors ) {
-      result.errors.forEach( ( e ) => console.error( e.toString() ) )
-      return Promise.reject( result.errors )
+  ` ).then( ( { errors, data: { allMarkdownRemark: { edges: posts } } } ) => {
+    if ( errors ) {
+      errors.forEach( ( e ) => console.error( e.toString() ) )
+      return Promise.reject( errors )
     }
 
-    const posts = result.data.allMarkdownRemark.edges
+    // Create post pages
+    posts.forEach( ( {
+      node: {
+        fields: { slug },
+        frontmatter: { tags, templateKey },
+        id,
+      },
+    } ) => createPage( {
+      path: slug,
+      tags,
+      component: path.resolve( `src/templates/${templateKey}.js` ),
+      context: { id },
+    } ) )
 
-    posts.forEach( ( edge ) => {
-      const { id } = edge.node
-      createPage( {
-        path: edge.node.fields.slug,
-        tags: edge.node.frontmatter.tags,
-        component: path.resolve(
-          `src/templates/${String( edge.node.frontmatter.templateKey )}.js`,
-        ),
-        // additional data can be passed via context
-        context: {
-          id,
-        },
-      } )
-    } )
+    // Grab all tags
+    const tags = Array.from( new Set(
+      posts.reduce( ( acc, { node: { frontmatter: { tags = [] } = {} } = {} } ) => [
+        ...acc,
+        ...tags,
+      ], [] ),
+    ) )
 
-    // Tag pages:
-    let tags = []
-    // Iterate through each post, putting all found tags into `tags`
-    posts.forEach( ( edge ) => {
-      if ( _.get( edge, 'node.frontmatter.tags' ) ) {
-        tags = tags.concat( edge.node.frontmatter.tags )
-      }
-    } )
-    // Eliminate duplicate tags
-    tags = _.uniq( tags )
-
-    // Make tag pages
-    tags.forEach( ( tag ) => {
-      const tagPath = `/tags/${_.kebabCase( tag )}/`
-
-      createPage( {
-        path: tagPath,
-        component: path.resolve( 'src/templates/tags.js' ),
-        context: {
-          tag,
-        },
-      } )
-    } )
+    // Create tag pages
+    tags.forEach( ( tag ) => createPage( {
+      path: `/tags/${kebabCase( tag )}/`,
+      component: path.resolve( 'src/templates/tags.js' ),
+      context: { tag },
+    } ) )
 
     return Promise.resolve()
   } )
@@ -80,10 +68,6 @@ exports.onCreateNode = ( { node, actions, getNode } ) => {
 
   if ( node.internal.type === 'MarkdownRemark' ) {
     const value = createFilePath( { node, getNode } )
-    createNodeField( {
-      name: 'slug',
-      node,
-      value,
-    } )
+    createNodeField( { name: 'slug', node, value } )
   }
 }
