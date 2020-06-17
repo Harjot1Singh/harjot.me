@@ -23,14 +23,16 @@ exports.createPages = ( { actions, graphql } ) => {
         }
       }
     }
-  ` ).then( ( { errors, data: { allMarkdownRemark: { edges: posts } } } ) => {
+  ` ).then( ( { errors, data } ) => {
     if ( errors ) {
       errors.forEach( ( e ) => console.error( e.toString() ) )
       return Promise.reject( errors )
     }
 
-    // Create post pages
-    posts.forEach( ( {
+    const { allMarkdownRemark: { edges: pages } } = data
+
+    // Create pages
+    pages.forEach( ( {
       node: {
         fields: { slug },
         frontmatter: { tags, templateKey },
@@ -45,9 +47,9 @@ exports.createPages = ( { actions, graphql } ) => {
 
     // Grab all tags
     const tags = Array.from( new Set(
-      posts.reduce( ( acc, { node: { frontmatter: { tags = [] } = {} } = {} } ) => [
+      pages.reduce( ( acc, { node: { frontmatter: { tags } = {} } = {} } ) => [
         ...acc,
-        ...tags,
+        ...( tags || [] ),
       ], [] ),
     ) )
 
