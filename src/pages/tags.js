@@ -3,9 +3,9 @@ import { kebabCase } from 'lodash'
 import { Helmet } from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 
-import Layout from '../../components/Layout'
+import Layout from '../components/Layout'
 
-const tagPageQuery = graphql`
+export const tagPageQuery = graphql`
   query TagsQuery {
     site {
       siteMetadata {
