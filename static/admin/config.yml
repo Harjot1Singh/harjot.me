@@ -1,11 +1,12 @@
 backend:
   name: github
   repo: Harjot1Singh/harjot.me
+  squash_merges: true
   commit_messages:
-    create: "feat({{collection}}): create {{slug}}"
-    update: "feat({{collection}}): update {{slug}}"
+    create: "feat(content): create {{slug}}"
+    update: "feat(content): update {{slug}}"
     delete: |+
-      feat({{collection}}): delete {{slug}}
+      feat(content): delete {{slug}}
 
       BREAKING CHANGE
     uploadMedia: "feat(media): upload {{path}}"
@@ -24,6 +25,9 @@ collections:
     label: Blog
     folder: src/content/blog
     create: true
+    media_folder: ""
+    public_folder: ""
+    path: "{{slug}}/index"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {
@@ -53,6 +57,9 @@ collections:
     label: Projects
     folder: src/content/projects
     create: true
+    media_folder: ""
+    public_folder: ""
+    path: "{{slug}}/index"
     fields:
       - {
           label: Template Key,
@@ -72,7 +79,7 @@ collections:
     files:
       - file: src/content/sections/home.md
         label: Home
-        name: home
+        name: home-section
         fields:
           - {
               label: Template Key,
@@ -97,7 +104,7 @@ collections:
 
       - file: src/content/sections/about.md
         label: About
-        name: about
+        name: about-section
         fields:
           - {
               label: Template Key,
@@ -105,18 +112,18 @@ collections:
               widget: hidden,
               default: about-section,
             }
-          - { label: Blurb, name: blurb, widget: markdown }
+          - { label: Blurb, name: body, widget: markdown }
           - { label: Skills, name: skills, widget: list }
 
       - file: src/content/sections/projects.md
         label: Projects
-        name: projects
+        name: projects-section
         fields:
           - {
               label: Template Key,
               name: templateKey,
               widget: hidden,
-              default: project-section,
+              default: projects-section,
             }
           - {
               label: Projects,
@@ -130,7 +137,7 @@ collections:
 
       - file: src/content/sections/contact.md
         label: Contact
-        name: contact
+        name: contact-section
         fields:
           - {
               label: Template Key,
