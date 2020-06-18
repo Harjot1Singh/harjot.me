@@ -4,32 +4,32 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/Layout'
 
-const tagPageQuery = graphql`
-  query TagPage($tag: String) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(
-      limit: 1000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { tags: { in: [$tag] } } }
-    ) {
-      totalCount
-      edges {
-        node {
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-          }
-        }
-      }
-    }
-  }
-`
+// const tagPageQuery = graphql`
+//   query TagPage($tag: String) {
+//     site {
+//       siteMetadata {
+//         title
+//       }
+//     }
+//     allMarkdownRemark(
+//       limit: 1000
+//       sort: { fields: [frontmatter___date], order: DESC }
+//       filter: { frontmatter: { tags: { in: [$tag] } } }
+//     ) {
+//       totalCount
+//       edges {
+//         node {
+//           fields {
+//             slug
+//           }
+//           frontmatter {
+//             title
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 const TagRoute = ( {
   data: {

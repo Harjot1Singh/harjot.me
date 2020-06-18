@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import HTMLContent from '../components/HTMLContent'
 
 // const pageQuery = graphql`
-//   query BlogPostByID($id: String!) {
+//   query ProjectPostById($id: String!) {
 //     markdownRemark(id: { eq: $id }) {
 //       id
 //       html
@@ -16,53 +16,50 @@ import HTMLContent from '../components/HTMLContent'
 //         date(formatString: "MMMM DD, YYYY")
 //         title
 //         description
-//         tags
+//         technologies
 //       }
 //     }
 //   }
 // `
 
-export const BlogPostTemplate = ( {
+export const ProjectPostTemplate = ( {
   content,
   contentComponent,
   description,
-  tags,
+  technologies,
   title,
   helmet,
-} ) => {
-  const PostContent = contentComponent || HTMLContent
-
-  return (
-    <section className="section">
-      {helmet || ''}
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-              {title}
-            </h1>
-            <p>{description}</p>
-            <PostContent content={content} />
-            {tags && tags.length ? (
-              <div style={{ marginTop: '4rem' }}>
-                <h4>Tags</h4>
-                <ul className="taglist">
-                  {tags.map( ( tag ) => (
-                    <li key={`${tag}tag`}>
-                      <Link to={`/tags/${kebabCase( tag )}/`}>{tag}</Link>
-                    </li>
-                  ) )}
-                </ul>
-              </div>
-            ) : null}
-          </div>
+  html,
+} ) => (
+  <section className="section">
+    {helmet || ''}
+    <div className="container content">
+      <div className="columns">
+        <div className="column is-10 is-offset-1">
+          <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
+            {title}
+          </h1>
+          <p>{description}</p>
+          <HTMLContent>{html}</HTMLContent>
+          {technologies && technologies.length ? (
+            <div style={{ marginTop: '4rem' }}>
+              <h4>Tags</h4>
+              <ul className="taglist">
+                {technologies.map( ( tag ) => (
+                  <li key={`${tag}tag`}>
+                    <Link to={`/tags/${kebabCase( tag )}/`}>{tag}</Link>
+                  </li>
+                ) )}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </div>
-    </section>
-  )
-}
+    </div>
+  </section>
+)
 
-BlogPostTemplate.propTypes = {
+ProjectPostTemplate.propTypes = {
   content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
   description: PropTypes.string,
@@ -75,7 +72,7 @@ const BlogPost = ( { data } ) => {
 
   return (
     <Layout>
-      <BlogPostTemplate
+      <ProjectPostTemplate
         content={post.html}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
