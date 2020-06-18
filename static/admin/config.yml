@@ -130,8 +130,9 @@ collections:
               name: projects,
               widget: relation,
               collection: projects,
-              valueField: title,
+              valueField: "{{slug}}",
               searchFields: [title],
+              displayFields: [title], 
               multiple: true,
             }
 
