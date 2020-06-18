@@ -1,3 +1,4 @@
+import 'normalize.css'
 import '../fonts/index.css'
 
 const theme = {
