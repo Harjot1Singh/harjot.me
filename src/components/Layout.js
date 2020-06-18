@@ -2,16 +2,29 @@ import React from 'react'
 import { node } from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { withPrefix } from 'gatsby'
+import { ThemeProvider, createUseStyles } from 'react-jss'
 
+import theme from '../lib/theme'
 import useSiteMetadata from '../hooks/use-site-metadata'
 
 import Navbar from './Navbar'
 
+const useStyles = createUseStyles( {
+  root: {
+    fontFamily: theme.font.body,
+    '& h1, & h2, & h3': {
+      fontFamily: theme.font.header,
+    },
+  },
+} )
+
 const TemplateWrapper = ( { children } ) => {
   const { title, description } = useSiteMetadata()
 
+  const classes = useStyles()
+
   return (
-    <div>
+    <ThemeProvider theme={theme}>
 
       <Helmet>
         <html lang="en" />
@@ -52,11 +65,12 @@ const TemplateWrapper = ( { children } ) => {
         />
       </Helmet>
 
-      <Navbar />
+      <div className={classes.root}>
+        <Navbar />
+        <main>{children}</main>
+      </div>
 
-      <div>{children}</div>
-
-    </div>
+    </ThemeProvider>
   )
 }
 
