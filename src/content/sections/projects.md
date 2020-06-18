@@ -1,0 +1,4 @@
+---
+projects:
+  - Automated Bitcoin Trader
+---
