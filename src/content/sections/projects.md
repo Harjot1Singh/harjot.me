@@ -1,5 +1,5 @@
 ---
 templateKey: projects-section
 projects:
-  - Automated Bitcoin Trader
+  - automated-bitcoin-trader/index
 ---
