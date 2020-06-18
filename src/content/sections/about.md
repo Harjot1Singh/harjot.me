@@ -2,7 +2,6 @@
 skills:
   - JavaScript
   - Node
-  - ""
 ---
 A **bit** about me.
 
