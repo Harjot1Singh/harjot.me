@@ -1,4 +1,5 @@
 import React from 'react'
+import { node } from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { withPrefix } from 'gatsby'
 
@@ -6,10 +7,9 @@ import useSiteMetadata from '../hooks/use-site-metadata'
 
 import Navbar from './Navbar'
 
-import '../theme.sass'
-
 const TemplateWrapper = ( { children } ) => {
   const { title, description } = useSiteMetadata()
+
   return (
     <div>
 
@@ -58,6 +58,10 @@ const TemplateWrapper = ( { children } ) => {
 
     </div>
   )
+}
+
+TemplateWrapper.propTypes = {
+  children: node.isRequired,
 }
 
 export default TemplateWrapper
