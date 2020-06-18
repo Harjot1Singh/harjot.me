@@ -1,4 +1,5 @@
 ---
+templateKey: contact-section
 iconLinks:
   - icon: /img/email-icon.svg
     url: mailto:contact@harjot.me
