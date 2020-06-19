@@ -21,6 +21,9 @@ export const globalStyles = {
     body: {
       fontFamily: theme.font.body,
     },
+    p: {
+      color: theme.color.primary,
+    },
     '::-webkit-scrollbar': {
       width: '10px',
     },
