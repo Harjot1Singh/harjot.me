@@ -21,7 +21,7 @@ export const globalStyles = {
     body: {
       fontFamily: theme.font.body,
     },
-    p: {
+    'p, li': {
       color: theme.color.primary,
     },
     '::-webkit-scrollbar': {
