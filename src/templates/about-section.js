@@ -5,7 +5,6 @@ import { createUseStyles } from 'react-jss'
 
 import clsx from 'clsx'
 import withRemarkProps from '../components/withRemarkProps'
-import withCommonData from '../components/withCommonData'
 import HTMLContent from '../components/HTMLContent'
 import Container from '../components/Container'
 import useRotatingItem from '../hooks/use-rotating-item'
@@ -38,7 +37,7 @@ const useStyles = createUseStyles( ( { color, background, font } ) => ( {
   },
   chip: {
     color: color.primary,
-    transition: '0.8s all ease-in-out',
+    transition: '0.3s all ease-in-out',
     padding: '7px 15px',
     margin: '5px',
     fontSize: '20px',
@@ -104,6 +103,6 @@ const query = graphql`
 export default ( props ) => (
   <StaticQuery
     query={query}
-    render={withRemarkProps( withCommonData( AboutSectionTemplate ), props )}
+    render={withRemarkProps( AboutSectionTemplate, props )}
   />
 )
