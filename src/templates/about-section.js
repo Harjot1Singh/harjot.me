@@ -8,17 +8,14 @@ import withRemarkProps from '../components/withRemarkProps'
 import HTMLContent from '../components/HTMLContent'
 import Container from '../components/Container'
 import useRotatingItem from '../hooks/use-rotating-item'
+import SectionBackground from '../components/SectionBackground'
+import SectionHeader from '../components/SectionHeader'
 
 const useStyles = createUseStyles( ( { color, background, font } ) => ( {
   root: {
     background: background.light,
     paddingBottom: '50px',
-  },
-  header: {
-    textTransform: 'uppercase',
-    color: color.secondary,
-    width: '100%',
-    fontSize: '40px',
+    position: 'relative',
   },
   content: {
     fontSize: '30px',
@@ -55,8 +52,10 @@ export const AboutSectionTemplate = ( { html, skills } ) => {
 
   return (
     <section className={classes.root}>
+      <SectionBackground />
+
       <Container>
-        <h1 className={classes.header}>About</h1>
+        <SectionHeader className={classes.header}>About</SectionHeader>
 
         <HTMLContent className={classes.content}>{html}</HTMLContent>
 

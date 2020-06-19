@@ -14,31 +14,12 @@ import GithubIcon from '../../static/img/icons/github.inline.svg'
 import LinkedinIcon from '../../static/img/icons/linkedin.inline.svg'
 import CvIcon from '../../static/img/icons/cv.inline.svg'
 import TriangleDown from '../../static/img/icons/triangle-down.inline.svg'
+import SectionBackground from '../components/SectionBackground'
 
 const useStyles = createUseStyles( ( { color, background } ) => ( {
   root: {
     height: '100vh',
     maxHeight: '1080px',
-  },
-  outerBackground: {
-    zIndex: '-1',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: background.light,
-    overflow: 'hidden',
-  },
-  innerBackground: {
-    boxSizing: 'border-box',
-    position: 'absolute',
-    width: '101%',
-    height: '100%',
-    left: '-1%',
-    backgroundColor: background.dark,
-    borderRadius: '30vw 0px 40vw 0',
-    border: `6px solid ${color.secondary}`, // Todo: replace with gradient https://css-tricks.com/examples/GradientBorder/
   },
   main: {
     marginTop: '30px',
@@ -131,6 +112,8 @@ export const HomeSectionTemplate = ( { name, roles, profilePicture, cv, github, 
       <div className={classes.outerBackground}>
         <div className={classes.innerBackground} />
       </div>
+
+      <SectionBackground insideDark borderRadius="35vw 0px 40vw 0" />
 
       <Container>
 
