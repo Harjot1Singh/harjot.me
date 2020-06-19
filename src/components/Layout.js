@@ -2,39 +2,15 @@ import React from 'react'
 import { node } from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { withPrefix } from 'gatsby'
-import { ThemeProvider, createUseStyles } from 'react-jss'
+import injectSheet, { ThemeProvider } from 'react-jss'
 
-import theme from '../lib/theme'
+import { theme, globalStyles } from '../lib/theme'
 import useSiteMetadata from '../hooks/use-site-metadata'
 
 import Navbar from './Navbar'
 
-const useStyles = createUseStyles( {
-  '@global': {
-    body: {
-      fontFamily: theme.font.body,
-    },
-    '::-webkit-scrollbar': {
-      width: '10px',
-    },
-    '::-webkit-scrollbar-track': {
-      backgroundColor: theme.background.light,
-    },
-    '::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
-      borderRadius: '100px',
-    },
-    'h1, h2, h3': {
-      fontFamily: theme.font.header,
-      color: theme.color.primary,
-    },
-  },
-} )
-
 const TemplateWrapper = ( { children } ) => {
   const { title, description } = useSiteMetadata()
-
-  const classes = useStyles()
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,7 +54,7 @@ const TemplateWrapper = ( { children } ) => {
         />
       </Helmet>
 
-      <div className={classes.root}>
+      <div>
         <Navbar />
         <main>{children}</main>
       </div>
@@ -91,4 +67,4 @@ TemplateWrapper.propTypes = {
   children: node.isRequired,
 }
 
-export default TemplateWrapper
+export default injectSheet( globalStyles )( TemplateWrapper )
