@@ -4,6 +4,6 @@ import React from 'react'
 const withRemarkProps = ( Component, props ) => ( {
   markdownRemark: { html, frontmatter },
   ...rest
-} ) => ( <Component {...rest} {...props} {...frontmatter} html={html} /> )
+} ) => ( <Component {...rest} {...props} {...frontmatter} {...( html && { html } )} /> )
 
 export default withRemarkProps
