@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import useInterval from 'use-interval'
 
-const useRotatingItem = ( items, delay = 2000 ) => {
+const sequenced = ( index, length ) => ( index === length - 1 ? 0 : index + 1 )
+const randomised = ( _, length ) => Math.floor( Math.random() * length )
+
+const useRotatingItem = ( items, { delay = 2000, random = true } = {} ) => {
   const [ index, setIndex ] = useState( 0 )
 
-  useInterval( () => ( index === items.length - 1 ? setIndex( 0 ) : setIndex( index + 1 ) ), delay )
+  const nextIndexFn = random ? randomised : sequenced
+  useInterval( () => setIndex( nextIndexFn( index, items.length ) ), delay )
 
   return items[ index ]
 }
