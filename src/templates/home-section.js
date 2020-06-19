@@ -15,6 +15,7 @@ import LinkedinIcon from '../../static/img/icons/linkedin.inline.svg'
 import CvIcon from '../../static/img/icons/cv.inline.svg'
 import TriangleDown from '../../static/img/icons/triangle-down.inline.svg'
 import SectionBackground from '../components/SectionBackground'
+import IconLink from '../components/IconLink'
 
 const useStyles = createUseStyles( ( { color, background } ) => ( {
   root: {
@@ -78,9 +79,6 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
   },
   icon: {
     margin: '0 15px',
-    '&:hover svg :first-child': {
-      fill: color.secondary,
-    },
   },
   triangleDown: {
     display: 'block',
@@ -142,14 +140,9 @@ export const HomeSectionTemplate = ( { name, roles, profilePicture, cv, github, 
 
           <div className={classes.iconLinks}>
             {icons.map( ( [ href, Icon ] ) => (
-              <a
-                className={classes.icon}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <IconLink className={classes.icon} href={href}>
                 <Icon />
-              </a>
+              </IconLink>
             ) )}
 
             <TriangleDown className={classes.triangleDown} />
