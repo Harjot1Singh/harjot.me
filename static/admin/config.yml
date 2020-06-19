@@ -28,7 +28,6 @@ collections:
     media_folder: ""
     public_folder: ""
     path: "{{slug}}/index"
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {
           label: Template Key,
