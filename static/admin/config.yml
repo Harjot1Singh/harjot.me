@@ -77,6 +77,16 @@ collections:
   - name: page-sections
     label: Page Sections
     files:
+      - file: src/content/common.md
+        label: Common
+        name: common
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Profile Picture, name: profilePicture, widget: image }
+          - { label: Email, name: email, widget: string }
+          - { label: GitHub, name: github, widget: string }
+          - { label: LinkedIn, name: linkedin, widget: string }
+
       - file: src/content/sections/home.md
         label: Home
         name: home-section
@@ -87,20 +97,8 @@ collections:
               widget: hidden,
               default: home-section,
             }
-          - { label: Name, name: name, widget: string }
           - { label: Roles, name: roles, widget: list }
-          - { label: Profile Picture, name: profilePicture, widget: image }
           - { label: CV, name: cv, widget: file }
-          - {
-              label: Icon Links,
-              name: iconLinks,
-              widget: list,
-              fields:
-                [
-                  { label: URL, name: url, widget: string },
-                  { label: Icon, name: icon, widget: image },
-                ],
-            }
 
       - file: src/content/sections/about.md
         label: About
@@ -145,15 +143,5 @@ collections:
               name: templateKey,
               widget: hidden,
               default: contact-section,
-            }
-          - {
-              label: Icon Links,
-              name: iconLinks,
-              widget: list,
-              fields:
-                [
-                  { label: URL, name: url, widget: string },
-                  { label: Icon, name: icon, widget: image },
-                ],
             }
           - { label: Body, name: body, widget: markdown }
