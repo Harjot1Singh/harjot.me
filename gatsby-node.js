@@ -32,18 +32,20 @@ exports.createPages = ( { actions, graphql } ) => {
     const { allMarkdownRemark: { edges: pages } } = data
 
     // Create pages
-    pages.forEach( ( {
-      node: {
-        fields: { slug },
-        frontmatter: { tags, templateKey },
-        id,
-      },
-    } ) => createPage( {
-      path: slug,
-      tags,
-      component: path.resolve( `src/templates/${templateKey}.js` ),
-      context: { id },
-    } ) )
+    pages
+      .filter( ( { node: { frontmatter: { templateKey } } } ) => templateKey )
+      .forEach( ( {
+        node: {
+          fields: { slug },
+          frontmatter: { tags, templateKey },
+          id,
+        },
+      } ) => createPage( {
+        path: slug,
+        tags,
+        component: path.resolve( `src/templates/${templateKey}.js` ),
+        context: { id },
+      } ) )
 
     // Grab all tags
     const tags = Array.from( new Set(
