@@ -1,6 +1,6 @@
 ---
 templateKey: project-post
-title: Automated Bitcoin Trader
+title: Automated Bitcoin Traders
 image: btc-trader-macd.png
 date: 2014-01-01T01:59:43.036Z
 technologies:
