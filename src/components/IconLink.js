@@ -5,8 +5,14 @@ import { string, node } from 'prop-types'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   root: {
+    '& > *': {
+      transition: '0.15s all ease-in-out',
+    },
     '& svg :first-child': {
       transition: '0.15s all ease-in-out',
+    },
+    '&:hover > *': {
+      color: color.secondary,
     },
     '&:hover svg :first-child': {
       fill: color.secondary,

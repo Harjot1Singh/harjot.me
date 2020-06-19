@@ -24,6 +24,9 @@ export const globalStyles = {
     'p, li': {
       color: theme.color.primary,
     },
+    a: {
+      color: theme.color.secondary,
+    },
     '::-webkit-scrollbar': {
       width: '10px',
     },
