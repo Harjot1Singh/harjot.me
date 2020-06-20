@@ -7,6 +7,12 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-better-jss',
     {
+      resolve: 'gatsby-plugin-favicon',
+      options: {
+        logo: './static/img/favicon.png',
+      },
+    },
+    {
       resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
