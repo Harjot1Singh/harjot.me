@@ -1,14 +1,14 @@
 ---
 templateKey: project-post
+featured: true
 title: Automated Bitcoin Traders
 image: btc-trader-macd.png
 date: 2014-01-01T01:59:43.036Z
-technologies:
+tags:
   - Node.js
   - PostgreSQL
   - Angular.js
   - Bootstrap
-tags:
   - btc
   - bitcoin
   - trader

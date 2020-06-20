@@ -40,16 +40,6 @@ collections:
       - { label: Publish Date, name: date, widget: datetime }
       - { label: Description, name: description, widget: text }
       - { label: Tags, name: tags, widget: list }
-      - {
-          label: Related Projects,
-          name: related-projects,
-          required: false,
-          widget: relation,
-          collection: projects,
-          valueField: title,
-          searchFields: [title],
-          multiple: true,
-        }
       - { label: Body, name: body, widget: markdown }
 
   - name: projects
@@ -66,10 +56,10 @@ collections:
           widget: hidden,
           default: project-post,
         }
+      - { label: Featured, name: featured, widget: boolean }
       - { label: Title, name: title, widget: string }
       - { label: Image, name: image, widget: image }
       - { label: Date, name: date, widget: datetime }
-      - { label: Technologies, name: technologies, widget: list }
       - { label: Tags, name: tags, widget: list }
       - { label: Body, name: body, widget: markdown }
 
@@ -121,16 +111,6 @@ collections:
               name: templateKey,
               widget: hidden,
               default: projects-section,
-            }
-          - {
-              label: Projects,
-              name: projects,
-              widget: relation,
-              collection: projects,
-              valueField: "{{slug}}",
-              searchFields: [title],
-              displayFields: [title], 
-              multiple: true,
             }
 
       - file: src/content/sections/contact.md
