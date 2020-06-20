@@ -1,9 +1,23 @@
 import React from 'react'
 
-// Remaps props from remarkMarkdown and feeds any markdown through html prop
-const withRemarkProps = ( Component, props ) => ( {
-  markdownRemark: { html, frontmatter },
+const getRemarkProps = ( {
+  markdownRemark: { html, frontmatter, fields } = {},
+  allMarkdownRemark: { edges = [] } = {},
   ...rest
-} ) => ( <Component {...rest} {...props} {...frontmatter} {...( html && { html } )} /> )
+} ) => ( {
+  ...rest,
+  ...frontmatter,
+  ...fields,
+  ...( html && { html } ),
+  ...( edges.length && { items: edges.map( ( { node: markdownRemark } ) => getRemarkProps( { markdownRemark } ) ) } ),
+} )
+
+// Remaps props from remarkMarkdown and feeds any markdown through html prop
+const withRemarkProps = ( Component, props ) => ( markdownProps ) => (
+  <Component
+    {...props}
+    {...getRemarkProps( markdownProps )}
+  />
+)
 
 export default withRemarkProps
