@@ -9,10 +9,9 @@ tags:
   - PostgreSQL
   - Angular.js
   - Bootstrap
-  - btc
-  - bitcoin
-  - trader
-  - technical analysis
-  - visualisation
+  - Bitcoin
+  - Trading
+  - Technical Analysis
+  - Visualisation
 ---
 ### Analyses Bitcoin price data from various exchanges, to determine and execute profitable trades
