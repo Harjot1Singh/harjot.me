@@ -2,7 +2,7 @@ import React from 'react'
 import { string, arrayOf, shape } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
-import { useTransition, animated } from 'react-spring'
+import { useTransition, animated, config } from 'react-spring'
 import Img from 'gatsby-image'
 
 import useRotatingItem from '../hooks/use-rotating-item'
@@ -21,6 +21,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
   root: {
     height: '100vh',
     maxHeight: '1080px',
+    position: 'relative',
   },
   main: {
     marginTop: '30px',
@@ -87,6 +88,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
 } ) )
 
 const roleTransitionsConfig = {
+  config: config.stiff,
   from: { opacity: 0, position: 'absolute' },
   enter: { opacity: 1 },
   leave: { opacity: 0 },
