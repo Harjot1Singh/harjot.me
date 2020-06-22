@@ -75,8 +75,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   viewAll: {
     fontSize: '28px',
     textDecoration: 'none',
-    alignSelf: 'flex-end',
-    marginTop: '25px',
+    marginBottom: '35px',
     transition: '0.15s all ease-in-out',
   },
 } ) )
@@ -91,8 +90,6 @@ export const ProjectSectionTemplate = ( { items } ) => {
       <Container>
         <SectionHeader>Projects</SectionHeader>
 
-        <Link className={classes.viewAll} to="/projects">View All ▸</Link>
-
         <div className={classes.cards}>
           {items.map( ( { title, image, slug } ) => (
             <Link className={classes.card} to={slug}>
@@ -104,6 +101,9 @@ export const ProjectSectionTemplate = ( { items } ) => {
             </Link>
           ) )}
         </div>
+
+        <Link className={classes.viewAll} to="/projects">View All ▸</Link>
+
       </Container>
     </section>
   )
