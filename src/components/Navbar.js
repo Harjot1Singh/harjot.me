@@ -24,8 +24,10 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     fontFamily: font.header,
     textDecoration: 'none',
     cursor: 'pointer',
+    letterSpacing: 0,
   },
   active: {
+    letterSpacing: '5px',
     fontWeight: 'bold',
   },
 } ) )
