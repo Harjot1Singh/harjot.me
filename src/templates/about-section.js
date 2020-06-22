@@ -46,12 +46,12 @@ const useStyles = createUseStyles( ( { color, background, font } ) => ( {
   },
 } ) )
 
-export const AboutSectionTemplate = ( { html, skills } ) => {
+export const AboutSectionTemplate = ( { id, html, skills } ) => {
   const classes = useStyles()
   const highlightedSkill = useRotatingItem( skills )
 
   return (
-    <section className={classes.root}>
+    <section className={classes.root} id={id}>
       <SectionBackground />
 
       <Container>
@@ -64,6 +64,7 @@ export const AboutSectionTemplate = ( { html, skills } ) => {
         <div className={classes.chips}>
           {skills.map( ( skill ) => (
             <div
+              key={skill}
               className={clsx(
                 classes.chip,
                 { [ classes.activeChip ]: highlightedSkill === skill },
@@ -80,6 +81,7 @@ export const AboutSectionTemplate = ( { html, skills } ) => {
 }
 
 AboutSectionTemplate.propTypes = {
+  id: string.isRequired,
   html: node,
   skills: arrayOf( string ),
 }

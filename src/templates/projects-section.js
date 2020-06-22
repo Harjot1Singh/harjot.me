@@ -43,7 +43,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     },
     '& img': {
       borderRadius: '15px',
-      transition: '0.15s all ease-in-out !important',
+      transition: '0.4s all ease-out !important',
     },
     '&:hover': {
       '&:before': {
@@ -55,6 +55,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
       },
       '& img': {
         filter: 'blur(10px) brightness(40%) saturate(50%)',
+        transform: 'scale(1.1)',
       },
     },
   },
@@ -80,11 +81,11 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   },
 } ) )
 
-export const ProjectSectionTemplate = ( { items } ) => {
+export const ProjectSectionTemplate = ( { id, items } ) => {
   const classes = useStyles()
 
   return (
-    <section className={classes.root}>
+    <section className={classes.root} id={id}>
       <SectionBackground className={classes.innerBackground} outsideDark borderRadius="0 0 0 10vw" />
 
       <Container>
@@ -92,7 +93,7 @@ export const ProjectSectionTemplate = ( { items } ) => {
 
         <div className={classes.cards}>
           {items.map( ( { title, image, slug } ) => (
-            <Link className={classes.card} to={slug}>
+            <Link key={slug} className={classes.card} to={slug}>
               <Img {...image.childImageSharp} />
 
               <div className={classes.cardContent}>
@@ -110,6 +111,7 @@ export const ProjectSectionTemplate = ( { items } ) => {
 }
 
 ProjectSectionTemplate.propTypes = {
+  id: string.isRequired,
   items: arrayOf( shape( { name: string } ) ),
 }
 

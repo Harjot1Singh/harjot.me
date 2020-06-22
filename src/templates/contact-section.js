@@ -50,7 +50,7 @@ const useStyles = createUseStyles( {
   },
 } )
 
-export const ContactSectionTemplate = ( { email, linkedin, github, html } ) => {
+export const ContactSectionTemplate = ( { id, email, linkedin, github, html } ) => {
   const classes = useStyles()
 
   const icons = [
@@ -60,7 +60,7 @@ export const ContactSectionTemplate = ( { email, linkedin, github, html } ) => {
   ]
 
   return (
-    <section className={classes.root}>
+    <section className={classes.root} id={id}>
       <SectionBackground outsideDark borderRadius="0 15vw 0 0" />
 
       <Container>
@@ -72,7 +72,7 @@ export const ContactSectionTemplate = ( { email, linkedin, github, html } ) => {
 
           <div className={classes.iconLinks}>
             {icons.map( ( [ href, Icon, text ] ) => (
-              <IconLink className={classes.icon} href={href}>
+              <IconLink key={href} className={classes.icon} href={href}>
                 <Icon />
                 <span>{text}</span>
               </IconLink>
@@ -88,6 +88,7 @@ export const ContactSectionTemplate = ( { email, linkedin, github, html } ) => {
 }
 
 ContactSectionTemplate.propTypes = {
+  id: string.isRequired,
   email: string,
   linkedin: string,
   github: string,

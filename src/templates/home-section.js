@@ -94,7 +94,15 @@ const roleTransitionsConfig = {
   leave: { opacity: 0 },
 }
 
-export const HomeSectionTemplate = ( { name, roles, profilePicture, cv, github, linkedin } ) => {
+export const HomeSectionTemplate = React.forwardRef( ( {
+  id,
+  name,
+  roles,
+  profilePicture,
+  cv,
+  github,
+  linkedin,
+}, ref ) => {
   const [ firstName, lastName ] = name.split( ' ' )
   const [ rolePrefix, rolePostfix ] = useRotatingItem( roles ).split( ' ' )
 
@@ -108,7 +116,7 @@ export const HomeSectionTemplate = ( { name, roles, profilePicture, cv, github, 
   ]
 
   return (
-    <section className={classes.root}>
+    <section className={classes.root} id={id} ref={ref}>
       <div className={classes.outerBackground}>
         <div className={classes.innerBackground} />
       </div>
@@ -142,7 +150,7 @@ export const HomeSectionTemplate = ( { name, roles, profilePicture, cv, github, 
 
           <div className={classes.iconLinks}>
             {icons.map( ( [ href, Icon ] ) => (
-              <IconLink className={classes.icon} href={href}>
+              <IconLink key={href} className={classes.icon} href={href}>
                 <Icon />
               </IconLink>
             ) )}
@@ -156,9 +164,10 @@ export const HomeSectionTemplate = ( { name, roles, profilePicture, cv, github, 
 
     </section>
   )
-}
+} )
 
 HomeSectionTemplate.propTypes = {
+  id: string.isRequired,
   name: string,
   roles: arrayOf( string ),
   profilePicture: shape( {} ),
