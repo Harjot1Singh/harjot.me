@@ -15,30 +15,10 @@ import SectionHeader from '../components/SectionHeader'
 import SectionBackground from '../components/SectionBackground'
 import IconLink from '../components/IconLink'
 
-const useStyles = createUseStyles( ( { color, background } ) => ( {
+const useStyles = createUseStyles( {
   root: {
     position: 'relative',
     paddingBottom: '75px',
-  },
-  outerBackground: {
-    zIndex: '-1',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: background.dark,
-    overflow: 'hidden',
-  },
-  innerBackground: {
-    boxSizing: 'border-box',
-    position: 'absolute',
-    width: '105%',
-    height: '100%',
-    left: '-1%',
-    borderRadius: '0 25vw 0 0',
-    backgroundColor: background.light,
-    border: `6px solid ${color.secondary}`, // Todo: replace with gradient https://css-tricks.com/examples/GradientBorder/
   },
   container: {
     flexDirection: 'row',
@@ -53,7 +33,6 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
     flexDirection: 'column',
     '& > *': {
       textDecoration: 'none',
-      color: color.primary,
       fontSize: '24px',
       fontWeight: 'bold',
     },
@@ -69,7 +48,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
     alignItems: 'center',
     textDecoration: 'none',
   },
-} ) )
+} )
 
 export const ContactSectionTemplate = ( { email, linkedin, github, html } ) => {
   const classes = useStyles()

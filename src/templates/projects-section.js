@@ -75,13 +75,9 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   viewAll: {
     fontSize: '28px',
     textDecoration: 'none',
-    color: color.primary,
     alignSelf: 'flex-end',
     marginTop: '25px',
     transition: '0.15s all ease-in-out',
-    '&:hover': {
-      color: color.secondary,
-    },
   },
 } ) )
 

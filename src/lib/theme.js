@@ -25,7 +25,11 @@ export const globalStyles = {
       color: theme.color.primary,
     },
     a: {
-      color: theme.color.secondary,
+      color: theme.color.primary,
+      transition: '0.15s all ease-in-out',
+      '&:hover': {
+        color: theme.color.secondary,
+      },
     },
     '::-webkit-scrollbar': {
       width: '10px',
