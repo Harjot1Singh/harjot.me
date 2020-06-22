@@ -9,7 +9,9 @@ const getRemarkProps = ( {
   ...frontmatter,
   ...fields,
   ...( html && { html } ),
-  ...( edges.length && { items: edges.map( ( { node: markdownRemark } ) => getRemarkProps( { markdownRemark } ) ) } ),
+  ...( edges.length && {
+    items: edges.map( ( { node: markdownRemark } ) => getRemarkProps( { markdownRemark } ) ),
+  } ),
 } )
 
 // Remaps props from remarkMarkdown and feeds any markdown through html prop
