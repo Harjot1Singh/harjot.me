@@ -2,6 +2,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { bool, string } from 'prop-types'
 import clsx from 'clsx'
+import { useSpring, animated } from 'react-spring'
 
 const useStyles = createUseStyles( ( { background, color } ) => ( {
   outerBackground: {
@@ -21,18 +22,37 @@ const useStyles = createUseStyles( ( { background, color } ) => ( {
     bottom: 0,
     left: '-1%',
     right: '-1%',
+    margin: '6px',
     backgroundColor: ( { insideDark } ) => ( insideDark ? background.dark : background.light ),
     borderRadius: ( { borderRadius } ) => borderRadius,
-    border: `6px solid ${color.secondary}`, // Todo: replace with gradient https://css-tricks.com/examples/GradientBorder/
+  },
+  border: {
+    borderRadius: 'inherit',
+    zIndex: -1,
+    position: 'absolute',
+    top: '-1%',
+    left: '-5px',
+    right: '-5px',
+    bottom: '-5px',
+    background: `linear-gradient(to top right, ${color.secondary}, transparent)`,
   },
 } ) )
+
+const borderSpringConfig = {
+  from: { margin: '20px' },
+  to: { margin: '0px' },
+}
 
 const SectionBackground = ( { className, outsideDark, insideDark, borderRadius } ) => {
   const classes = useStyles( { outsideDark, insideDark, borderRadius } )
 
+  const [ borderProps ] = useSpring( () => borderSpringConfig )
+
   return (
     <div className={classes.outerBackground}>
-      <div className={clsx( classes.innerBackground, className )} />
+      <div className={clsx( classes.innerBackground, className )}>
+        <animated.div className={classes.border} style={borderProps} />
+      </div>
     </div>
   )
 }
@@ -42,7 +62,6 @@ SectionBackground.propTypes = {
   outsideDark: bool,
   insideDark: bool,
   borderRadius: string,
-  height: string,
 }
 
 SectionBackground.defaultProps = {
@@ -50,7 +69,6 @@ SectionBackground.defaultProps = {
   outsideDark: false,
   insideDark: false,
   borderRadius: '0px',
-  height: 'auto',
 }
 
 export default SectionBackground
