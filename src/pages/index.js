@@ -1,23 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
+import VisibilitySensor from 'react-visibility-sensor'
 
 import Layout from '../components/Layout'
+import Navbar from '../components/Navbar'
 import HomeSection from '../templates/home-section'
 import AboutSection from '../templates/about-section'
 import ProjectsSection from '../templates/projects-section'
 import ContactSection from '../templates/contact-section'
 
 const sections = [
-  HomeSection,
-  AboutSection,
-  ProjectsSection,
-  ContactSection,
+  [ HomeSection, 'home' ],
+  [ AboutSection, 'about' ],
+  [ ProjectsSection, 'projects' ],
+  [ ContactSection, 'contact' ],
 ]
 
-const Index = () => (
-  <Layout>
-    {/* eslint-disable-next-line react/no-array-index-key */}
-    {sections.map( ( Section, index ) => <Section key={index} /> )}
-  </Layout>
-)
+const Index = () => {
+  const [ active, setActive ] = useState( sections[ 0 ][ 1 ] )
+
+  const onVisibilityChange = ( name ) => ( visible ) => visible && setActive( name )
+
+  return (
+    <Layout>
+      <Navbar floating active={active} />
+
+      {sections.map( ( [ Section, name ] ) => (
+        <VisibilitySensor key={name} onChange={onVisibilityChange( name )}>
+          <Section id={name} onVisible={() => setActive( name )} />
+        </VisibilitySensor>
+      ) )}
+    </Layout>
+  )
+}
 
 export default Index
