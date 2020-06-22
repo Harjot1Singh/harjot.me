@@ -4,26 +4,26 @@ import { Link } from 'react-scroll'
 import { createUseStyles } from 'react-jss'
 import useScrollPosition from '@react-hook/window-scroll'
 import { animated, useSpring } from 'react-spring'
+import { bool, string } from 'prop-types'
+import clsx from 'clsx'
 
-const useStyles = createUseStyles( ( { color, font } ) => ( {
+const useStyles = createUseStyles( ( { font } ) => ( {
   navbar: {
-    position: 'fixed',
-    top: '10px',
-    right: '20px',
+    position: ( { floating } ) => ( floating ? 'fixed' : 'relative' ),
     display: 'flex',
-    fontSize: '16px',
+    zIndex: 1,
+    right: 0,
+    float: 'right',
+    margin: '10px 20px',
     borderRadius: '100px',
   },
   item: {
-    padding: '20px 50px',
+    padding: '1.5vw 2.5vw',
     textTransform: 'uppercase',
-    fontSize: '32px',
-    color: color.primary,
+    fontSize: '28px',
     fontFamily: font.header,
     textDecoration: 'none',
-    '&:hover': {
-      color: color.secondary,
-    },
+    cursor: 'pointer',
   },
   active: {
     fontWeight: 'bold',
@@ -34,14 +34,14 @@ const poppedInSpringConfig = { background: 'rgba(0, 0, 0, 0)' }
 const floatingSpringConfig = { background: 'rgba(94, 93, 98, 0.9)' }
 
 const items = [
-  [ 'Home', ( props ) => <Link {...props} to="home" href="#home" /> ],
-  [ 'About', Link ],
-  [ 'Projects', Link ],
-  [ 'Contact', Link ],
-  [ 'Blog', GatsbyLink ],
+  [ 'Home', ( props ) => <Link {...props} to="home" smooth /> ],
+  [ 'About', ( props ) => <Link {...props} to="about" smooth /> ],
+  [ 'Projects', ( props ) => <GatsbyLink {...props} to="projects" /> ],
+  [ 'Contact', ( props ) => <Link {...props} to="contact" smooth /> ],
+  [ 'Blog', ( props ) => <GatsbyLink {...props} to="blog" /> ],
 ]
 
-const Navbar = () => {
+const Navbar = ( { floating, active } ) => {
   const threshold = useScrollPosition() > 2
 
   const [ props, setProps ] = useSpring( () => poppedInSpringConfig )
@@ -50,7 +50,7 @@ const Navbar = () => {
     setProps( threshold ? floatingSpringConfig : poppedInSpringConfig )
   }, [ threshold, setProps ] )
 
-  const classes = useStyles( {} )
+  const classes = useStyles( { floating } )
 
   return (
     <animated.nav
@@ -59,13 +59,26 @@ const Navbar = () => {
       role="navigation"
       aria-label="main-navigation"
     >
-      {items.map( ( [ name, Link ] ) => (
-        <Link className={classes.item}>
+      {items.map( ( [ name, LinkComponent ] ) => (
+        <LinkComponent
+          key={name}
+          className={clsx( classes.item, { [ classes.active ]: active === name.toLowerCase() } )}
+        >
           {name}
-        </Link>
+        </LinkComponent>
       ) )}
     </animated.nav>
   )
+}
+
+Navbar.propTypes = {
+  floating: bool,
+  active: string,
+}
+
+Navbar.defaultProps = {
+  floating: false,
+  active: null,
 }
 
 export default Navbar
