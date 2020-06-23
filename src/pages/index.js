@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 
-import Layout from '../components/Layout'
+import { darkTheme } from '../lib/theme'
 import Navbar from '../components/Navbar'
 import HomeSection from '../templates/home-section'
 import AboutSection from '../templates/about-section'
 import ProjectsSection from '../templates/projects-section'
 import ContactSection from '../templates/contact-section'
+import withRootTheme from '../components/withRootTheme'
+import Header from '../components/Header'
 
 const sections = [
   [ HomeSection, 'home' ],
@@ -21,7 +23,9 @@ const Index = () => {
   const onVisibilityChange = ( name ) => ( visible ) => visible && setActive( name )
 
   return (
-    <Layout>
+    <main>
+      <Header />
+
       <Navbar floating active={active} />
 
       {sections.map( ( [ Section, name ] ) => (
@@ -29,8 +33,8 @@ const Index = () => {
           <Section id={name} onVisible={() => setActive( name )} />
         </VisibilitySensor>
       ) )}
-    </Layout>
+    </main>
   )
 }
 
-export default Index
+export default withRootTheme( darkTheme )( Index )

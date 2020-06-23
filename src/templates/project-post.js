@@ -4,7 +4,6 @@ import { kebabCase } from 'lodash'
 import { Helmet } from 'react-helmet'
 import { graphql, Link } from 'gatsby'
 
-import Layout from '../components/Layout'
 import HTMLContent from '../components/HTMLContent'
 
 // const pageQuery = graphql`
@@ -71,7 +70,7 @@ const BlogPost = ( { data } ) => {
   const { markdownRemark: post } = data
 
   return (
-    <Layout>
+    <main>
       <ProjectPostTemplate
         content={post.html}
         contentComponent={HTMLContent}
@@ -88,7 +87,7 @@ const BlogPost = ( { data } ) => {
         tags={post.frontmatter.tags}
         title={post.frontmatter.title}
       />
-    </Layout>
+    </main>
   )
 }
 

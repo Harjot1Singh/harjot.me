@@ -4,7 +4,6 @@ import { kebabCase } from 'lodash'
 import { Helmet } from 'react-helmet'
 import { graphql, Link } from 'gatsby'
 
-import Layout from '../components/Layout'
 import HTMLContent from '../components/HTMLContent'
 
 // const pageQuery = graphql`
@@ -70,30 +69,26 @@ BlogPostTemplate.propTypes = {
   helmet: PropTypes.object,
 }
 
-const BlogPost = ( { data } ) => {
-  const { markdownRemark: post } = data
-
-  return (
-    <Layout>
-      <BlogPostTemplate
-        content={post.html}
-        contentComponent={HTMLContent}
-        description={post.frontmatter.description}
-        helmet={(
-          <Helmet titleTemplate="%s | Blog">
-            <title>{`${post.frontmatter.title}`}</title>
-            <meta
-              name="description"
-              content={`${post.frontmatter.description}`}
-            />
-          </Helmet>
+const BlogPost = ( { html, title, description, tags } ) => (
+  <main>
+    <BlogPostTemplate
+      content={html}
+      contentComponent={HTMLContent}
+      description={description}
+      helmet={(
+        <Helmet titleTemplate="%s | Blog">
+          <title>{`${title}`}</title>
+          <meta
+            name="description"
+            content={`${description}`}
+          />
+        </Helmet>
         )}
-        tags={post.frontmatter.tags}
-        title={post.frontmatter.title}
-      />
-    </Layout>
-  )
-}
+      tags={tags}
+      title={title}
+    />
+  </main>
+)
 
 BlogPost.propTypes = {
   data: PropTypes.shape( {

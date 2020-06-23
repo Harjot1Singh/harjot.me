@@ -1,22 +1,32 @@
 import 'normalize.css'
+
 import '../fonts/index.css'
 
-export const theme = {
-  color: {
-    primary: '#ffffff',
-    secondary: '#52bb78',
-  },
-  background: {
-    dark: '#313036',
-    light: '#404044',
-  },
-  font: {
-    body: 'Montserrat',
-    header: 'Glacial Indifference',
-  },
+export const font = {
+  body: 'Montserrat',
+  header: 'Glacial Indifference',
 }
 
-export const globalStyles = {
+export const color = {
+  white: '#ffffff',
+  green: '#52bb78',
+  darkGrey: '#313036',
+  lightGrey: '#404044',
+}
+
+export const darkTheme = {
+  color: { primary: color.white, secondary: color.green },
+  background: { dark: color.darkGrey, light: color.lightGrey },
+  font,
+}
+
+export const lightTheme = {
+  color: { primary: color.darkGrey, secondary: color.green },
+  background: { dark: color.white, light: color.white },
+  font,
+}
+
+export const getGlobalStyles = ( theme ) => ( {
   '@global': {
     body: {
       fontFamily: theme.font.body,
@@ -28,8 +38,12 @@ export const globalStyles = {
       color: theme.color.primary,
       transition: '0.15s all ease-in-out',
       '&:hover': {
-        color: theme.color.secondary,
+        color: color.green,
       },
+    },
+    'h1, h2, h3': {
+      fontFamily: theme.font.header,
+      color: theme.color.primary,
     },
     '::-webkit-scrollbar': {
       width: '10px',
@@ -41,11 +55,5 @@ export const globalStyles = {
       backgroundColor: 'rgba(255, 255, 255, 0.3)',
       borderRadius: '100px',
     },
-    'h1, h2, h3': {
-      fontFamily: theme.font.header,
-      color: theme.color.primary,
-    },
   },
-}
-
-export default theme
+} )

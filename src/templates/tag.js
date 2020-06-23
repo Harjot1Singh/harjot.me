@@ -2,8 +2,6 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 
-import Layout from '../components/Layout'
-
 // const tagPageQuery = graphql`
 //   query TagPage($tag: String) {
 //     site {
@@ -49,7 +47,7 @@ const TagRoute = ( {
   const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with “${tag}”`
 
   return (
-    <Layout>
+    <main>
       <section className="section">
         <Helmet title={`${tag} | ${title}`} />
         <div className="container content">
@@ -67,7 +65,7 @@ const TagRoute = ( {
           </div>
         </div>
       </section>
-    </Layout>
+    </main>
   )
 }
 

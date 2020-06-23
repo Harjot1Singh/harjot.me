@@ -3,8 +3,6 @@ import { kebabCase } from 'lodash'
 import { Helmet } from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 
-import Layout from '../components/Layout'
-
 export const tagPageQuery = graphql`
   query TagsQuery {
     site {
@@ -27,7 +25,7 @@ const TagsPage = ( {
     site: { siteMetadata: { title } },
   },
 } ) => (
-  <Layout>
+  <main>
     <section className="section">
       <Helmet title={`Tags | ${title}`} />
       <div className="container content">
@@ -54,7 +52,7 @@ const TagsPage = ( {
         </div>
       </div>
     </section>
-  </Layout>
+  </main>
 )
 
 export default TagsPage
