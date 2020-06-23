@@ -34,8 +34,9 @@ const useStyles = createUseStyles( ( { color, background, font } ) => ( {
   },
   chip: {
     color: color.primary,
+    fontWeight: 'bold',
     transition: '0.3s all ease-in-out',
-    padding: '7px 15px',
+    padding: '10px 20px',
     margin: '5px',
     fontSize: '20px',
     borderRadius: '100px',
