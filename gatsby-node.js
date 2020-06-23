@@ -53,7 +53,7 @@ exports.createPages = ( { actions, graphql } ) => {
     paginate( {
       createPage,
       items: blogPosts,
-      itemsPerPage: 10,
+      itemsPerPage: 5,
       pathPrefix: '/blog',
       component: path.resolve( 'src/templates/blog.js' ),
     } )
@@ -63,7 +63,7 @@ exports.createPages = ( { actions, graphql } ) => {
     paginate( {
       createPage,
       items: projects,
-      itemsPerPage: 10,
+      itemsPerPage: 6,
       pathPrefix: '/projects',
       component: path.resolve( 'src/templates/projects.js' ),
     } )
