@@ -2,6 +2,7 @@ const { kebabCase } = require( 'lodash' )
 const path = require( 'path' )
 const { createFilePath } = require( 'gatsby-source-filesystem' )
 const { fmImagesToRelative } = require( 'gatsby-remark-relative-images' )
+const { paginate } = require( 'gatsby-awesome-pagination' )
 
 exports.createPages = ( { actions, graphql } ) => {
   const { createPage } = actions
@@ -46,6 +47,26 @@ exports.createPages = ( { actions, graphql } ) => {
         component: path.resolve( `src/templates/${templateKey}.js` ),
         context: { id },
       } ) )
+
+    // Create paginated blog pages
+    const blogPosts = pages.filter( ( { node: { frontmatter: { templateKey } } } ) => templateKey === 'blog-post' )
+    paginate( {
+      createPage,
+      items: blogPosts,
+      itemsPerPage: 10,
+      pathPrefix: '/blog',
+      component: path.resolve( 'src/templates/blog.js' ),
+    } )
+
+    // Create paginated project pages
+    const projects = pages.filter( ( { node: { frontmatter: { templateKey } } } ) => templateKey === 'project-post' )
+    paginate( {
+      createPage,
+      items: projects,
+      itemsPerPage: 10,
+      pathPrefix: '/projects',
+      component: path.resolve( 'src/templates/projects.js' ),
+    } )
 
     // Grab all tags
     const tags = Array.from( new Set(
