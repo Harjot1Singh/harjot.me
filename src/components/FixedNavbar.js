@@ -11,7 +11,6 @@ import useCommonData from '../hooks/use-common-data'
 const useStyles = createUseStyles( ( { font } ) => ( {
   navbar: {
     background: color.lightGrey,
-    marginBottom: '80px',
     position: 'relative',
   },
   strip: {
