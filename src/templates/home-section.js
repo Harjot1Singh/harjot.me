@@ -6,16 +6,16 @@ import { useTransition, animated, config } from 'react-spring'
 import Img from 'gatsby-image'
 
 import useRotatingItem from '../hooks/use-rotating-item'
+import useCommonData from '../hooks/use-common-data'
 import withRemarkProps from '../components/withRemarkProps'
-import withCommonData from '../components/withCommonData'
 import Container from '../components/Container'
+import SectionBackground from '../components/SectionBackground'
+import IconLink from '../components/IconLink'
 
 import GithubIcon from '../../static/img/icons/github.inline.svg'
 import LinkedinIcon from '../../static/img/icons/linkedin.inline.svg'
 import CvIcon from '../../static/img/icons/cv.inline.svg'
 import TriangleDown from '../../static/img/icons/triangle-down.inline.svg'
-import SectionBackground from '../components/SectionBackground'
-import IconLink from '../components/IconLink'
 
 const useStyles = createUseStyles( ( { color, background } ) => ( {
   root: {
@@ -97,15 +97,9 @@ const roleTransitionsConfig = {
   leave: { opacity: 0 },
 }
 
-export const HomeSectionTemplate = React.forwardRef( ( {
-  id,
-  name,
-  roles,
-  profilePicture,
-  cv,
-  github,
-  linkedin,
-}, ref ) => {
+export const HomeSectionTemplate = ( { id, roles, cv } ) => {
+  const { name, profilePicture, github, linkedin } = useCommonData()
+
   const [ firstName, lastName ] = name.split( ' ' )
   const [ rolePrefix, rolePostfix ] = useRotatingItem( roles ).split( ' ' )
 
@@ -119,7 +113,7 @@ export const HomeSectionTemplate = React.forwardRef( ( {
   ]
 
   return (
-    <section className={classes.root} id={id} ref={ref}>
+    <section className={classes.root} id={id}>
       <div className={classes.outerBackground}>
         <div className={classes.innerBackground} />
       </div>
@@ -167,30 +161,22 @@ export const HomeSectionTemplate = React.forwardRef( ( {
 
     </section>
   )
-} )
+}
 
 HomeSectionTemplate.propTypes = {
   id: string.isRequired,
-  name: string,
   roles: arrayOf( string ),
-  profilePicture: shape( {} ),
   cv: shape( { publicURL: string } ),
-  github: string,
-  linkedin: string,
 }
 
 HomeSectionTemplate.defaultProps = {
-  name: null,
   roles: [],
-  profilePicture: null,
   cv: {},
-  github: null,
-  linkedin: null,
 }
 
 const query = graphql`
   {
-    markdownRemark(frontmatter: {templateKey: {eq: "home-section"}}) {
+    markdownRemark( frontmatter: { templateKey: { eq: "home-section" } } ) {
       frontmatter {
         name
         roles
@@ -205,6 +191,6 @@ const query = graphql`
 export default ( props ) => (
   <StaticQuery
     query={query}
-    render={withRemarkProps( withCommonData( HomeSectionTemplate ), props )}
+    render={withRemarkProps( HomeSectionTemplate, props )}
   />
 )

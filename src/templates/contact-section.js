@@ -4,7 +4,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
 import withRemarkProps from '../components/withRemarkProps'
-import withCommonData from '../components/withCommonData'
+import useCommonData from '../hooks/use-common-data'
 
 import GithubIcon from '../../static/img/icons/github.inline.svg'
 import LinkedinIcon from '../../static/img/icons/linkedin.inline.svg'
@@ -50,14 +50,16 @@ const useStyles = createUseStyles( {
   },
 } )
 
-export const ContactSectionTemplate = ( { id, email, linkedin, github, html } ) => {
-  const classes = useStyles()
+export const ContactSectionTemplate = ( { id, html } ) => {
+  const { email, linkedin, github } = useCommonData()
 
   const icons = [
     [ `mailto:${email}`, EmailIcon, email ],
     [ linkedin, LinkedinIcon, linkedin.split( 'https://' )[ 1 ] ],
     [ github, GithubIcon, github.split( 'https://' )[ 1 ] ],
   ]
+
+  const classes = useStyles()
 
   return (
     <section className={classes.root} id={id}>
@@ -89,15 +91,9 @@ export const ContactSectionTemplate = ( { id, email, linkedin, github, html } ) 
 
 ContactSectionTemplate.propTypes = {
   id: string.isRequired,
-  email: string,
-  linkedin: string,
-  github: string,
   html: node,
 }
 ContactSectionTemplate.defaultProps = {
-  email: null,
-  linkedin: null,
-  github: null,
   html: null,
 }
 
@@ -112,6 +108,6 @@ const query = graphql`
 export default ( props ) => (
   <StaticQuery
     query={query}
-    render={withRemarkProps( withCommonData( ContactSectionTemplate ), props )}
+    render={withRemarkProps( ContactSectionTemplate, props )}
   />
 )

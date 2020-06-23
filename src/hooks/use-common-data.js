@@ -1,7 +1,6 @@
-import React from 'react'
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 
-import withRemarkProps from './withRemarkProps'
+import getRemarkProps from '../lib/get-remark-props'
 
 const query = graphql`
   {
@@ -23,11 +22,6 @@ const query = graphql`
   }
 `
 
-const withCommonData = ( Component ) => ( props ) => (
-  <StaticQuery
-    query={query}
-    render={withRemarkProps( Component, props )}
-  />
-)
+const useCommonData = () => getRemarkProps( useStaticQuery( query ) )
 
-export default withCommonData
+export default useCommonData
