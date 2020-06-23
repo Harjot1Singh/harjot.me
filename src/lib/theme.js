@@ -21,7 +21,7 @@ export const darkTheme = {
 }
 
 export const lightTheme = {
-  color: { primary: color.darkGrey, secondary: color.green },
+  color: { primary: color.darkGrey, secondary: color.lightGrey },
   background: { dark: color.white, light: color.white },
   font,
 }
@@ -46,14 +46,11 @@ export const getGlobalStyles = ( theme ) => ( {
       color: theme.color.primary,
     },
     '::-webkit-scrollbar': {
-      width: '10px',
-    },
-    '::-webkit-scrollbar-track': {
-      backgroundColor: theme.background.light,
+      width: '12px',
     },
     '::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
-      borderRadius: '100px',
+      backgroundColor: 'rgba(0, 0, 0, 0.48)',
+      borderRadius: '8px',
     },
   },
 } )
