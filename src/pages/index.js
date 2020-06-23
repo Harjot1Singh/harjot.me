@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 
 import { darkTheme } from '../lib/theme'
-import Navbar from '../components/Navbar'
+import Navbar from '../components/FloatingNavbar'
 import HomeSection from '../templates/home-section'
 import AboutSection from '../templates/about-section'
 import ProjectsSection from '../templates/projects-section'
@@ -26,7 +26,7 @@ const Index = () => {
     <main>
       <Header />
 
-      <Navbar floating active={active} />
+      <Navbar active={active} />
 
       {sections.map( ( [ Section, name ] ) => (
         <VisibilitySensor key={name} onChange={onVisibilityChange( name )}>

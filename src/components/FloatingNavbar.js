@@ -4,12 +4,14 @@ import { Link } from 'react-scroll'
 import { createUseStyles } from 'react-jss'
 import useScrollPosition from '@react-hook/window-scroll'
 import { animated, useSpring } from 'react-spring'
-import { bool, string } from 'prop-types'
+import { string } from 'prop-types'
 import clsx from 'clsx'
+
+import { color } from '../lib/theme'
 
 const useStyles = createUseStyles( ( { font } ) => ( {
   navbar: {
-    position: ( { floating } ) => ( floating ? 'fixed' : 'relative' ),
+    position: 'fixed',
     display: 'flex',
     zIndex: 1,
     right: 0,
@@ -18,6 +20,7 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     borderRadius: '100px',
   },
   item: {
+    color: color.white,
     padding: '1.5vw 2.5vw',
     textTransform: 'uppercase',
     fontSize: '28px',
@@ -43,7 +46,7 @@ const items = [
   [ 'Blog', ( props ) => <GatsbyLink {...props} to="blog" /> ],
 ]
 
-const Navbar = ( { floating, active } ) => {
+const Navbar = ( { active } ) => {
   const threshold = useScrollPosition() > 2
 
   const [ props, setProps ] = useSpring( () => poppedInSpringConfig )
@@ -52,7 +55,7 @@ const Navbar = ( { floating, active } ) => {
     setProps( threshold ? floatingSpringConfig : poppedInSpringConfig )
   }, [ threshold, setProps ] )
 
-  const classes = useStyles( { floating } )
+  const classes = useStyles()
 
   return (
     <animated.nav
@@ -74,12 +77,10 @@ const Navbar = ( { floating, active } ) => {
 }
 
 Navbar.propTypes = {
-  floating: bool,
   active: string,
 }
 
 Navbar.defaultProps = {
-  floating: false,
   active: null,
 }
 

@@ -31,6 +31,11 @@ export const getGlobalStyles = ( theme ) => ( {
     body: {
       fontFamily: theme.font.body,
     },
+    main: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+    },
     'p, li': {
       color: theme.color.primary,
     },
