@@ -22,11 +22,14 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
     height: '100vh',
     maxHeight: '1080px',
     position: 'relative',
+    fontSize: '1vmin',
   },
   main: {
     marginTop: '30px',
   },
   profilePicture: {
+    width: '40em',
+    height: '40em',
     margin: '100px',
     overflow: 'visible !important',
     '& img': {
@@ -52,7 +55,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
     },
   },
   name: {
-    fontSize: '80px',
+    fontSize: '7.75em',
     textTransform: 'uppercase',
     color: color.secondary,
     fontWeight: 'normal',
@@ -68,7 +71,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
     margin: 0,
     width: '100%',
     textAlign: 'center',
-    fontSize: '55px',
+    fontSize: '5.5em',
     textTransform: 'uppercase',
     fontWeight: 'normal',
     letterSpacing: '0.215em',

@@ -10,8 +10,8 @@ const query = graphql`
         name
         profilePicture {
           childImageSharp {
-            fixed(quality: 100, width: 400, height: 400) {
-              ...GatsbyImageSharpFixed_tracedSVG
+            fluid(quality: 100, maxWidth: 400, maxHeight: 400) {
+              ...GatsbyImageSharpFluid_tracedSVG
             }
           }
         }
