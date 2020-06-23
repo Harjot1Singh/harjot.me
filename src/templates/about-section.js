@@ -3,13 +3,13 @@ import { string, arrayOf, node } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
-import clsx from 'clsx'
 import withRemarkProps from '../components/withRemarkProps'
 import HTMLContent from '../components/HTMLContent'
 import Container from '../components/Container'
 import useRotatingItem from '../hooks/use-rotating-item'
 import SectionBackground from '../components/SectionBackground'
 import SectionHeader from '../components/SectionHeader'
+import Chip from '../components/Chip'
 
 const useStyles = createUseStyles( ( { color, background, font } ) => ( {
   root: {
@@ -32,19 +32,6 @@ const useStyles = createUseStyles( ( { color, background, font } ) => ( {
   chips: {
     display: 'flex',
   },
-  chip: {
-    color: color.primary,
-    fontWeight: 'bold',
-    transition: '0.3s all ease-in-out',
-    padding: '10px 20px',
-    margin: '5px',
-    fontSize: '20px',
-    borderRadius: '100px',
-    background: background.dark,
-  },
-  activeChip: {
-    background: color.secondary,
-  },
 } ) )
 
 export const AboutSectionTemplate = ( { id, html, skills } ) => {
@@ -64,15 +51,7 @@ export const AboutSectionTemplate = ( { id, html, skills } ) => {
 
         <div className={classes.chips}>
           {skills.map( ( skill ) => (
-            <div
-              key={skill}
-              className={clsx(
-                classes.chip,
-                { [ classes.activeChip ]: highlightedSkill === skill },
-              )}
-            >
-              {skill}
-            </div>
+            <Chip key={skill} active={highlightedSkill === skill}>{skill}</Chip>
           ) )}
         </div>
 
