@@ -2,10 +2,9 @@ import React from 'react'
 import { string, shape, arrayOf } from 'prop-types'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
-import { kebabCase } from 'lodash'
 import { createUseStyles } from 'react-jss'
 
-import Chip from './Chip'
+import Tags from './Tags'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   image: {
@@ -30,14 +29,6 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     color: color.secondary,
     marginBottom: '15px',
   },
-  tags: {
-    display: 'flex',
-    width: '100%',
-    fontSize: '0.8em',
-  },
-  tag: {
-    background: color.secondary,
-  },
 } ) )
 
 const BlogExcerpt = ( { slug, image, date, title, excerpt, tags } ) => {
@@ -52,13 +43,7 @@ const BlogExcerpt = ( { slug, image, date, title, excerpt, tags } ) => {
         <p>{excerpt}</p>
       </Link>
 
-      <div className={classes.tags}>
-        {tags.map( ( tag ) => (
-          <Link key={tag} to={`/tags/${kebabCase( tag )}`}>
-            <Chip className={classes.tag}>{tag}</Chip>
-          </Link>
-        ) )}
-      </div>
+      <Tags tags={tags} prefix="/blog" />
     </span>
   )
 }

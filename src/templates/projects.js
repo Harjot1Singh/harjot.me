@@ -14,7 +14,7 @@ import Container from '../components/Container'
 import withRootTheme from '../components/withRootTheme'
 import Navbar from '../components/FixedNavbar'
 import Pager from '../components/Pager'
-import TagLinks from '../components/TagLinks'
+import Filters from '../components/Filters'
 import Header from '../components/Header'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
@@ -70,7 +70,7 @@ const Projects = ( { data, pageContext } ) => {
 
       <Container className={classes.container}>
 
-        <TagLinks prefix="/projects" tags={tags} />
+        <Filters prefix="/projects" tags={tags} />
 
         <div className={classes.projects}>
           {items.map( ( { slug, name, description, image } ) => (

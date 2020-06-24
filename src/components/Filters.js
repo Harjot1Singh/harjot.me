@@ -29,7 +29,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   },
 } ) )
 
-const TagLinks = ( { prefix, tags } ) => {
+const Filters = ( { prefix, tags } ) => {
   const classes = useStyles()
 
   return (
@@ -52,9 +52,9 @@ const TagLinks = ( { prefix, tags } ) => {
   )
 }
 
-TagLinks.propTypes = {
+Filters.propTypes = {
   prefix: string.isRequired,
   tags: arrayOf( string ).isRequired,
 }
 
-export default TagLinks
+export default Filters

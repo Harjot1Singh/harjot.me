@@ -14,7 +14,7 @@ import withRootTheme from '../components/withRootTheme'
 import Navbar from '../components/FixedNavbar'
 import Pager from '../components/Pager'
 import BlogExcerpt from '../components/BlogExcerpt'
-import TagLinks from '../components/TagLinks'
+import Filters from '../components/Filters'
 import Header from '../components/Header'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
@@ -47,7 +47,7 @@ const Blog = ( { data, pageContext } ) => {
 
       <Container className={classes.container}>
 
-        <TagLinks prefix="/blog" tags={tags} />
+        <Filters prefix="/blog" tags={tags} />
 
         {items
           .map( BlogExcerpt )
