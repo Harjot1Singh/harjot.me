@@ -5,11 +5,13 @@ import { graphql } from 'gatsby'
 
 import { lightTheme } from '../lib/theme'
 import getRemarkProps from '../lib/get-remark-props'
+import useBlogTags from '../hooks/use-blog-tags'
 import Container from '../components/Container'
 import withRootTheme from '../components/withRootTheme'
 import Navbar from '../components/FixedNavbar'
 import Pager from '../components/Pager'
 import BlogExcerpt from '../components/BlogExcerpt'
+import TagLinks from '../components/TagLinks'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   container: {
@@ -28,6 +30,8 @@ const useStyles = createUseStyles( ( { color } ) => ( {
 const Blog = ( { data, pageContext } ) => {
   const { items } = getRemarkProps( data )
 
+  const tags = useBlogTags()
+
   const classes = useStyles()
 
   return (
@@ -35,6 +39,8 @@ const Blog = ( { data, pageContext } ) => {
       <Navbar active="blog" />
 
       <Container className={classes.container}>
+
+        <TagLinks prefix="/blog" tags={tags} />
 
         {items
           .map( BlogExcerpt )
@@ -58,10 +64,10 @@ Blog.propTypes = {
 }
 
 export const query = graphql`
-  query ($skip: Int!, $limit: Int!) {
+  query ($skip: Int!, $limit: Int!, $tags: [String]!) {
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { templateKey: { eq: "blog-post" } } }
+      filter: { frontmatter: { templateKey: { eq: "blog-post" }, tags: { in: $tags } } }
       skip: $skip
       limit: $limit
     ) {
