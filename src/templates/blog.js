@@ -5,13 +5,17 @@ import { graphql } from 'gatsby'
 
 import { lightTheme } from '../lib/theme'
 import getRemarkProps from '../lib/get-remark-props'
+
 import useBlogTags from '../hooks/use-blog-tags'
+import useSiteMetadata from '../hooks/use-site-metadata'
+
 import Container from '../components/Container'
 import withRootTheme from '../components/withRootTheme'
 import Navbar from '../components/FixedNavbar'
 import Pager from '../components/Pager'
 import BlogExcerpt from '../components/BlogExcerpt'
 import TagLinks from '../components/TagLinks'
+import Header from '../components/Header'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   container: {
@@ -30,12 +34,15 @@ const useStyles = createUseStyles( ( { color } ) => ( {
 const Blog = ( { data, pageContext } ) => {
   const { items } = getRemarkProps( data )
 
+  const { title } = useSiteMetadata()
   const tags = useBlogTags()
 
   const classes = useStyles()
 
   return (
     <main>
+      <Header title={`${title} | Blog`} />
+
       <Navbar active="blog" />
 
       <Container className={classes.container}>
