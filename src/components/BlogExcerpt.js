@@ -11,7 +11,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   image: {
     width: '100%',
     height: '25vh',
-    borderRadius: '10px',
+    borderRadius: '15px',
   },
   post: {
     fontSize: '22px',
