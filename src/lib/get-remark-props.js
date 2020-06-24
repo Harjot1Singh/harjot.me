@@ -1,10 +1,11 @@
 const getRemarkProps = ( {
   markdownRemark: { html, frontmatter, fields, ...restMarkdown } = {},
-  allMarkdownRemark: { edges = [] } = {},
+  allMarkdownRemark: { edges = [], ...restAllMarkdown } = {},
   ...rest
 } ) => ( {
   ...rest,
   ...restMarkdown,
+  ...restAllMarkdown,
   ...frontmatter,
   ...fields,
   ...( html && { html } ),

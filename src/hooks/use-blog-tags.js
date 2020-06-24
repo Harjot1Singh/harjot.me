@@ -4,22 +4,15 @@ import getRemarkProps from '../lib/get-remark-props'
 
 const query = graphql`
   {
-    allMarkdownRemark(limit: 1000, filter: { frontmatter: { templateKey: { eq: "blog-post" } } } ) {
-      edges {
-        node {
-          frontmatter {
-            tags
-          }
-        }
-      }
+    allMarkdownRemark(filter: { frontmatter: { templateKey: { eq: "blog-post" } } } ) {
+      distinct(field: frontmatter___tags)
     }
   }
 `
 
 const useBlogTags = () => {
-  const { items } = getRemarkProps( useStaticQuery( query ) )
-
-  return Array.from( new Set( items.reduce( ( acc, { tags } ) => [ ...acc, ...tags ], [] ) ) )
+  const { distinct } = getRemarkProps( useStaticQuery( query ) )
+  return distinct
 }
 
 export default useBlogTags
