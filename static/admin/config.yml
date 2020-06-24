@@ -57,7 +57,8 @@ collections:
           default: project-post,
         }
       - { label: Featured, name: featured, widget: boolean }
-      - { label: Title, name: title, widget: string }
+      - { label: Name, name: Name, widget: string }
+      - { label: Description, name: description, widget: string }
       - { label: Image, name: image, widget: image }
       - { label: Date, name: date, widget: datetime }
       - { label: Tags, name: tags, widget: list }

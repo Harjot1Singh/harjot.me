@@ -1,7 +1,8 @@
 ---
 templateKey: project-post
 featured: true
-title: Automated Bitcoin Traders
+name: Automated Bitcoin Trader
+description: Configurable, automated Bitcoin trader, leveraging technical analysis
 image: btc-trader-macd.png
 date: 2014-01-01T01:59:43.036Z
 tags:
