@@ -79,7 +79,11 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
   },
   iconLinks: {
     position: 'absolute',
-    bottom: '20px',
+    bottom: '10px',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   icon: {
     margin: '0 15px',
@@ -87,6 +91,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
   triangleDown: {
     display: 'block',
     margin: '20px auto',
+    width: '100%',
   },
 } ) )
 
@@ -145,19 +150,19 @@ export const HomeSectionTemplate = ( { id, roles, cv } ) => {
             ) )}
           </div>
 
-          <div className={classes.iconLinks}>
-            {icons.map( ( [ href, Icon ] ) => (
-              <IconLink key={href} className={classes.icon} href={href}>
-                <Icon />
-              </IconLink>
-            ) )}
-
-            <TriangleDown className={classes.triangleDown} />
-          </div>
-
         </Container>
 
       </Container>
+
+      <div className={classes.iconLinks}>
+        {icons.map( ( [ href, Icon ] ) => (
+          <IconLink key={href} className={classes.icon} href={href}>
+            <Icon />
+          </IconLink>
+        ) )}
+
+        <TriangleDown className={classes.triangleDown} />
+      </div>
 
     </section>
   )
