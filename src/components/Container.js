@@ -11,6 +11,7 @@ const useStyles = createUseStyles( {
     maxWidth: '70vw',
     alignItems: 'center',
     margin: 'auto',
+    position: 'relative',
   },
 } )
 

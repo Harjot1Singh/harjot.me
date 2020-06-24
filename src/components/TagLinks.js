@@ -11,7 +11,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
-    left: '15vw',
+    marginLeft: '-35vw',
   },
   item: {
     textDecoration: 'none',

@@ -15,7 +15,7 @@ import TagLinks from '../components/TagLinks'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   container: {
-    maxWidth: '40vw',
+    maxWidth: '50vw',
     margin: '80px auto',
   },
   separator: {
