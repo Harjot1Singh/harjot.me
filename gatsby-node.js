@@ -1,90 +1,130 @@
-const { kebabCase } = require( 'lodash' )
 const path = require( 'path' )
+const { kebabCase } = require( 'lodash' )
 const { createFilePath } = require( 'gatsby-source-filesystem' )
 const { fmImagesToRelative } = require( 'gatsby-remark-relative-images' )
 const { paginate } = require( 'gatsby-awesome-pagination' )
 
-exports.createPages = ( { actions, graphql } ) => {
-  const { createPage } = actions
-
-  return graphql( `
-    {
-      allMarkdownRemark(limit: 1000) {
-        edges {
-          node {
-            id
-            fields {
-              slug
-            }
-            frontmatter {
-              tags
-              templateKey
-            }
-          }
+const getTagPages = ( graphql ) => async ( tag, templateKey ) => {
+  const { errors, data } = await graphql( `
+  {
+    allMarkdownRemark(
+        ${templateKey ? ` filter: { frontmatter: { tags: { in: "${tag}" } templateKey: { eq: "${templateKey}" } } } ` : ''}
+        sort: { fields: [frontmatter___date], order: DESC }
+      ) {
+      edges {
+        node {
+          id
+          fields { slug }
         }
       }
     }
-  ` ).then( ( { errors, data } ) => {
-    if ( errors ) {
-      errors.forEach( ( e ) => console.error( e.toString() ) )
-      return Promise.reject( errors )
+  }
+` )
+
+  if ( errors ) throw errors
+
+  const { allMarkdownRemark: { edges } } = data
+  return edges
+}
+
+const getTags = ( graphql ) => async ( templateKey ) => {
+  const { errors, data } = await graphql( `
+  {
+    allMarkdownRemark${templateKey ? `(filter: { frontmatter: { templateKey: { eq: "${templateKey}" } } } )` : ''} {
+      distinct(field: frontmatter___tags)
     }
+  }
+` )
 
-    const { allMarkdownRemark: { edges: pages } } = data
+  if ( errors ) throw errors
 
-    // Create pages
-    pages
-      .filter( ( { node: { frontmatter: { templateKey } } } ) => templateKey )
-      .forEach( ( {
-        node: {
-          fields: { slug },
-          frontmatter: { tags, templateKey },
-          id,
-        },
-      } ) => createPage( {
-        path: slug,
-        tags,
-        component: path.resolve( `src/templates/${templateKey}.js` ),
-        context: { id },
-      } ) )
+  const { allMarkdownRemark: { distinct } } = data
+  return distinct
+}
 
-    // Create paginated blog pages
-    const blogPosts = pages.filter( ( { node: { frontmatter: { templateKey } } } ) => templateKey === 'blog-post' )
-    paginate( {
-      createPage,
-      items: blogPosts,
-      itemsPerPage: 5,
-      pathPrefix: '/blog',
-      component: path.resolve( 'src/templates/blog.js' ),
-    } )
+const getPages = ( graphql ) => async ( templateKey ) => {
+  const { errors, data } = await graphql( `
+  {
+    allMarkdownRemark(
+      ${templateKey ? ` filter: { frontmatter: { templateKey: { eq: "${templateKey}" } } } ` : ''}
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {      edges {
+        node {
+          id
+          fields { slug }
+          frontmatter { templateKey }
+        }
+      }
+    }
+  }
+` )
 
-    // Create paginated project pages
-    const projects = pages.filter( ( { node: { frontmatter: { templateKey } } } ) => templateKey === 'project-post' )
-    paginate( {
-      createPage,
-      items: projects,
-      itemsPerPage: 6,
-      pathPrefix: '/projects',
-      component: path.resolve( 'src/templates/projects.js' ),
-    } )
+  if ( errors ) throw errors
 
-    // Grab all tags
-    const tags = Array.from( new Set(
-      pages.reduce( ( acc, { node: { frontmatter: { tags } = {} } = {} } ) => [
-        ...acc,
-        ...( tags || [] ),
-      ], [] ),
-    ) )
+  const { allMarkdownRemark: { edges } } = data
+  return edges
+}
 
-    // Create tag pages
-    tags.forEach( ( tag ) => createPage( {
-      path: `/tags/${kebabCase( tag )}/`,
-      component: path.resolve( 'src/templates/tag.js' ),
-      context: { tag },
+// Create all pages for any data with templates
+const createTemplatePages = ( { actions, graphql } ) => async () => {
+  const { createPage } = actions
+
+  const pages = await getPages( graphql )()
+  // Create pages
+  pages
+    .filter( ( { node: { frontmatter: { templateKey } } } ) => templateKey )
+    .forEach( ( { node: { fields: { slug }, frontmatter: { templateKey }, id } } ) => createPage( {
+      path: slug,
+      component: path.resolve( `src/templates/${templateKey}.js` ),
+      context: { id },
     } ) )
+}
 
-    return Promise.resolve()
+// Create paginated blog pages with tag filters
+const createBlogPages = ( {
+  prefix,
+  itemsPerPage,
+  templateKey,
+  component,
+} ) => ( { graphql, actions } ) => async () => {
+  const { createPage } = actions
+
+  const createPages = ( items, pathPrefix, tags ) => paginate( {
+    createPage,
+    items,
+    itemsPerPage,
+    pathPrefix,
+    component,
+    context: { tags },
   } )
+
+  const pages = await getPages( graphql )( templateKey )
+  const tags = await getTags( graphql )( templateKey )
+
+  const items = [
+    [ pages, prefix, tags ],
+    ...( await Promise.all( tags.map( async ( tag ) => [
+      await getTagPages( graphql )( tag, templateKey ),
+      `${prefix}/${kebabCase( tag )}`,
+      [ tag ],
+    ] ) ) ),
+  ]
+
+  await Promise.all( items.map( ( params ) => createPages( ...params ) ) )
+}
+
+exports.createPages = async ( params ) => {
+  const actions = [
+    createTemplatePages,
+    createBlogPages( { prefix: '/blog', itemsPerPage: 5, templateKey: 'blog-post', component: path.resolve( 'src/templates/blog.js' ) } ),
+    createBlogPages( { prefix: '/projects', itemsPerPage: 6, templateKey: 'project-post', component: path.resolve( 'src/templates/projects.js' ) } ),
+  ].map( ( fn ) => fn( params )() )
+
+  try {
+    await Promise.all( actions )
+  } catch ( error ) {
+    console.error( error )
+  }
 }
 
 exports.onCreateNode = ( { node, actions, getNode } ) => {
