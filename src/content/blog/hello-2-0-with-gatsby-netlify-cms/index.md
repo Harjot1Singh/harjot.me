@@ -3,8 +3,6 @@ templateKey: blog-post
 title: Hello 2.0 with Gatsby + Netlify CMS
 image: new-website-preview.png
 date: 2020-06-18T01:22:40.348Z
-description: |
-  My new website, brought to life by Gatsby and Netlify CMS.
 tags:
   - Netlify CMS
   - Gatsby
