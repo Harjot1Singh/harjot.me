@@ -10,6 +10,7 @@ import Chip from './Chip'
 const useStyles = createUseStyles( ( { color } ) => ( {
   tags: {
     display: 'flex',
+    flexWrap: 'wrap',
     width: '100%',
     fontSize: '0.8em',
     '& > :first-child > div': {
