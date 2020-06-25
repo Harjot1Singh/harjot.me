@@ -50,14 +50,14 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   },
 } ) )
 
-export const BlogPostTemplate = ( { title, date, html, description, image, tags, slug } ) => {
+export const BlogPostTemplate = ( { title, date, html, excerpt, image, tags, slug } ) => {
   const classes = useStyles()
 
   const disqusConfig = { identifier: slug, title }
 
   return (
     <main>
-      <Header title={title} description={description} />
+      <Header title={title} description={excerpt} />
       <Navbar active="blog" />
 
       <Container className={classes.container}>
@@ -86,7 +86,7 @@ BlogPostTemplate.propTypes = {
   html: node,
   title: string,
   date: string,
-  description: string,
+  excerpt: string,
   tags: arrayOf( string ),
   image: shape( { childImageSharp: {} } ),
   slug: string.isRequired,
@@ -96,7 +96,7 @@ BlogPostTemplate.defaultProps = {
   html: null,
   title: null,
   date: null,
-  description: null,
+  excerpt: null,
   tags: [],
   image: {},
 }
@@ -109,6 +109,7 @@ export const query = graphql`
       fields {
         slug
       }
+      excerpt(pruneLength: 200)
       frontmatter {
         date(formatString: "MMMM D, YYYY")
         title
