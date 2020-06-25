@@ -32,7 +32,8 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   },
   date: {
     color: color.secondary,
-    marginBottom: 0,
+    marginTop: '0.5em',
+    fontSize: '1.15em',
   },
   footer: {
     fontSize: '18px',
