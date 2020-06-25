@@ -4,7 +4,7 @@ featured: true
 name: Automated Bitcoin Trader
 description: Configurable, automated Bitcoin trader, leveraging technical analysis
 image: btc-trader-macd.png
-date: 2014-01-01T01:59:43.036Z
+year: "2014"
 tags:
   - Node.js
   - PostgreSQL
@@ -15,4 +15,4 @@ tags:
   - Technical Analysis
   - Visualisation
 ---
-### Analyses Bitcoin price data from various exchanges, to determine and execute profitable trades
+Analyses Bitcoin price data from various exchanges, to determine and execute profitable trades

@@ -92,12 +92,12 @@ export const ProjectSectionTemplate = ( { id, items } ) => {
         <SectionHeader>Projects</SectionHeader>
 
         <div className={classes.cards}>
-          {items.map( ( { title, image, slug } ) => (
+          {items.map( ( { name, image, slug } ) => (
             <Link key={slug} className={classes.card} to={slug}>
               <Img {...image.childImageSharp} />
 
               <div className={classes.cardContent}>
-                <h3>{title}</h3>
+                <h3>{name}</h3>
               </div>
             </Link>
           ) )}
@@ -130,7 +130,7 @@ const query = graphql`
           slug
         }
         frontmatter {
-          title
+          name
           date
           tags
           image {
