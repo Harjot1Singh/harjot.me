@@ -86,7 +86,7 @@ export const query = graphql`
           }
           excerpt(pruneLength: 200)
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "MMMM D, YYYY")
             title
             tags
             image {

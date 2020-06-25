@@ -110,7 +110,7 @@ export const query = graphql`
         slug
       }
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "MMMM D, YYYY")
         title
         tags
         image {
