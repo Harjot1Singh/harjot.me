@@ -62,6 +62,12 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: 'gatsby-remark-vscode',
+            options: {
+              theme: 'Dark+ (default dark)',
+            },
+          },
+          {
             resolve: 'gatsby-remark-relative-images',
             options: {
               name: 'uploads',

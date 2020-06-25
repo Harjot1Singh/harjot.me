@@ -1,99 +1,127 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { kebabCase } from 'lodash'
-import { Helmet } from 'react-helmet'
-import { graphql, Link } from 'gatsby'
+import { node, string, arrayOf, shape } from 'prop-types'
+import { graphql } from 'gatsby'
+import { createUseStyles } from 'react-jss'
+import Img from 'gatsby-image'
 
-import HTMLContent from '../components/HTMLContent'
+import getRemarkProps from '../lib/get-remark-props'
+import { lightTheme } from '../lib/theme'
+import withRootTheme from '../components/withRootTheme'
+import Header from '../components/Header'
+import Container from '../components/Container'
+import Navbar from '../components/FixedNavbar'
+import Tags from '../components/Tags'
+import PostContent from '../components/PostContent'
 
-// const pageQuery = graphql`
-//   query BlogPostByID($id: String!) {
-//     markdownRemark(id: { eq: $id }) {
-//       id
-//       html
-//       frontmatter {
-//         date(formatString: "MMMM DD, YYYY")
-//         title
-//         description
-//         tags
-//       }
-//     }
-//   }
-// `
+const useStyles = createUseStyles( ( { color } ) => ( {
+  image: {
+    width: '100%',
+    margin: '2em 0',
+  },
+  container: {
+    maxWidth: '40vw',
+    margin: '80px auto',
+    alignItems: 'flex-start',
+    fontSize: '22px',
+  },
+  title: {
+    fontSize: '48px',
+    margin: 0,
+    color: color.secondary,
+  },
+  date: {
+    color: color.secondary,
+    marginBottom: 0,
+  },
+  footer: {
+    fontSize: '18px',
+    margin: '50px 0 0 0',
+    width: '100%',
+    alignItems: 'center',
+  },
+  tagsHeader: {
+    marginBottom: '0.5em',
+    textTransform: 'uppercase',
+    color: color.secondary,
+  },
+} ) )
 
-export const BlogPostTemplate = ( {
-  content,
-  contentComponent,
-  description,
-  tags,
-  title,
-  helmet,
-} ) => {
-  const PostContent = contentComponent || HTMLContent
+export const BlogPostTemplate = ( { title, date, html, description, image, tags } ) => {
+  const classes = useStyles()
 
   return (
-    <section className="section">
-      {helmet || ''}
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-              {title}
-            </h1>
-            <p>{description}</p>
-            <PostContent content={content} />
-            {tags && tags.length ? (
-              <div style={{ marginTop: '4rem' }}>
-                <h4>Tags</h4>
-                <ul className="taglist">
-                  {tags.map( ( tag ) => (
-                    <li key={`${tag}tag`}>
-                      <Link to={`/tags/${kebabCase( tag )}/`}>{tag}</Link>
-                    </li>
-                  ) )}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </section>
+    <main>
+      <Header title={title} description={description} />
+      <Navbar active="blog" />
+
+      <Container className={classes.container}>
+        <h1 className={classes.title}>{title}</h1>
+        <h2 className={classes.date}>{date}</h2>
+        <Img className={classes.image} {...image.childImageSharp} />
+
+        <PostContent>{html}</PostContent>
+
+        <footer className={classes.footer}>
+          <h4 className={classes.tagsHeader}>Tags</h4>
+          <Tags tags={tags} prefix="/blog" />
+        </footer>
+
+      </Container>
+
+    </main>
   )
 }
 
 BlogPostTemplate.propTypes = {
-  content: PropTypes.node.isRequired,
-  contentComponent: PropTypes.func,
-  description: PropTypes.string,
-  title: PropTypes.string,
-  helmet: PropTypes.object,
+  html: node,
+  title: string,
+  date: string,
+  description: string,
+  tags: arrayOf( string ),
+  image: shape( { childImageSharp: {} } ),
 }
 
-const BlogPost = ( { html, title, description, tags } ) => (
-  <main>
-    <BlogPostTemplate
-      content={html}
-      contentComponent={HTMLContent}
-      description={description}
-      helmet={(
-        <Helmet titleTemplate="%s | Blog">
-          <title>{`${title}`}</title>
-          <meta
-            name="description"
-            content={`${description}`}
-          />
-        </Helmet>
-        )}
-      tags={tags}
-      title={title}
-    />
-  </main>
-)
+BlogPostTemplate.defaultProps = {
+  html: null,
+  title: null,
+  date: null,
+  description: null,
+  tags: [],
+  image: {},
+}
+
+export const query = graphql`
+  query ($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      id
+      html
+      fields {
+        slug
+      }
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        title
+        tags
+        image {
+          childImageSharp {
+            fluid(quality: 100, maxWidth: 1000) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+const BlogPost = ( { data } ) => {
+  const Component = withRootTheme( lightTheme )( BlogPostTemplate )
+
+  return <Component {...getRemarkProps( data )} />
+}
 
 BlogPost.propTypes = {
-  data: PropTypes.shape( {
-    markdownRemark: PropTypes.object,
-  } ),
+  data: shape( {} ).isRequired,
 }
 
 export default BlogPost
