@@ -7,6 +7,12 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-better-jss',
     {
+      resolve: 'gatsby-plugin-disqus',
+      options: {
+        shortname: 'harjot-me',
+      },
+    },
+    {
       resolve: 'gatsby-plugin-favicon',
       options: {
         logo: './static/img/favicon.png',

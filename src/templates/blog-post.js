@@ -3,6 +3,7 @@ import { node, string, arrayOf, shape } from 'prop-types'
 import { graphql } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import Img from 'gatsby-image'
+import { Disqus } from 'gatsby-plugin-disqus'
 
 import getRemarkProps from '../lib/get-remark-props'
 import { lightTheme } from '../lib/theme'
@@ -44,10 +45,15 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     textTransform: 'uppercase',
     color: color.secondary,
   },
+  comments: {
+    marginTop: '1em',
+  },
 } ) )
 
-export const BlogPostTemplate = ( { title, date, html, description, image, tags } ) => {
+export const BlogPostTemplate = ( { title, date, html, description, image, tags, slug } ) => {
   const classes = useStyles()
+
+  const disqusConfig = { identifier: slug, title }
 
   return (
     <main>
@@ -64,6 +70,10 @@ export const BlogPostTemplate = ( { title, date, html, description, image, tags 
         <footer className={classes.footer}>
           <h4 className={classes.tagsHeader}>Tags</h4>
           <Tags tags={tags} prefix="/blog" />
+
+          <div className={classes.comments}>
+            <Disqus config={disqusConfig} />
+          </div>
         </footer>
 
       </Container>
@@ -79,6 +89,7 @@ BlogPostTemplate.propTypes = {
   description: string,
   tags: arrayOf( string ),
   image: shape( { childImageSharp: {} } ),
+  slug: string.isRequired,
 }
 
 BlogPostTemplate.defaultProps = {
