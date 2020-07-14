@@ -17,6 +17,8 @@ const useStyles = createUseStyles( {
 const Img = ( { className, src, ...props } ) => {
   const classes = useStyles()
 
+  if ( !src ) return null
+
   if ( src.childImageSharp ) {
     return <GatsbyImg className={className} {...props} {...src.childImageSharp} />
   }
