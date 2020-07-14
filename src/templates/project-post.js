@@ -2,7 +2,6 @@ import React from 'react'
 import { node, string, arrayOf, shape } from 'prop-types'
 import { graphql } from 'gatsby'
 import { createUseStyles } from 'react-jss'
-import Img from 'gatsby-image'
 import { Disqus } from 'gatsby-plugin-disqus'
 
 import getRemarkProps from '../lib/get-remark-props'
@@ -13,6 +12,7 @@ import Container from '../components/Container'
 import Navbar from '../components/FixedNavbar'
 import Tags from '../components/Tags'
 import PostContent from '../components/PostContent'
+import Img from '../components/Img'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   image: {
@@ -71,7 +71,7 @@ export const ProjectPostTemplate = ( { name, year, html, description, image, tag
         <h2 className={classes.date}>{year}</h2>
         <h1 className={classes.title}>{name}</h1>
         <h3 className={classes.description}>{description}</h3>
-        <Img className={classes.image} {...image.childImageSharp} />
+        <Img className={classes.image} src={image} />
 
         <PostContent>{html}</PostContent>
 

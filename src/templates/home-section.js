@@ -3,7 +3,6 @@ import { string, arrayOf, shape } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import { useTransition, animated, config } from 'react-spring'
-import Img from 'gatsby-image'
 
 import useRotatingItem from '../hooks/use-rotating-item'
 import useCommonData from '../hooks/use-common-data'
@@ -11,6 +10,7 @@ import withRemarkProps from '../components/withRemarkProps'
 import Container from '../components/Container'
 import SectionBackground from '../components/SectionBackground'
 import IconLink from '../components/IconLink'
+import Img from '../components/Img'
 
 import GithubIcon from '../../static/img/icons/github.inline.svg'
 import LinkedinIcon from '../../static/img/icons/linkedin.inline.svg'
@@ -102,9 +102,15 @@ const roleTransitionsConfig = {
   leave: { opacity: 0 },
 }
 
-export const HomeSectionTemplate = ( { id, roles, cv } ) => {
-  const { name, profilePicture, github, linkedin } = useCommonData()
-
+export const HomeSectionTemplate = ( {
+  name,
+  profilePicture,
+  github,
+  linkedin,
+  id,
+  roles,
+  cv,
+} ) => {
   const [ firstName, lastName ] = name.split( ' ' )
   const [ rolePrefix, rolePostfix ] = useRotatingItem( roles ).split( ' ' )
 
@@ -128,13 +134,11 @@ export const HomeSectionTemplate = ( { id, roles, cv } ) => {
       <Container>
 
         <Container className={classes.main}>
-          {profilePicture && (
-            <Img
-              className={classes.profilePicture}
-              {...profilePicture.childImageSharp}
-              backgroundColor="transparent"
-            />
-          )}
+          <Img
+            className={classes.profilePicture}
+            src={profilePicture}
+            backgroundColor="transparent"
+          />
 
           <h1 className={classes.name}>
             <strong>{firstName}</strong>
@@ -172,11 +176,19 @@ HomeSectionTemplate.propTypes = {
   id: string.isRequired,
   roles: arrayOf( string ),
   cv: shape( { publicURL: string } ),
+  name: string,
+  profilePicture: shape( { childImageSharp: shape( {} ) } ),
+  github: string,
+  linkedin: string,
 }
 
 HomeSectionTemplate.defaultProps = {
-  roles: [],
+  roles: [ '' ],
   cv: {},
+  name: null,
+  profilePicture: null,
+  github: null,
+  linkedin: null,
 }
 
 const query = graphql`
@@ -193,9 +205,13 @@ const query = graphql`
   }
 `
 
-export default ( props ) => (
-  <StaticQuery
-    query={query}
-    render={withRemarkProps( HomeSectionTemplate, props )}
-  />
-)
+export default ( props ) => {
+  const commonData = useCommonData()
+
+  return (
+    <StaticQuery
+      query={query}
+      render={withRemarkProps( HomeSectionTemplate, { ...commonData, ...props } )}
+    />
+  )
+}

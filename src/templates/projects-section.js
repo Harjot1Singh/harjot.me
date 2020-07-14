@@ -2,12 +2,12 @@ import React from 'react'
 import { string, arrayOf, shape } from 'prop-types'
 import { graphql, StaticQuery, Link } from 'gatsby'
 import { createUseStyles } from 'react-jss'
-import Img from 'gatsby-image'
 
 import withRemarkProps from '../components/withRemarkProps'
 import Container from '../components/Container'
 import SectionHeader from '../components/SectionHeader'
 import SectionBackground from '../components/SectionBackground'
+import Img from '../components/Img'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   root: {
@@ -94,7 +94,7 @@ export const ProjectSectionTemplate = ( { id, items } ) => {
         <div className={classes.cards}>
           {items.map( ( { name, image, slug } ) => (
             <Link key={slug} className={classes.card} to={slug}>
-              <Img {...image.childImageSharp} />
+              <Img src={image} />
 
               <div className={classes.cardContent}>
                 <h3>{name}</h3>

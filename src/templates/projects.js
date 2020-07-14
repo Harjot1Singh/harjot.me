@@ -2,7 +2,6 @@ import React from 'react'
 import { shape } from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { graphql, Link } from 'gatsby'
-import Img from 'gatsby-image'
 
 import { lightTheme } from '../lib/theme'
 import getRemarkProps from '../lib/get-remark-props'
@@ -16,6 +15,7 @@ import Navbar from '../components/FixedNavbar'
 import Pager from '../components/Pager'
 import Filters from '../components/Filters'
 import Header from '../components/Header'
+import Img from '../components/Img'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   container: {
@@ -75,7 +75,7 @@ const Projects = ( { data, pageContext } ) => {
         <div className={classes.projects}>
           {items.map( ( { slug, name, description, image } ) => (
             <Link className={classes.project} to={slug}>
-              <Img className={classes.image} {...image.childImageSharp} fadeIn />
+              <Img className={classes.image} src={image} fadeIn />
               <h2 className={classes.title}>{name}</h2>
               <p className={classes.description}>{description}</p>
             </Link>

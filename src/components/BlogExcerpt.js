@@ -1,9 +1,9 @@
 import React from 'react'
 import { string, shape, arrayOf } from 'prop-types'
 import { Link } from 'gatsby'
-import Img from 'gatsby-image'
 import { createUseStyles } from 'react-jss'
 
+import Img from './Img'
 import Tags from './Tags'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
@@ -37,7 +37,7 @@ const BlogExcerpt = ( { slug, image, date, title, excerpt, tags } ) => {
   return (
     <span>
       <Link className={classes.post} to={slug}>
-        <Img className={classes.image} {...image.childImageSharp} fadeIn />
+        <Img className={classes.image} src={image} fadeIn />
         <h3 className={classes.date}>{date}</h3>
         <h2 className={classes.title}>{title}</h2>
         <p>{excerpt}</p>

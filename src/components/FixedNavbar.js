@@ -3,10 +3,11 @@ import { Link } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import { string } from 'prop-types'
 import clsx from 'clsx'
-import Img from 'gatsby-image'
 
 import { color } from '../lib/theme'
 import useCommonData from '../hooks/use-common-data'
+
+import Img from './Img'
 
 const useStyles = createUseStyles( ( { font } ) => ( {
   navbar: {
@@ -80,7 +81,7 @@ const Navbar = ( { active } ) => {
       <hr className={classes.strip} />
 
       <div className={classes.persona}>
-        <Img className={classes.profilePicture} {...profilePicture.childImageSharp} />
+        <Img className={classes.profilePicture} src={profilePicture} />
         <h3 className={classes.name}>
           <strong>{firstName}</strong>
           {lastName}
