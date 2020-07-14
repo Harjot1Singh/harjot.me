@@ -6,6 +6,7 @@ import { color } from '../lib/theme'
 
 const useStyles = createUseStyles( () => ( {
   content: {
+    width: '100%',
     lineHeight: '1.5',
 
     // Code block highlighting
@@ -16,6 +17,9 @@ const useStyles = createUseStyles( () => ( {
       fontSize: '14px',
     },
 
+    '& img': {
+      width: '100%',
+    },
     // Headers
     '& h1': {
       color: 'red',
