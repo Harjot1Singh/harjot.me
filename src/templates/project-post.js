@@ -63,30 +63,24 @@ export const ProjectPostTemplate = ( { name, year, html, description, image, tag
   const disqusConfig = { identifier: slug, title: name }
 
   return (
-    <main>
-      <Header title={name} description={description} />
-      <Navbar active="projects" />
+    <Container className={classes.container}>
+      <h2 className={classes.date}>{year}</h2>
+      <h1 className={classes.title}>{name}</h1>
+      <h3 className={classes.description}>{description}</h3>
+      <Img className={classes.image} src={image} />
 
-      <Container className={classes.container}>
-        <h2 className={classes.date}>{year}</h2>
-        <h1 className={classes.title}>{name}</h1>
-        <h3 className={classes.description}>{description}</h3>
-        <Img className={classes.image} src={image} />
+      <PostContent>{html}</PostContent>
 
-        <PostContent>{html}</PostContent>
+      <footer className={classes.footer}>
+        <h4 className={classes.tagsHeader}>Tags</h4>
+        <Tags tags={tags} prefix="/projects" />
 
-        <footer className={classes.footer}>
-          <h4 className={classes.tagsHeader}>Tags</h4>
-          <Tags tags={tags} prefix="/projects" />
+        <div className={classes.comments}>
+          <Disqus config={disqusConfig} />
+        </div>
+      </footer>
 
-          <div className={classes.comments}>
-            <Disqus config={disqusConfig} />
-          </div>
-        </footer>
-
-      </Container>
-
-    </main>
+    </Container>
   )
 }
 
@@ -136,8 +130,15 @@ export const query = graphql`
 
 const ProjectPost = ( { data } ) => {
   const Component = withRootTheme( lightTheme )( ProjectPostTemplate )
+  const remarkProps = getRemarkProps( data )
 
-  return <Component {...getRemarkProps( data )} />
+  return (
+    <main>
+      <Header title={remarkProps.title} description={remarkProps.excerpt} />
+      <Navbar active="projects" />
+      <Component {...remarkProps} />
+    </main>
+  )
 }
 
 ProjectPost.propTypes = {

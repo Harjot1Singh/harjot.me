@@ -51,35 +51,29 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   },
 } ) )
 
-export const BlogPostTemplate = ( { title, date, html, excerpt, image, tags, slug } ) => {
+export const BlogPostTemplate = ( { title, date, html, image, tags, slug } ) => {
   const classes = useStyles()
 
   const disqusConfig = { identifier: slug, title }
 
   return (
-    <main>
-      <Header title={title} description={excerpt} />
-      <Navbar active="blog" />
+    <Container className={classes.container}>
+      <h1 className={classes.title}>{title}</h1>
+      <h2 className={classes.date}>{date}</h2>
+      <Img className={classes.image} src={image} />
 
-      <Container className={classes.container}>
-        <h1 className={classes.title}>{title}</h1>
-        <h2 className={classes.date}>{date}</h2>
-        <Img className={classes.image} src={image} />
+      <PostContent>{html}</PostContent>
 
-        <PostContent>{html}</PostContent>
+      <footer className={classes.footer}>
+        <h4 className={classes.tagsHeader}>Tags</h4>
+        <Tags tags={tags} prefix="/blog" />
 
-        <footer className={classes.footer}>
-          <h4 className={classes.tagsHeader}>Tags</h4>
-          <Tags tags={tags} prefix="/blog" />
+        <div className={classes.comments}>
+          <Disqus config={disqusConfig} />
+        </div>
+      </footer>
 
-          <div className={classes.comments}>
-            <Disqus config={disqusConfig} />
-          </div>
-        </footer>
-
-      </Container>
-
-    </main>
+    </Container>
   )
 }
 
@@ -87,7 +81,6 @@ BlogPostTemplate.propTypes = {
   html: node,
   title: string,
   date: string,
-  excerpt: string,
   tags: arrayOf( string ),
   image: shape( { childImageSharp: {} } ),
   slug: string.isRequired,
@@ -97,7 +90,6 @@ BlogPostTemplate.defaultProps = {
   html: null,
   title: null,
   date: null,
-  excerpt: null,
   tags: [],
   image: {},
 }
@@ -129,8 +121,15 @@ export const query = graphql`
 
 const BlogPost = ( { data } ) => {
   const Component = withRootTheme( lightTheme )( BlogPostTemplate )
+  const remarkProps = getRemarkProps( data )
 
-  return <Component {...getRemarkProps( data )} />
+  return (
+    <main>
+      <Header title={remarkProps.title} description={remarkProps.excerpt} />
+      <Navbar active="blog" />
+      <Component {...remarkProps} />
+    </main>
+  )
 }
 
 BlogPost.propTypes = {
