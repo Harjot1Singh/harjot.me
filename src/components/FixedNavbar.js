@@ -4,10 +4,11 @@ import { createUseStyles } from 'react-jss'
 import { string } from 'prop-types'
 import clsx from 'clsx'
 
-import { color } from '../lib/theme'
+import { color, lightTheme } from '../lib/theme'
 import useCommonData from '../hooks/use-common-data'
 
 import Img from './Img'
+import withRootTheme from './withRootTheme'
 
 const useStyles = createUseStyles( ( { font } ) => ( {
   navbar: {
@@ -111,4 +112,4 @@ Navbar.defaultProps = {
   active: null,
 }
 
-export default Navbar
+export default withRootTheme( lightTheme )( Navbar )
