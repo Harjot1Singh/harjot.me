@@ -4,6 +4,7 @@ module.exports = {
     description: "Harjot Singh's personal website",
   },
   plugins: [
+    'gatsby-plugin-transition-link',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-better-jss',
     {

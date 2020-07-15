@@ -9,6 +9,7 @@ import ProjectsSection from '../templates/projects-section'
 import ContactSection from '../templates/contact-section'
 import withRootTheme from '../components/withRootTheme'
 import Header from '../components/Header'
+import withTransition from '../components/withTransition'
 
 const sections = [
   [ HomeSection, 'home' ],
@@ -37,4 +38,4 @@ const Index = () => {
   )
 }
 
-export default withRootTheme( darkTheme )( Index )
+export default withRootTheme( darkTheme )( withTransition( Index ) )

@@ -3,7 +3,7 @@ import { shape } from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { graphql } from 'gatsby'
 
-import { lightTheme } from '../lib/theme'
+import { lightTheme, color } from '../lib/theme'
 import getRemarkProps from '../lib/get-remark-props'
 
 import useBlogTags from '../hooks/use-blog-tags'
@@ -16,20 +16,21 @@ import Pager from '../components/Pager'
 import BlogExcerpt from '../components/BlogExcerpt'
 import Filters from '../components/Filters'
 import Header from '../components/Header'
+import withTransition from '../components/withTransition'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
+const useStyles = createUseStyles( {
   container: {
     maxWidth: '50vw',
     margin: '80px auto',
   },
   separator: {
-    background: color.secondary,
+    background: color.lightGrey,
     height: '2px',
     width: '35%',
     border: 'none',
     margin: '100px 0',
   },
-} ) )
+} )
 
 const Blog = ( { data, pageContext } ) => {
   const { items } = getRemarkProps( data )
@@ -103,4 +104,4 @@ export const query = graphql`
   }
 `
 
-export default withRootTheme( lightTheme )( Blog )
+export default withRootTheme( lightTheme )( withTransition( Blog ) )

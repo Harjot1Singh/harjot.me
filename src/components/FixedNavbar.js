@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import { string } from 'prop-types'
 import clsx from 'clsx'
+import { Link } from 'gatsby'
+import TransitionLink from 'gatsby-plugin-transition-link'
 
 import { color, lightTheme } from '../lib/theme'
 import useCommonData from '../hooks/use-common-data'
@@ -59,12 +60,17 @@ const useStyles = createUseStyles( ( { font } ) => ( {
   },
 } ) )
 
+const transitionProps = {
+  entry: { length: 0.7 },
+  exit: { length: 0.7 },
+}
+
 const items = [
-  [ 'Home', '/#home' ],
-  [ 'About', '/#about' ],
-  [ 'Projects', '/projects' ],
-  [ 'Contact', '/#contact' ],
-  [ 'Blog', '/blog' ],
+  [ 'Home', '/#home', TransitionLink ],
+  [ 'About', '/#about', TransitionLink ],
+  [ 'Projects', '/projects', Link ],
+  [ 'Contact', '/#contact', TransitionLink ],
+  [ 'Blog', '/blog', Link ],
 ]
 
 const Navbar = ( { active } ) => {
@@ -90,14 +96,15 @@ const Navbar = ( { active } ) => {
       </div>
 
       <div className={classes.items}>
-        {items.map( ( [ name, to ] ) => (
-          <Link
+        {items.map( ( [ name, to, LinkComponent ] ) => (
+          <LinkComponent
+            {...transitionProps}
             key={name}
             to={to}
             className={clsx( classes.item, { [ classes.active ]: active === name.toLowerCase() } )}
           >
             {name}
-          </Link>
+          </LinkComponent>
         ) )}
       </div>
     </nav>

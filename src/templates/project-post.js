@@ -13,6 +13,7 @@ import Navbar from '../components/FixedNavbar'
 import Tags from '../components/Tags'
 import PostContent from '../components/PostContent'
 import Img from '../components/Img'
+import withTransition from '../components/withTransition'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   image: {
@@ -145,5 +146,5 @@ ProjectPost.propTypes = {
   data: shape( {} ).isRequired,
 }
 
-export default ProjectPost
+export default withTransition( ProjectPost )
 

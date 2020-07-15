@@ -3,7 +3,7 @@ import { shape } from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { graphql, Link } from 'gatsby'
 
-import { lightTheme } from '../lib/theme'
+import { lightTheme, color } from '../lib/theme'
 import getRemarkProps from '../lib/get-remark-props'
 
 import useProjectTags from '../hooks/use-project-tags'
@@ -16,8 +16,9 @@ import Pager from '../components/Pager'
 import Filters from '../components/Filters'
 import Header from '../components/Header'
 import Img from '../components/Img'
+import withTransition from '../components/withTransition'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
+const useStyles = createUseStyles( {
   container: {
     maxWidth: '50vw',
     margin: '80px auto',
@@ -44,7 +45,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   },
   description: {
     margin: 0,
-    color: color.secondary,
+    color: color.lightGrey,
   },
   image: {
     width: '20.5vw',
@@ -52,7 +53,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     borderRadius: '15px',
     marginBottom: '1em',
   },
-} ) )
+} )
 
 const Projects = ( { data, pageContext } ) => {
   const { items } = getRemarkProps( data )
@@ -74,7 +75,7 @@ const Projects = ( { data, pageContext } ) => {
 
         <div className={classes.projects}>
           {items.map( ( { slug, name, description, image } ) => (
-            <Link className={classes.project} to={slug}>
+            <Link key={slug} className={classes.project} to={slug}>
               <Img className={classes.image} src={image} fadeIn />
               <h2 className={classes.title}>{name}</h2>
               <p className={classes.description}>{description}</p>
@@ -125,4 +126,4 @@ export const query = graphql`
   }
 `
 
-export default withRootTheme( lightTheme )( Projects )
+export default withRootTheme( lightTheme )( withTransition( Projects ) )

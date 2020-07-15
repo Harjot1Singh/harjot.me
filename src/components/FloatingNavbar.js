@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link as GatsbyLink } from 'gatsby'
+import TransitionLink from 'gatsby-plugin-transition-link'
 import { Link } from 'react-scroll'
 import { createUseStyles } from 'react-jss'
 import useScrollPosition from '@react-hook/window-scroll'
@@ -38,12 +38,17 @@ const useStyles = createUseStyles( ( { font } ) => ( {
 const poppedInSpringConfig = { background: 'rgba(0, 0, 0, 0)' }
 const floatingSpringConfig = { background: 'rgba(94, 93, 98, 0.9)' }
 
+const transitionProps = {
+  entry: { length: 0.7 },
+  exit: { length: 0.7 },
+}
+
 const items = [
   [ 'Home', ( props ) => <Link {...props} to="home" smooth /> ],
   [ 'About', ( props ) => <Link {...props} to="about" smooth /> ],
-  [ 'Projects', ( props ) => <GatsbyLink {...props} to="projects" /> ],
+  [ 'Projects', ( props ) => <TransitionLink {...props} {...transitionProps} to="projects" /> ],
   [ 'Contact', ( props ) => <Link {...props} to="contact" smooth /> ],
-  [ 'Blog', ( props ) => <GatsbyLink {...props} to="blog" /> ],
+  [ 'Blog', ( props ) => <TransitionLink {...props} {...transitionProps} to="blog" /> ],
 ]
 
 const Navbar = ( { active } ) => {
