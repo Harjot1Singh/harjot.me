@@ -18,6 +18,7 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     float: 'right',
     margin: '10px 20px',
     borderRadius: '100px',
+    justifyContent: 'center',
     [ widthLessThan( breakpoints.tablet ) ]: {
       float: 'none',
       left: 0,
