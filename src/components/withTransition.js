@@ -11,9 +11,9 @@ const useStyles = createUseStyles( {
 } )
 
 const springTransition = {
-  from: { transform: 'translateX(100%)' },
-  enter: { transform: 'translateX(0%)' },
-  leave: { transform: 'translateX(100%)' },
+  from: { transform: 100 },
+  enter: { transform: 0 },
+  leave: { transform: 100 },
 }
 
 const withTransition = ( Component ) => ( componentProps ) => {
@@ -29,8 +29,15 @@ const withTransition = ( Component ) => ( componentProps ) => {
 
   const classes = useStyles()
 
-  return transitions.map( ( { item, props } ) => item && (
-    <animated.div key className={classes.root} style={props}>
+  return transitions.map( ( { item, props: { transform, ...props } } ) => item && (
+    <animated.div
+      key
+      className={classes.root}
+      style={{
+        ...props,
+        transform: transform.interpolate( ( t ) => ( t ? `translateX(${t}%)` : 'none' ) ),
+      }}
+    >
       <Component {...componentProps} />
     </animated.div>
   ) )
