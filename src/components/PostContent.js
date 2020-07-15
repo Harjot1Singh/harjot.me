@@ -15,6 +15,12 @@ const useStyles = createUseStyles( () => ( {
     '--grvsc-line-highlighted-border-width': '5px',
     '& .grvsc-container': {
       fontSize: '14px',
+      '&::-webkit-scrollbar-track': {
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+      },
     },
 
     '& img': {
