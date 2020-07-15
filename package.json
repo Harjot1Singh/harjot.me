@@ -54,7 +54,7 @@
     "lint": "eslint .",
     "start": "npm run develop",
     "build": "npm run clean && gatsby build",
-    "develop": "npm run clean && gatsby develop"
+    "develop": "npm run clean && gatsby develop -H 0.0.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

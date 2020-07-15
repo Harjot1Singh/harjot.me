@@ -18,6 +18,11 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     float: 'right',
     margin: '10px 20px',
     borderRadius: '100px',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      float: 'none',
+      left: 0,
+      right: 0,
+    },
   },
   item: {
     color: color.white,
@@ -36,6 +41,9 @@ const useStyles = createUseStyles( ( { font } ) => ( {
   active: {
     letterSpacing: '5px',
     fontWeight: 'bold',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      letterSpacing: 'initial',
+    },
   },
   optional: {
     [ widthLessThan( breakpoints.tablet ) ]: {
