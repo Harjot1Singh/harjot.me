@@ -62,7 +62,7 @@ export const getGlobalStyles = ( theme ) => ( {
 } )
 
 export const breakpoints = {
-  mobile: 425,
+  mobile: 480,
   tablet: 768,
   laptop: 1024,
 }
