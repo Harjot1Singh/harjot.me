@@ -30,6 +30,7 @@ export const getGlobalStyles = ( theme ) => ( {
   '@global': {
     body: {
       fontFamily: theme.font.body,
+      overflowX: 'hidden',
     },
     main: {
       display: 'flex',
