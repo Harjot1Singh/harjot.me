@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { Link } from 'gatsby'
 import TransitionLink from 'gatsby-plugin-transition-link'
 
-import { color, lightTheme } from '../lib/theme'
+import { color, lightTheme, widthLessThan, breakpoints } from '../lib/theme'
 import useCommonData from '../hooks/use-common-data'
 
 import Img from './Img'
@@ -26,12 +26,20 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     display: 'flex',
     justifyContent: 'center',
   },
+  optional: {
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      display: 'none',
+    },
+  },
   persona: {
     display: 'flex',
     alignItems: 'center',
     position: 'absolute',
-    left: '100px',
     top: '2px',
+    margin: '17px',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      display: 'none',
+    },
   },
   profilePicture: {
     borderRadius: '100px',
@@ -39,6 +47,10 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     height: '35px',
   },
   name: {
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      display: 'none',
+    },
+    margin: 0,
     marginLeft: '20px',
     color: color.green,
     fontWeight: 'normal',
@@ -66,11 +78,11 @@ const transitionProps = {
 }
 
 const items = [
-  [ 'Home', '/#home', TransitionLink ],
+  [ 'Home', '/#home', TransitionLink, true ],
   [ 'About', '/#about', TransitionLink ],
-  [ 'Projects', '/projects', Link ],
+  [ 'Projects', '/projects', Link, true ],
   [ 'Contact', '/#contact', TransitionLink ],
-  [ 'Blog', '/blog', Link ],
+  [ 'Blog', '/blog', Link, true ],
 ]
 
 const Navbar = ( { active } ) => {
@@ -96,12 +108,18 @@ const Navbar = ( { active } ) => {
       </div>
 
       <div className={classes.items}>
-        {items.map( ( [ name, to, LinkComponent ] ) => (
+        {items.map( ( [ name, to, LinkComponent, required ] ) => (
           <LinkComponent
             {...transitionProps}
             key={name}
             to={to}
-            className={clsx( classes.item, { [ classes.active ]: active === name.toLowerCase() } )}
+            className={clsx(
+              classes.item,
+              {
+                [ classes.active ]: active === name.toLowerCase(),
+                [ classes.optional ]: !required,
+              },
+            )}
           >
             {name}
           </LinkComponent>

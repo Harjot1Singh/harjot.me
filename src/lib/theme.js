@@ -60,3 +60,12 @@ export const getGlobalStyles = ( theme ) => ( {
     },
   },
 } )
+
+export const breakpoints = {
+  mobile: 425,
+  tablet: 768,
+  laptop: 1024,
+}
+
+export const widthMoreThan = ( width ) => `@media screen and (min-width: ${width}px)`
+export const widthLessThan = ( width ) => `@media screen and (max-width: ${width - 1}px)`

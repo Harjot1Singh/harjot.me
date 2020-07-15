@@ -7,7 +7,7 @@ import { animated, useSpring } from 'react-spring'
 import { string } from 'prop-types'
 import clsx from 'clsx'
 
-import { color } from '../lib/theme'
+import { color, widthLessThan, breakpoints } from '../lib/theme'
 
 const useStyles = createUseStyles( ( { font } ) => ( {
   navbar: {
@@ -28,10 +28,19 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     textDecoration: 'none',
     cursor: 'pointer',
     letterSpacing: 0,
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      fontSize: '20px',
+      padding: '10px 20px',
+    },
   },
   active: {
     letterSpacing: '5px',
     fontWeight: 'bold',
+  },
+  optional: {
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      display: 'none',
+    },
   },
 } ) )
 
@@ -44,11 +53,11 @@ const transitionProps = {
 }
 
 const items = [
-  [ 'Home', ( props ) => <Link {...props} to="home" smooth /> ],
+  [ 'Home', ( props ) => <Link {...props} to="home" smooth />, true ],
   [ 'About', ( props ) => <Link {...props} to="about" smooth /> ],
-  [ 'Projects', ( props ) => <TransitionLink {...props} {...transitionProps} to="projects" /> ],
+  [ 'Projects', ( props ) => <TransitionLink {...props} {...transitionProps} to="projects" />, true ],
   [ 'Contact', ( props ) => <Link {...props} to="contact" smooth /> ],
-  [ 'Blog', ( props ) => <TransitionLink {...props} {...transitionProps} to="blog" /> ],
+  [ 'Blog', ( props ) => <TransitionLink {...props} {...transitionProps} to="blog" />, true ],
 ]
 
 const Navbar = ( { active } ) => {
@@ -69,10 +78,16 @@ const Navbar = ( { active } ) => {
       role="navigation"
       aria-label="main-navigation"
     >
-      {items.map( ( [ name, LinkComponent ] ) => (
+      {items.map( ( [ name, LinkComponent, required ] ) => (
         <LinkComponent
           key={name}
-          className={clsx( classes.item, { [ classes.active ]: active === name.toLowerCase() } )}
+          className={clsx(
+            classes.item,
+            {
+              [ classes.active ]: active === name.toLowerCase(),
+              [ classes.optional ]: !required,
+            },
+          )}
         >
           {name}
         </LinkComponent>
