@@ -4,6 +4,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import { useTransition, animated, config } from 'react-spring'
 
+import { color } from '../lib/theme'
 import useRotatingItem from '../hooks/use-rotating-item'
 import useCommonData from '../hooks/use-common-data'
 import withRemarkProps from '../components/withRemarkProps'
@@ -17,7 +18,7 @@ import LinkedinIcon from '../../static/img/icons/linkedin.inline.svg'
 import CvIcon from '../../static/img/icons/cv.inline.svg'
 import TriangleDown from '../../static/img/icons/triangle-down.inline.svg'
 
-const useStyles = createUseStyles( ( { color, background } ) => ( {
+const useStyles = createUseStyles( {
   root: {
     height: '100vh',
     maxHeight: '1080px',
@@ -35,7 +36,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
     '& img': {
       borderRadius: '100vw',
       padding: '10px',
-      background: background.dark,
+      background: color.darkGrey,
     },
     '&:before': {
       borderRadius: '100vw',
@@ -46,18 +47,18 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
       right: '-5px',
       bottom: '-20px',
       content: '""',
-      background: `linear-gradient(${color.secondary}, transparent)`,
+      background: `linear-gradient(${color.green}, transparent)`,
       transition: '500ms all ease-in',
     },
     '&:hover:before': {
-      background: `linear-gradient(${color.secondary}, ${color.secondary})`,
+      background: `linear-gradient(${color.green}, ${color.green})`,
       top: '10px',
     },
   },
   name: {
     fontSize: '7.75em',
     textTransform: 'uppercase',
-    color: color.secondary,
+    color: color.green,
     fontWeight: 'normal',
     margin: 0,
     '& > strong:after': { content: "' '" },
@@ -93,7 +94,7 @@ const useStyles = createUseStyles( ( { color, background } ) => ( {
     margin: '20px auto',
     width: '100%',
   },
-} ) )
+} )
 
 const roleTransitionsConfig = {
   config: config.stiff,

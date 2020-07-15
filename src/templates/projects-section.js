@@ -1,15 +1,17 @@
 import React from 'react'
 import { string, arrayOf, shape } from 'prop-types'
-import { graphql, StaticQuery, Link } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
+import TransitionLink from 'gatsby-plugin-transition-link'
 
+import { color } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import Container from '../components/Container'
 import SectionHeader from '../components/SectionHeader'
 import SectionBackground from '../components/SectionBackground'
 import Img from '../components/Img'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
+const useStyles = createUseStyles( {
   root: {
     overflow: 'hidden',
     position: 'relative',
@@ -38,7 +40,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
       left: '-3px',
       right: '-3px',
       bottom: 0,
-      background: `linear-gradient(${color.primary}, transparent)`,
+      background: `linear-gradient(${color.white}, transparent)`,
       transition: '0.3s all ease-in',
     },
     '& img': {
@@ -79,7 +81,12 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     marginBottom: '35px',
     transition: '0.15s all ease-in-out',
   },
-} ) )
+} )
+
+const transitionProps = {
+  entry: { length: 0.7 },
+  exit: { length: 0.7 },
+}
 
 export const ProjectSectionTemplate = ( { id, items } ) => {
   const classes = useStyles()
@@ -93,17 +100,17 @@ export const ProjectSectionTemplate = ( { id, items } ) => {
 
         <div className={classes.cards}>
           {items.map( ( { name, image, slug } ) => (
-            <Link key={slug} className={classes.card} to={slug}>
+            <TransitionLink {...transitionProps} key={slug} className={classes.card} to={slug}>
               <Img src={image} />
 
               <div className={classes.cardContent}>
                 <h3>{name}</h3>
               </div>
-            </Link>
+            </TransitionLink>
           ) )}
         </div>
 
-        <Link className={classes.viewAll} to="/projects">View All ▸</Link>
+        <TransitionLink className={classes.viewAll} {...transitionProps} to="/projects">View All ▸</TransitionLink>
 
       </Container>
     </section>

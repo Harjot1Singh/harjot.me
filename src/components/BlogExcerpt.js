@@ -16,6 +16,7 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     fontSize: '22px',
     lineHeight: '1.5em',
     textDecoration: 'none',
+    color: color.primary,
   },
   title: {
     fontSize: '48px',

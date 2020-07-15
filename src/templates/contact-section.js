@@ -3,6 +3,7 @@ import { string, node } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
+import { color } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import useCommonData from '../hooks/use-common-data'
 

@@ -3,6 +3,7 @@ import { string, arrayOf, node } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
+import { color } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import HTMLContent from '../components/HTMLContent'
 import Container from '../components/Container'
@@ -11,9 +12,10 @@ import SectionBackground from '../components/SectionBackground'
 import SectionHeader from '../components/SectionHeader'
 import Chip from '../components/Chip'
 
-const useStyles = createUseStyles( ( { color, background, font } ) => ( {
+const useStyles = createUseStyles( ( { font } ) => ( {
   root: {
-    background: background.light,
+    background: color.lightGrey,
+    color: color.white,
     paddingBottom: '50px',
     position: 'relative',
   },
@@ -27,7 +29,7 @@ const useStyles = createUseStyles( ( { color, background, font } ) => ( {
     fontSize: '30px',
     textTransform: 'uppercase',
     fontFamily: font.body,
-    color: color.secondary,
+    color: color.white,
   },
   chips: {
     display: 'flex',
