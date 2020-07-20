@@ -3,16 +3,18 @@ import { createUseStyles } from 'react-jss'
 import clsx from 'clsx'
 import { string, node } from 'prop-types'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
+import { color } from '../lib/theme'
+
+const useStyles = createUseStyles( {
   root: {
     '& svg :first-child': {
       transition: '0.15s all ease-in-out',
     },
     '&:hover svg :first-child': {
-      fill: color.secondary,
+      fill: color.green,
     },
   },
-} ) )
+} )
 
 const IconLink = ( { className, href, children } ) => {
   const classes = useStyles()

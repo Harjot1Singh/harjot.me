@@ -5,9 +5,11 @@ import { createUseStyles } from 'react-jss'
 import { kebabCase } from 'lodash'
 import { Link } from 'gatsby'
 
+import { color } from '../lib/theme'
+
 import Chip from './Chip'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
+const useStyles = createUseStyles( {
   tags: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -18,9 +20,9 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     },
   },
   tag: {
-    background: color.secondary,
+    background: color.green,
   },
-} ) )
+} )
 
 const Tags = ( { className, tags, prefix } ) => {
   const classes = useStyles()

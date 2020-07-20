@@ -61,7 +61,7 @@ const useStyles = createUseStyles( {
     },
     '&:hover': {
       '&:before': {
-        background: `linear-gradient(${color.primary}, transparent)`,
+        background: `linear-gradient(${color.white}, transparent)`,
       },
       '& > *': {
         borderRadius: '15px',

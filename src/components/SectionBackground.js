@@ -4,7 +4,9 @@ import { bool, string } from 'prop-types'
 import clsx from 'clsx'
 import { useSpring, animated } from 'react-spring'
 
-const useStyles = createUseStyles( ( { background, color } ) => ( {
+import { color } from '../lib/theme'
+
+const useStyles = createUseStyles( {
   outerBackground: {
     position: 'absolute',
     overflow: 'hidden',
@@ -13,7 +15,7 @@ const useStyles = createUseStyles( ( { background, color } ) => ( {
     width: '100%',
     height: '100%',
     zIndex: -1,
-    backgroundColor: ( { outsideDark } ) => ( outsideDark ? background.dark : background.light ),
+    backgroundColor: ( { outsideDark } ) => ( outsideDark ? color.darkGrey : color.lightGrey ),
   },
   innerBackground: {
     boxSizing: 'border-box',
@@ -23,7 +25,7 @@ const useStyles = createUseStyles( ( { background, color } ) => ( {
     left: '-2%',
     right: '-2%',
     margin: '6px',
-    backgroundColor: ( { insideDark } ) => ( insideDark ? background.dark : background.light ),
+    backgroundColor: ( { insideDark } ) => ( insideDark ? color.darkGrey : color.lightGrey ),
     borderRadius: ( { borderRadius } ) => borderRadius,
   },
   border: {
@@ -34,9 +36,9 @@ const useStyles = createUseStyles( ( { background, color } ) => ( {
     left: '-5px',
     right: '-5px',
     bottom: '-5px',
-    background: ( { direction } ) => `linear-gradient(to ${direction}, ${color.secondary}, transparent)`,
+    background: ( { direction } ) => `linear-gradient(to ${direction}, ${color.green}, transparent)`,
   },
-} ) )
+} )
 
 const borderSpringConfig = {
   from: { margin: '20px' },
