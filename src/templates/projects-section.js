@@ -4,7 +4,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import TransitionLink from 'gatsby-plugin-transition-link'
 
-import { color } from '../lib/theme'
+import { color, breakpoints, widthLessThan, widthMoreThan } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import Container from '../components/Container'
 import SectionHeader from '../components/SectionHeader'
@@ -19,17 +19,29 @@ const useStyles = createUseStyles( {
   innerBackground: {
     height: '110px',
     top: '-10px',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      height: '80px',
+    },
   },
   cards: {
-    margin: '50px',
+    [ widthMoreThan( breakpoints.mobile ) ]: {
+      padding: '50px 0',
+    },
+    margin: '20px',
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
     justifyContent: 'space-around',
+    '& > a': {
+      position: 'relative',
+      maxWidth: '400px',
+      width: '100%',
+      margin: '15px 10px',
+      textDecoration: 'none',
+    },
   },
   card: {
     position: 'relative',
-    margin: '10px',
     borderRadius: '15px',
     transition: '0.15s all ease-in-out',
     '&:before': {
@@ -71,11 +83,27 @@ const useStyles = createUseStyles( {
     alignItems: 'center',
     justifyContent: 'center',
     '& h3': {
+      textAlign: 'center',
       textTransform: 'uppercase',
       fontWeight: 'normal',
     },
   },
+  nameHeader: {
+    fontWeight: 'normal',
+    display: 'none',
+    borderLeft: `0.075em solid ${color.green}`,
+    paddingLeft: '0.5em',
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      display: 'block',
+    },
+    [ widthMoreThan( breakpoints.mobile ) ]: {
+      fontSize: '1.5em',
+    },
+  },
   viewAll: {
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      fontSize: '24px',
+    },
     fontSize: '28px',
     textDecoration: 'none',
     marginBottom: '35px',
@@ -96,15 +124,19 @@ export const ProjectSectionTemplate = ( { id, items } ) => {
       <SectionBackground className={classes.innerBackground} outsideDark borderRadius="0 0 0 10vw" />
 
       <Container>
-        <SectionHeader>Projects</SectionHeader>
+        <SectionHeader className={classes.header}>Projects</SectionHeader>
 
         <div className={classes.cards}>
           {items.map( ( { name, image, slug } ) => (
-            <TransitionLink {...transitionProps} key={slug} className={classes.card} to={slug}>
-              <Img src={image} />
+            <TransitionLink {...transitionProps} key={slug} to={slug}>
+              <h3 className={classes.nameHeader}>{name}</h3>
 
-              <div className={classes.cardContent}>
-                <h3>{name}</h3>
+              <div className={classes.card}>
+                <Img src={image} />
+
+                <div className={classes.cardContent}>
+                  <h3>{name}</h3>
+                </div>
               </div>
             </TransitionLink>
           ) )}
@@ -142,8 +174,8 @@ const query = graphql`
           tags
           image {
           childImageSharp {
-            fixed(quality: 100, width: 400, height: 200) {
-                ...GatsbyImageSharpFixed
+            fluid(quality: 100, maxWidth: 400, maxHeight: 200) {
+                ...GatsbyImageSharpFluid
              }
            }
           }

@@ -4,7 +4,7 @@ import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import { useTransition, animated, config } from 'react-spring'
 
-import { color } from '../lib/theme'
+import { color, widthLessThan, breakpoints, widthMoreThan } from '../lib/theme'
 import useRotatingItem from '../hooks/use-rotating-item'
 import useCommonData from '../hooks/use-common-data'
 import withRemarkProps from '../components/withRemarkProps'
@@ -20,10 +20,14 @@ import TriangleDown from '../../static/img/icons/triangle-down.inline.svg'
 
 const useStyles = createUseStyles( {
   root: {
-    height: '100vh',
+    height: '90vh',
     maxHeight: '1080px',
     position: 'relative',
-    fontSize: '1vmin',
+    fontSize: '1.5vmin',
+    [ widthMoreThan( breakpoints.mobile ) ]: {
+      height: '100vh',
+      fontSize: '1vmin',
+    },
   },
   main: {
     marginTop: '30px',
@@ -31,21 +35,25 @@ const useStyles = createUseStyles( {
   profilePicture: {
     width: '40em',
     height: '40em',
-    margin: '100px',
+    margin: '10em',
+    [ widthLessThan( breakpoints.mobile ) ]: {
+      width: '30em',
+      height: '30em',
+    },
     overflow: 'visible !important',
     '& img': {
       borderRadius: '100vw',
-      padding: '10px',
+      padding: '1em',
       background: color.darkGrey,
     },
     '&:before': {
       borderRadius: '100vw',
       position: 'absolute',
       padding: '10px',
-      top: '-5px',
-      left: '-5px',
-      right: '-5px',
-      bottom: '-20px',
+      top: '-0.5em',
+      left: '-0.5em',
+      right: '-0.5em',
+      bottom: '-2em',
       content: '""',
       background: `linear-gradient(${color.green}, transparent)`,
       transition: '500ms all ease-in',
@@ -67,6 +75,7 @@ const useStyles = createUseStyles( {
     position: 'relative',
     height: '60px',
     width: '100%',
+    marginTop: '1em',
   },
   role: {
     margin: 0,
@@ -85,14 +94,17 @@ const useStyles = createUseStyles( {
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
+    '& svg': {
+      width: '8em',
+    },
   },
   icon: {
     margin: '0 15px',
   },
   triangleDown: {
     display: 'block',
-    margin: '20px auto',
-    width: '100%',
+    margin: '2em auto',
+    width: '100% !important',
   },
 } )
 

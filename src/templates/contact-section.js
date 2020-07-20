@@ -3,7 +3,7 @@ import { string, node } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
-import { color } from '../lib/theme'
+import { widthLessThan, breakpoints } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import useCommonData from '../hooks/use-common-data'
 
@@ -24,23 +24,43 @@ const useStyles = createUseStyles( {
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      justifyContent: 'center',
+    },
   },
   content: {
     fontSize: '28px',
     lineHeight: '40px',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      fontSize: '22px',
+      lineHeight: '28px',
+    },
   },
   iconLinks: {
     display: 'flex',
     flexDirection: 'column',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      flexDirection: 'row',
+    },
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      '& span': {
+        display: 'none',
+      },
+    },
     '& > *': {
-      textDecoration: 'none',
       fontSize: '24px',
+      textDecoration: 'none',
       fontWeight: 'bold',
     },
   },
   icon: {
     margin: '20px',
     '& svg': {
+      [ widthLessThan( breakpoints.tablet ) ]: {
+        marginRight: '0',
+        justifyContent: 'center',
+      },
       width: '65px',
       height: '65px',
       marginRight: '40px',
@@ -64,7 +84,7 @@ export const ContactSectionTemplate = ( { id, html } ) => {
 
   return (
     <section className={classes.root} id={id}>
-      <SectionBackground outsideDark borderRadius="0 15vw 0 0" />
+      <SectionBackground outsideDark borderRadius="0 15vw 0 0" direction="bottom right" />
 
       <Container>
         <SectionHeader>Contact</SectionHeader>

@@ -20,8 +20,8 @@ const useStyles = createUseStyles( ( { background, color } ) => ( {
     position: 'absolute',
     top: 0,
     bottom: 0,
-    left: '-1%',
-    right: '-1%',
+    left: '-2%',
+    right: '-2%',
     margin: '6px',
     backgroundColor: ( { insideDark } ) => ( insideDark ? background.dark : background.light ),
     borderRadius: ( { borderRadius } ) => borderRadius,
@@ -34,7 +34,7 @@ const useStyles = createUseStyles( ( { background, color } ) => ( {
     left: '-5px',
     right: '-5px',
     bottom: '-5px',
-    background: `linear-gradient(to top right, ${color.secondary}, transparent)`,
+    background: ( { direction } ) => `linear-gradient(to ${direction}, ${color.secondary}, transparent)`,
   },
 } ) )
 
@@ -43,8 +43,8 @@ const borderSpringConfig = {
   to: { margin: '0px' },
 }
 
-const SectionBackground = ( { className, outsideDark, insideDark, borderRadius } ) => {
-  const classes = useStyles( { outsideDark, insideDark, borderRadius } )
+const SectionBackground = ( { className, outsideDark, insideDark, borderRadius, direction } ) => {
+  const classes = useStyles( { outsideDark, insideDark, borderRadius, direction } )
 
   const [ borderProps ] = useSpring( () => borderSpringConfig )
 
@@ -62,6 +62,7 @@ SectionBackground.propTypes = {
   outsideDark: bool,
   insideDark: bool,
   borderRadius: string,
+  direction: string,
 }
 
 SectionBackground.defaultProps = {
@@ -69,6 +70,7 @@ SectionBackground.defaultProps = {
   outsideDark: false,
   insideDark: false,
   borderRadius: '0px',
+  direction: 'top right',
 }
 
 export default SectionBackground

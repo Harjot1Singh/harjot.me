@@ -1,6 +1,7 @@
 import React from 'react'
 import { node } from 'prop-types'
 import { createUseStyles } from 'react-jss'
+import { widthLessThan, breakpoints } from '../lib/theme'
 
 const useStyles = createUseStyles( ( { color } ) => ( {
   header: {
@@ -8,6 +9,9 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     color: color.secondary,
     width: '100%',
     fontSize: '40px',
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      fontSize: '32px',
+    },
   },
 } ) )
 

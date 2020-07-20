@@ -3,7 +3,7 @@ import { string, arrayOf, node } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
-import { color } from '../lib/theme'
+import { color, widthMoreThan, breakpoints } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import HTMLContent from '../components/HTMLContent'
 import Container from '../components/Container'
@@ -18,18 +18,26 @@ const useStyles = createUseStyles( ( { font } ) => ( {
     color: color.white,
     paddingBottom: '50px',
     position: 'relative',
+    fontSize: '2.75vmin',
+    [ widthMoreThan( breakpoints.tablet ) ]: {
+      fontSize: '1.5vmin',
+    },
+    [ widthMoreThan( breakpoints.mobile ) ]: {
+      fontSize: '1.75vmin',
+    },
   },
   content: {
-    fontSize: '30px',
+    fontSize: '2em',
     textAlign: 'center',
   },
   skillsHeader: {
     width: '100%',
     fontWeight: 'normal',
-    fontSize: '30px',
+    fontSize: '2em',
     textTransform: 'uppercase',
     fontFamily: font.body,
     color: color.white,
+    marginTop: '1em',
   },
   chips: {
     display: 'flex',
