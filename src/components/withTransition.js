@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useTransition, animated } from 'react-spring'
 import { useTransitionState } from 'gatsby-plugin-transition-link/hooks'
 import { createUseStyles } from 'react-jss'

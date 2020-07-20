@@ -1,7 +1,7 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { Link } from 'gatsby'
-import { string, number } from 'prop-types'
+import { string } from 'prop-types'
 
 const useStyles = createUseStyles( ( {
   pages: {
