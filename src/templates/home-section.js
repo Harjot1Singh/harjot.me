@@ -81,6 +81,7 @@ const useStyles = createUseStyles( {
     margin: 0,
     width: '100%',
     textAlign: 'center',
+    color: color.white,
     fontSize: '5.5em',
     textTransform: 'uppercase',
     fontWeight: 'normal',

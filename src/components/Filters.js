@@ -4,30 +4,33 @@ import { kebabCase } from 'lodash'
 import { createUseStyles } from 'react-jss'
 import { Link } from 'gatsby'
 
-import * as theme from '../lib/theme'
+import { widthLessThan, breakpoints, color } from '../lib/theme'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
+const useStyles = createUseStyles( {
   categories: {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
     marginLeft: '-35vw',
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      display: 'none',
+    },
   },
   item: {
     textDecoration: 'none',
     margin: '0.25em 0',
-    color: color.secondary,
+    color: color.lightGrey,
   },
   active: {
-    color: theme.color.green,
+    color: color.green,
   },
   header: {
     fontSize: '1em',
     textTransform: 'uppercase',
-    color: color.secondary,
+    color: color.lightGrey,
     marginBottom: '0.5em',
   },
-} ) )
+} )
 
 const Filters = ( { prefix, tags } ) => {
   const classes = useStyles()

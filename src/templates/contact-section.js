@@ -3,7 +3,7 @@ import { string, node } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
-import { widthLessThan, breakpoints } from '../lib/theme'
+import { widthLessThan, breakpoints, color } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import useCommonData from '../hooks/use-common-data'
 
@@ -36,6 +36,9 @@ const useStyles = createUseStyles( {
       fontSize: '22px',
       lineHeight: '28px',
     },
+    '& *': {
+      color: color.white,
+    },
   },
   iconLinks: {
     display: 'flex',
@@ -52,6 +55,7 @@ const useStyles = createUseStyles( {
       fontSize: '24px',
       textDecoration: 'none',
       fontWeight: 'bold',
+      color: color.white,
     },
   },
   icon: {

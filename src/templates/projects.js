@@ -3,7 +3,7 @@ import { shape } from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { graphql, Link } from 'gatsby'
 
-import { lightTheme, color } from '../lib/theme'
+import { lightTheme, color, widthMoreThan, breakpoints, widthLessThan } from '../lib/theme'
 import getRemarkProps from '../lib/get-remark-props'
 
 import useProjectTags from '../hooks/use-project-tags'
@@ -20,14 +20,24 @@ import withTransition from '../components/withTransition'
 
 const useStyles = createUseStyles( {
   container: {
-    maxWidth: '50vw',
     margin: '80px auto',
+    maxWidth: '50vw',
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      maxWidth: '90vw',
+      margin: '50px auto',
+    },
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      maxWidth: '100vw',
+    },
   },
   projects: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   project: {
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      width: '100%',
+    },
     padding: '2em',
     boxSizing: 'border-box',
     width: '50%',
@@ -50,6 +60,14 @@ const useStyles = createUseStyles( {
   image: {
     width: '20.5vw',
     height: '20.5vw',
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      width: '35.35vw',
+      height: '35.35vw',
+    },
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      width: '77.5vw',
+      height: '77.5vw',
+    },
     borderRadius: '15px',
     marginBottom: '1em',
   },

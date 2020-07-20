@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss'
 import { Disqus } from 'gatsby-plugin-disqus'
 
 import getRemarkProps from '../lib/get-remark-props'
-import { lightTheme } from '../lib/theme'
+import { lightTheme, color, breakpoints, widthLessThan } from '../lib/theme'
 import withRootTheme from '../components/withRootTheme'
 import Header from '../components/Header'
 import Container from '../components/Container'
@@ -15,24 +15,30 @@ import PostContent from '../components/PostContent'
 import Img from '../components/Img'
 import withTransition from '../components/withTransition'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
-  image: {
-    width: '100%',
-    margin: '2em 0',
-  },
+const useStyles = createUseStyles( {
   container: {
     maxWidth: '40vw',
     margin: '80px auto',
     alignItems: 'flex-start',
     fontSize: '22px',
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      maxWidth: '90vw',
+    },
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      fontSize: '20px',
+    },
+  },
+  image: {
+    width: '100%',
+    margin: '2em 0',
   },
   title: {
     fontSize: '48px',
     margin: 0,
-    color: color.secondary,
+    color: color.lightGrey,
   },
   date: {
-    color: color.secondary,
+    color: color.lightGrey,
     marginTop: '0.5em',
     fontSize: '1.15em',
   },
@@ -45,12 +51,12 @@ const useStyles = createUseStyles( ( { color } ) => ( {
   tagsHeader: {
     marginBottom: '0.5em',
     textTransform: 'uppercase',
-    color: color.secondary,
+    color: color.lightGrey,
   },
   comments: {
     marginTop: '1em',
   },
-} ) )
+} )
 
 export const BlogPostTemplate = ( { title, date, html, image, tags, slug } ) => {
   const classes = useStyles()

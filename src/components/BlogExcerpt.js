@@ -3,23 +3,28 @@ import { string, shape, arrayOf } from 'prop-types'
 import { Link } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
+import { color, widthLessThan, breakpoints } from '../lib/theme'
+
 import Img from './Img'
 import Tags from './Tags'
 
-const useStyles = createUseStyles( ( { color } ) => ( {
+const useStyles = createUseStyles( {
+  post: {
+    fontSize: '22px',
+    lineHeight: '1.5em',
+    textDecoration: 'none',
+    color: color.darkGrey,
+    [ widthLessThan( breakpoints.tablet ) ]: {
+      fontSize: '20px',
+    },
+  },
   image: {
     width: '100%',
     height: '25vh',
     borderRadius: '15px',
   },
-  post: {
-    fontSize: '22px',
-    lineHeight: '1.5em',
-    textDecoration: 'none',
-    color: color.primary,
-  },
   title: {
-    fontSize: '48px',
+    fontSize: '2em',
     lineHeight: '1.2em',
     margin: '0',
     '&:hover': {
@@ -27,10 +32,10 @@ const useStyles = createUseStyles( ( { color } ) => ( {
     },
   },
   date: {
-    color: color.secondary,
-    marginBottom: '15px',
+    color: color.lightGrey,
+    marginBottom: '0.75em',
   },
-} ) )
+} )
 
 const BlogExcerpt = ( { slug, image, date, title, excerpt, tags } ) => {
   const classes = useStyles()

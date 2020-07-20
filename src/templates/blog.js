@@ -3,7 +3,7 @@ import { shape } from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { graphql } from 'gatsby'
 
-import { lightTheme, color } from '../lib/theme'
+import { lightTheme, color, widthLessThan, breakpoints } from '../lib/theme'
 import getRemarkProps from '../lib/get-remark-props'
 
 import useBlogTags from '../hooks/use-blog-tags'
@@ -22,6 +22,9 @@ const useStyles = createUseStyles( {
   container: {
     maxWidth: '50vw',
     margin: '80px auto',
+    [ widthLessThan( breakpoints.laptop ) ]: {
+      maxWidth: '90vw',
+    },
   },
   separator: {
     background: color.lightGrey,

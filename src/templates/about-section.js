@@ -3,7 +3,7 @@ import { string, arrayOf, node } from 'prop-types'
 import { graphql, StaticQuery } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 
-import { color, widthMoreThan, breakpoints } from '../lib/theme'
+import { color, widthMoreThan, breakpoints, font } from '../lib/theme'
 import withRemarkProps from '../components/withRemarkProps'
 import HTMLContent from '../components/HTMLContent'
 import Container from '../components/Container'
@@ -12,7 +12,7 @@ import SectionBackground from '../components/SectionBackground'
 import SectionHeader from '../components/SectionHeader'
 import Chip from '../components/Chip'
 
-const useStyles = createUseStyles( ( { font } ) => ( {
+const useStyles = createUseStyles( {
   root: {
     background: color.lightGrey,
     color: color.white,
@@ -29,6 +29,9 @@ const useStyles = createUseStyles( ( { font } ) => ( {
   content: {
     fontSize: '2em',
     textAlign: 'center',
+    '& *': {
+      color: color.white,
+    },
   },
   skillsHeader: {
     width: '100%',
@@ -42,7 +45,7 @@ const useStyles = createUseStyles( ( { font } ) => ( {
   chips: {
     display: 'flex',
   },
-} ) )
+} )
 
 export const AboutSectionTemplate = ( { id, html, skills } ) => {
   const classes = useStyles()
