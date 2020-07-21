@@ -67,5 +67,5 @@ export const breakpoints = {
   laptop: 1024,
 }
 
-export const widthMoreThan = ( width ) => `@media screen and (min-device-width: ${width}px)`
-export const widthLessThan = ( width ) => `@media screen and (max-device-width: ${width - 1}px)`
+export const widthMoreThan = ( width ) => `@media screen and (min-width: ${width}px)`
+export const widthLessThan = ( width ) => `@media screen and (max-width: ${width - 1}px)`
