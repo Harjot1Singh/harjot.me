@@ -18,6 +18,9 @@ const useStyles = createUseStyles( {
     '& > :first-child > div': {
       marginLeft: 0,
     },
+    '& a': {
+      textDecoration: 'none',
+    },
   },
   tag: {
     background: color.green,
