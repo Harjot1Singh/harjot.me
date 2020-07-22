@@ -4,5 +4,9 @@ name: Harjot Singh
 roles:
   - Full-stack Engineer
   - Software Engineer
-cv: /img/dummy.pdf
+  - Full-stack Developer
+  - Software Developer
+  - Product Engineer
+  - Product Developer
+cv: /img/harjot-singh-cv.pdf
 ---
