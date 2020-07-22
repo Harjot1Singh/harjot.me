@@ -44,6 +44,7 @@ const useStyles = createUseStyles( {
   },
   chips: {
     display: 'flex',
+    flexWrap: 'wrap',
   },
 } )
 
