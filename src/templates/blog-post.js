@@ -17,7 +17,7 @@ import withTransition from '../components/withTransition'
 
 const useStyles = createUseStyles( {
   container: {
-    maxWidth: '40vw',
+    maxWidth: '768px',
     margin: '80px auto',
     alignItems: 'flex-start',
     fontSize: '22px',
