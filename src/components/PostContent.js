@@ -2,7 +2,7 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 
 import HTMLContent from './HTMLContent'
-import { color } from '../lib/theme'
+import { color, breakpoints, widthLessThan } from '../lib/theme'
 
 const useStyles = createUseStyles( () => ( {
   content: {
@@ -55,6 +55,10 @@ const useStyles = createUseStyles( () => ( {
     },
     '& blockquote': {
       fontSize: '1.5em',
+      [ widthLessThan( breakpoints.tablet ) ]: {
+        fontSize: '1.25em',
+        margin: 0,
+      },
       paddingLeft: '0.5em',
       borderLeft: `4px solid ${color.green}`,
     },
