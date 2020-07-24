@@ -81,15 +81,10 @@ module.exports = {
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
               maxWidth: 2048,
-              linkImagesToOriginal: false,
               showCaptions: true,
               markdownCaptions: true,
               quality: 80,
             },
-          },
-          {
-            resolve: 'gatsby-remark-images-medium-zoom',
-            options: {},
           },
           {
             resolve: 'gatsby-remark-copy-linked-files',
