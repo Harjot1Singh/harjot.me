@@ -161,7 +161,7 @@ const ProjectPost = ( { data } ) => {
 
   return (
     <main>
-      <Header title={remarkProps.title} description={remarkProps.excerpt} />
+      <Header title={remarkProps.name} description={remarkProps.excerpt} />
       <Navbar active="projects" />
       <Component {...remarkProps} />
     </main>
