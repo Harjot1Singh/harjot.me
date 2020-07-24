@@ -13,8 +13,13 @@ tags:
   - PHP
   - MySQL
   - Twilio SMS
+  - Bootstrap
 ---
-The time the sun sets varies throughout the year. Or perhaps you are a visitor in a foreign country.
+## Why?
+
+The time that the sun sets varies throughout the year, and by country. Perhaps you have children, and you'd like to make sure they receive a friendly reminder that it will be dark soon, or you're holidaying and want to make sure you get back home before dark.
+
+## Solution
 
 Before Dark is single page web app uses your location to calculate the time the sun sets, and will then text you at the predefined and configurable intervals before the sun sets that day.
 
