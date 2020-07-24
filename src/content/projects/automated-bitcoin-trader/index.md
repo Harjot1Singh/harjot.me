@@ -4,9 +4,9 @@ featured: true
 name: Automated Bitcoin Trader
 description: Configurable, automated Bitcoin trader, leveraging technical analysis
 images:
+  - btc-trader-logo.png
   - btc-trader-macd.png
   - btc-trader-tema.png
-  - btc-trader-logo.png
 year: "2014"
 tags:
   - Node.js
