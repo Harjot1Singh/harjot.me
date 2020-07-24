@@ -92,7 +92,7 @@ const Projects = ( { data, pageContext } ) => {
         <Filters prefix="/projects" tags={tags} />
 
         <div className={classes.projects}>
-          {items.map( ( { slug, name, description, image } ) => (
+          {items.map( ( { slug, name, description, images: [ image ] } ) => (
             <Link key={slug} className={classes.project} to={slug}>
               <Img className={classes.image} src={image} fadeIn />
               <h2 className={classes.title}>{name}</h2>
@@ -130,7 +130,7 @@ export const query = graphql`
           frontmatter {
             name
             description
-            image {
+            images {
               childImageSharp {
                fluid(quality: 100, maxWidth: 1000) {
                  ...GatsbyImageSharpFluid
