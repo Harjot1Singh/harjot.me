@@ -4,7 +4,7 @@ featured: true
 name: Kaiku
 description: An all-in-one platform to facilitate and match investors to startups
 images:
-  - kaiku_normal.png
+  - kaiku-cover.png
 year: "2020"
 tags:
   - Elasticsearch
