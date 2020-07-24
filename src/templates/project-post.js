@@ -91,7 +91,6 @@ export const ProjectPostTemplate = ( { name, year, html, description, images, ta
       <ImageGallery
         additionalClass={classes.images}
         items={items}
-        // autoPlay
         showPlayButton={false}
       />
 
