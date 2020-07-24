@@ -37,6 +37,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-helmet": "^6.0.0",
+    "react-image-gallery": "^1.0.8",
     "react-jss": "^10.3.0",
     "react-responsive": "^8.1.0",
     "react-scroll": "^1.7.16",

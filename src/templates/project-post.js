@@ -3,6 +3,7 @@ import { node, string, arrayOf, shape } from 'prop-types'
 import { graphql } from 'gatsby'
 import { createUseStyles } from 'react-jss'
 import { Disqus } from 'gatsby-plugin-disqus'
+import ImageGallery from 'react-image-gallery'
 
 import getRemarkProps from '../lib/get-remark-props'
 import { lightTheme, widthLessThan, breakpoints, color } from '../lib/theme'
@@ -12,7 +13,6 @@ import Container from '../components/Container'
 import Navbar from '../components/FixedNavbar'
 import Tags from '../components/Tags'
 import PostContent from '../components/PostContent'
-import Img from '../components/Img'
 import withTransition from '../components/withTransition'
 
 const useStyles = createUseStyles( {
@@ -28,7 +28,7 @@ const useStyles = createUseStyles( {
       fontSize: '20px',
     },
   },
-  image: {
+  images: {
     width: '100%',
     margin: '2em 0',
   },
@@ -64,17 +64,38 @@ const useStyles = createUseStyles( {
   },
 } )
 
+const getImageProps = ( props ) => {
+  console.log( props )
+
+  if ( props.url ) return { original: props.url, thumbnail: props.url }
+
+  const { childImageSharp: { fluid: {
+    sizes,
+    srcSet,
+    src,
+  } } } = props
+
+  return { sizes, srcSet, thumbnail: src, original: src }
+}
+
 export const ProjectPostTemplate = ( { name, year, html, description, images, tags, slug } ) => {
   const classes = useStyles()
 
   const disqusConfig = { identifier: slug, title: name }
+
+  const items = images.map( getImageProps )
 
   return (
     <Container className={classes.container}>
       <h2 className={classes.date}>{year}</h2>
       <h1 className={classes.title}>{name}</h1>
       <h3 className={classes.description}>{description}</h3>
-      <Img className={classes.image} src={images[ 0 ]} />
+      <ImageGallery
+        additionalClass={classes.images}
+        items={items}
+        // autoPlay
+        showPlayButton={false}
+      />
 
       <PostContent>{html}</PostContent>
 

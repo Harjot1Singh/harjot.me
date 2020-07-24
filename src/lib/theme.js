@@ -2,6 +2,8 @@ import 'normalize.css'
 
 import '../fonts/index.css'
 
+import 'react-image-gallery/styles/css/image-gallery.css'
+
 export const font = {
   body: 'Montserrat',
   header: 'Glacial Indifference',
@@ -57,6 +59,9 @@ export const getGlobalStyles = ( theme ) => ( {
     '::-webkit-scrollbar-thumb': {
       backgroundColor: 'rgba(0, 0, 0, 0.48)',
       borderRadius: '8px',
+    },
+    'button.image-gallery-icon:hover': {
+      color: color.green,
     },
   },
 } )
