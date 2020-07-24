@@ -6,6 +6,7 @@ description: Configurable, automated Bitcoin trader, leveraging technical analys
 images:
   - btc-trader-macd.png
   - btc-trader-tema.png
+  - btc-trader-logo.png
 year: "2014"
 tags:
   - Node.js
