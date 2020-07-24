@@ -5,7 +5,7 @@ name: Skouted
 description: Skouted is a social networking app for aspiring footballers, and
   football lovers alike.
 images:
-  - skouted-cover.png
+  - skouted-cinematic-cover.png
 year: "2019"
 tags:
   - Football
