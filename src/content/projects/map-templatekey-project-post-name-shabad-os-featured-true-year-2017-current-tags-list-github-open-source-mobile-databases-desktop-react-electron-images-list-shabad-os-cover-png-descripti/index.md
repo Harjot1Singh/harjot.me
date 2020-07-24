@@ -2,7 +2,7 @@
 templateKey: project-post
 featured: true
 name: Shabad OS
-description: Making the Sikh Scriptures accessible to everyone through technology
+description: Making the Sikh Scriptures accessible through open-source technology
 images:
   - shabad-os-cover.png
   - readme-screenshot-presenter.png
