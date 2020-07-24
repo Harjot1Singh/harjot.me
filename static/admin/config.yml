@@ -47,6 +47,7 @@ collections:
     create: true
     media_folder: ""
     public_folder: ""
+    identifier_field: name
     path: "{{slug}}/index"
     fields:
       - {
