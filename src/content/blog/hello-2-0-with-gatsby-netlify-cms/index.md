@@ -24,17 +24,13 @@ As a trusty companion for many years, this site had **served** me well (laughing
 
 I've learnt better now, and I'll talk about how [Netlify CMS](https://www.netlifycms.org/) has solved this for me.
 
-![Old website image](old-website.png "Old website")
-
-###### That background image... the shame.
+![Old website image](old-website.png "That background image... the shame.")
 
 ### 2020
 
 Throughout my years as of product design & development, I've learnt to place an emphasis on **readability & usability.** In practice, this means looking at spacing, font sizes, and colour contrast, and spending some time **planning & prototyping** before steaming ahead. I cannot recommend [Figma](figma.com) enough for this. If you do not wish to prototype all the details, it is still worth starting with one view and setting a consistent design language.
 
-![New website image](new-website-preview.png "New website")
-
-###### Did you notice? Green is in fashion.
+![New website image](new-website-preview.png "Did you notice? Green is in fashion.")
 
 The source code is available on [GitHub](https://github.com/Harjot1Singh/harjot.me).
 

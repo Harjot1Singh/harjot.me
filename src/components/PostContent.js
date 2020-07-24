@@ -48,10 +48,12 @@ const useStyles = createUseStyles( () => ( {
       marginTop: '1.5em',
       marginBottom: '0.75em',
     },
-    '& h6': {
+    '& figcaption': {
       margin: 0,
       textAlign: 'center',
       opacity: 0.7,
+      fontSize: '0.675em',
+      fontWeight: 'bold',
     },
     '& blockquote': {
       fontSize: '1.5em',
