@@ -48,6 +48,12 @@ const useStyles = createUseStyles( () => ( {
       marginTop: '1.5em',
       marginBottom: '0.75em',
     },
+    '& figure': {
+      marginBlockStart: 0,
+      marginBlockEnd: 0,
+      marginInlineStart: 0,
+      marginInlineEnd: 0,
+    },
     '& figcaption': {
       margin: 0,
       textAlign: 'center',
