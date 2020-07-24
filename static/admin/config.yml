@@ -56,7 +56,7 @@ collections:
           widget: hidden,
           default: project-post,
         }
-      - { label: Featured, name: featured, widget: boolean }
+      - { label: Featured, name: featured, widget: boolean, required: false }
       - { label: Name, name: name, widget: string }
       - { label: Description, name: description, widget: string }
       - {
