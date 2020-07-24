@@ -67,6 +67,8 @@ const useStyles = createUseStyles( {
 const getImageProps = ( props ) => {
   if ( props.url ) return { original: props.url, thumbnail: props.url }
 
+  if ( !props || !props.childImageSharp ) return null
+
   const { childImageSharp: { fluid: {
     sizes,
     srcSet,
