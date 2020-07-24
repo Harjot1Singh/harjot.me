@@ -17,6 +17,5 @@ tags:
   - Trading
   - Technical Analysis
   - Visualisation
-image: btc-trader-macd.png
 ---
 Analyses Bitcoin price data from various exchanges, to determine and execute profitable trades
