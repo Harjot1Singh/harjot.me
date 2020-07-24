@@ -127,7 +127,7 @@ export const ProjectSectionTemplate = ( { id, items } ) => {
         <SectionHeader className={classes.header}>Projects</SectionHeader>
 
         <div className={classes.cards}>
-          {items.map( ( { name, image, slug } ) => (
+          {items.map( ( { name, images: [ image ], slug } ) => (
             <TransitionLink {...transitionProps} key={slug} to={slug}>
               <h3 className={classes.nameHeader}>{name}</h3>
 
@@ -172,7 +172,7 @@ const query = graphql`
           name
           date
           tags
-          image {
+          images {
           childImageSharp {
             fluid(quality: 100, maxWidth: 420, maxHeight: 250) {
                 ...GatsbyImageSharpFluid

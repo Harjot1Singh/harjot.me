@@ -64,7 +64,7 @@ const useStyles = createUseStyles( {
   },
 } )
 
-export const ProjectPostTemplate = ( { name, year, html, description, image, tags, slug } ) => {
+export const ProjectPostTemplate = ( { name, year, html, description, images, tags, slug } ) => {
   const classes = useStyles()
 
   const disqusConfig = { identifier: slug, title: name }
@@ -74,7 +74,7 @@ export const ProjectPostTemplate = ( { name, year, html, description, image, tag
       <h2 className={classes.date}>{year}</h2>
       <h1 className={classes.title}>{name}</h1>
       <h3 className={classes.description}>{description}</h3>
-      <Img className={classes.image} src={image} />
+      <Img className={classes.image} src={images[ 0 ]} />
 
       <PostContent>{html}</PostContent>
 
@@ -97,7 +97,7 @@ ProjectPostTemplate.propTypes = {
   year: string,
   description: string,
   tags: arrayOf( string ),
-  image: shape( { childImageSharp: {} } ),
+  images: arrayOf( shape( { childImageSharp: {} } ) ),
   slug: string.isRequired,
 }
 
@@ -107,7 +107,7 @@ ProjectPostTemplate.defaultProps = {
   year: null,
   description: null,
   tags: [],
-  image: {},
+  images: [ {} ],
 }
 
 export const query = graphql`
@@ -123,7 +123,7 @@ export const query = graphql`
         year
         description
         tags
-        image {
+        images {
           childImageSharp {
             fluid(quality: 100, maxWidth: 1000) {
               ...GatsbyImageSharpFluid
