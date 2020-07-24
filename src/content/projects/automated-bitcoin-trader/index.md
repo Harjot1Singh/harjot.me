@@ -3,8 +3,10 @@ templateKey: project-post
 featured: true
 name: Automated Bitcoin Trader
 description: Configurable, automated Bitcoin trader, leveraging technical analysis
-images: 
+images:
+  - btc-trader-logo.png
   - btc-trader-macd.png
+  - btc-trader-tema.png
 year: "2014"
 tags:
   - Node.js
@@ -15,5 +17,6 @@ tags:
   - Trading
   - Technical Analysis
   - Visualisation
+image: btc-trader-macd.png
 ---
 Analyses Bitcoin price data from various exchanges, to determine and execute profitable trades
