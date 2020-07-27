@@ -43,6 +43,12 @@ Now, create two projects with [Google Console](https://console.cloud.google.com)
 
 ![](google-service-account.png)
 
+#### CAVEAT
+
+There is one more manual step involved - you must enable the [Cloud Resource API](https://console.developers.google.com/apis/library/cloudresourcemanager.googleapis.com) manually for your projects. I did try to define a Terraform step which automatically enables the correct permissions, however it ironically requires the Cloud Resource Manager API enabled first to do this. 
+
+If anyone has a better suggestion, let me know in the comments!
+
 ## Structure
 
 It's recommended to create a separate folder for all terraform/infrastructure needs at the root of your application. I will unsurprisingly designate this to be named `terraform`.
