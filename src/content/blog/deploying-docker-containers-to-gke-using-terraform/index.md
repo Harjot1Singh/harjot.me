@@ -34,9 +34,10 @@ Let's get started. Exemplar code is available on [GitHub](https://github.com/Har
 Install the following to get started.
 
 * [Docker](https://www.docker.com/)
-* Google Account
+* Google Cloud Platform account with *billing enabled*
 * [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
 * [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install/)
+* Kubectl
 
 Now, create two projects with [Google Console](https://console.cloud.google.com), named anything. One will be used for `development` deployments, and another, `production` deployments. Create a service account for each project, with `Editor` access. Once a service account is created, you can create a key for the service account (choose JSON), and download these. Keep them safe, we will need these.
 
