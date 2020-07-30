@@ -145,7 +145,7 @@ This file will contain variables that we want to share across all our environmen
 
 locals {
   # Global organisation identifier
-  org = "terraform-rabit-ocean"
+  org = "terraform-rabit-pig"
 }
 
 ```
@@ -200,7 +200,7 @@ terraform {
   backend "gcs" {
     credentials = "D:/Projects/terraform-example/terraform/live/development/credentials.json"
     prefix      = "development/gcp-gke"
-    bucket      = "terraform-rabit-ocean-development---terraform-state"
+    bucket      = "terraform-rabit-pig-development---terraform-state"
   }
 }
 ```
@@ -212,16 +212,22 @@ generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
-    provider "google" {
-      version = "~> 3.16.0"
+provider "google" {
+  version = "~> 3.16.0"
 
-      credentials = local.env.credentials
-      project     = local.env.project
-      region      = local.env.region
-    }
-  EOF
+  credentials = "${local.env.credentials_path}"
+  project     = "${local.env.project}"
+  region      = "${local.env.region}"
 }
 
+# For access to Google Beta features
+provider "google-beta" {
+  credentials = "${local.env.credentials_path}"
+  project     = "${local.env.project}"
+  region      = "${local.env.region}"
+}
+  EOF
+}
 ```
 
 All configuration options are available on the [Google Cloud Platform Provider documentation page](https://www.terraform.io/docs/providers/google/index.html). Like `backend.tf`, Terragrunt will generate `provider.tf` and place this in the folder of any module that includes the root `terragrunt.hcl`.
@@ -245,7 +251,7 @@ We'll define two files:
 
 This will allow us to satisfy one of our earlier requirements of different configurations and regions per environment.
 
-Add the following to each file and change the project to match the project listed inside `credentials.json`.
+Add the following to each file:
 
 ```terraform
 locals {
@@ -253,16 +259,15 @@ locals {
 
   region = "us-east1"
 
-  credentials_path  = "${get_terragrunt_dir()}/credentials.json"
-  credentials       = jsondecode(file(credentials_path))
+  credentials_path = "${get_terragrunt_dir()}/credentials.json"
+  credentials      = jsondecode(file(local.credentials_path))
 
-  service_account  = local.credentials.client_email
+  service_account = local.credentials.client_email
   project         = local.credentials.project_id
 }
-
 ```
 
-Note how the project ID and service account email address are extracted from the credentials, for our own convenience.
+Note how the project identifier and service account email address are extracted from the credentials, for our own convenience.
 
 ### Defining Modules
 
@@ -270,10 +275,80 @@ We've defined some reusable configuration in the `live` directory, but now it's 
 
 Let's start with Google Kubernetes Engine. We'll make use of the [Google's GKE module](https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/10.0.0).
 
-Create `terraform/modules/gcp-gke/main.tf`:
+There's 3 tasks to complete to successfully spin up a GKE cluster:
+1) Enable the correct Cloud API features
+2) Create a Network VPC
+3) Create a GKE cluster using the VPC defined in 2)
 
+Create `terraform/modules/gcp-gke/main.tf` and start by defining some reusable local variables:
+
+```terraform
+locals {
+  network = "${var.cluster_name}-gke-network"
+  subnet  = "${var.cluster_name}-gke-subnet"
+
+  ip_range_pods     = "${var.cluster_name}-gke-pods"
+  ip_range_services = "${var.cluster_name}-gke-services"
+}
+```
+These variables hold network-related names, which will be used more than once.
+
+Add a block to enable the APIs required:
+
+```terraform
+# Enable required account services
+module "gcp_services" {
+  source  = "terraform-google-modules/project-factory/google//modules/project_services"
+  version = "~> 4.0"
+
+  project_id = var.project_id
+
+  disable_services_on_destroy = false
+  disable_dependent_services  = false
+
+  activate_apis = [
+    "iam.googleapis.com",
+    "compute.googleapis.com",
+    "container.googleapis.com",
+  ]
+}
 ```
 
+It's time to create a network:
+
+```terraform
+
+# Add a network
+module "gcp_network" {
+  source  = "terraform-google-modules/network/google"
+  version = "~> 2.4"
+
+  project_id   = module.gcp_services.project_id
+  network_name = local.network
+
+  subnets = [
+    {
+      subnet_name   = local.subnet
+      subnet_ip     = "10.0.0.0/17"
+      subnet_region = var.region
+    },
+  ]
+
+  secondary_ranges = {
+    "${local.subnet}" = [
+      {
+        range_name    = local.ip_range_pods
+        ip_cidr_range = "192.168.0.0/18"
+      },
+      {
+        range_name    = local.ip_range_services
+        ip_cidr_range = "192.168.64.0/18"
+      },
+    ]
+  }
+}
 ```
+
+Note how `project_id = module.gcp_services.project_id`. You may wonder why we don't simply use `var.project_id`
 
 
