@@ -280,7 +280,66 @@ There's 3 tasks to complete to successfully spin up a GKE cluster:
 2) Create a Network VPC
 3) Create a GKE cluster using the VPC defined in 2)
 
-Create `terraform/modules/gcp-gke/main.tf` and start by defining some reusable local variables:
+Inside `terraform/modules/gcp-gke/variables.tf`, specify the input variables to the module:
+
+```terraform
+variable "project_id" {
+  description = "The project ID to host the cluster in"
+  type        = string
+}
+
+variable "cluster_name" {
+  description = "The name for the GKE cluster"
+}
+
+variable "region" {
+  description = "The region to host the cluster in"
+  type        = string
+}
+
+variable "zones" {
+  description = "The zones to host the cluster in"
+  type        = list(string)
+}
+
+variable "machine_type" {
+  description = "The machine type for nodes in the node pool"
+  type        = string
+}
+
+variable "min_nodes" {
+  description = "The minimum number of nodes in the node pool"
+  default     = 1
+  type        = number
+}
+
+variable "max_nodes" {
+  description = "The maximum number of nodes in the node pool"
+  type        = number
+}
+
+variable "disk_type" {
+  description = "The type of disk"
+  type        = string
+  default     = "pd-standard"
+}
+
+variable "disk_size" {
+  description = "The size of each node's disk (GB)"
+  type        = number
+  default     = 100
+}
+
+variable "preemptible" {
+  description = "Whether nodes are premptible or not"
+  type        = bool
+  default     = false
+}
+```
+
+These can all be referenced by `var.NAME`. E.g: `var.premptible`.
+
+We can define the content of the module now. Create `terraform/modules/gcp-gke/main.tf` and start by defining some reusable local variables:
 
 ```terraform
 locals {
@@ -349,6 +408,8 @@ module "gcp_network" {
 }
 ```
 
-Note how `project_id = module.gcp_services.project_id`. You may wonder why we don't simply use `var.project_id`
+Note how `project_id = module.gcp_services.project_id`. You may wonder why we don't simply use `var.project_id`. Well, there's a good reason for it: Terraform will attempt to figure out the dependencies between different resources, and consequently execute sequentially or in parallel as appropriate. By using `module.gcp_services.project_id`, we are telling Terraform to wait until `module.gcp_services.project_id` is available. Without this, the next steps would fail, as relevant the Cloud APIs may not have been enabled.
+
+
 
 
