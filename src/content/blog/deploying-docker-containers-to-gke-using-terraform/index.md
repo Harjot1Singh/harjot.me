@@ -502,4 +502,77 @@ output "subnet_secondary_ranges" {
 }
 ```
 
+We have a module that only exposes the aspects of spinning up a GKE cluster that we are interested in.
+
+### Calling our modules with Terragrunt
+
 We're done with defining our own Google Kubernetes Engine module, but how do we supply variables to it and spin it up?
+
+This is where our `terraform/live/[env]/[module]/terragrunt.hcl` files come in. 
+
+Inside `terraform/live/development/gcp-gke/terragrunt.hcl`, let's define the cluster we'd like.
+
+The first thing to add is an `include` block:
+
+```terraform
+include {
+  path = find_in_parent_folders()
+}
+```
+
+`find_in_parent_folders()`, without parameters, looks for any parent `terragrunt.hcl` files. Fortunately, we defined a root `terragrunt.hcl` file, which contains our provider and remote backend configuration.
+
+How do we tell Terragrunt which Terraform module we'd like to use?
+
+```terraform
+terraform {
+  source = "../../../modules/gcp-gke"
+}
+```
+
+The next thing to do is actually specify the inputs for our module, and any `locals` we need alongside:
+
+```terraform
+locals {
+  env    = read_terragrunt_config(find_in_parent_folders("env.hcl")).locals
+  common = read_terragrunt_config(find_in_parent_folders("common.hcl")).locals
+}
+
+
+inputs = {
+  project_id = local.env.project
+
+  cluster_name = join("-", [local.common.org, local.env.env])
+  region       = local.env.region
+  zones        = ["us-east1-b"]
+
+  machine_type = "n1-standard-1"
+  max_nodes    = 2
+
+  disk_size = 10
+
+  preemptible = true
+}
+```
+
+And voila! If we wanted a second cluster, you would duplicate this into another file and change the parameters as appropriate. 
+
+In fact, you'll have to do this for the `production` folder, which I leave as an exercise to the reader.
+
+### Deploying my live configuration
+
+You've defined all of your infrastructure, and now you're ready to hit run!
+
+Terragrunt provides a `terragrunt plan-all` to view the changes that will be made, and `terragrunt apply-all` to actually apply them. This is identical to the `terraform plan` and `apply` commands, instead running them in each directory.
+
+You can now `cd terraform/live/development` and run `terragrunt apply-all` to pull up your development infrastructure, and similarly for production.
+
+It's that simple.
+
+### What about Cloud SQL & deploying Docker images? You promised!
+
+True. But I think this post is too long already. Remember, I'm new to this!
+
+Instead, check out the [example repository](https://github.com/Harjot1Singh/terraform-example) that I created, which applies the same principles outlined in this post to spin up a Cloud SQL instance and also deploys an NGINX image on port 8080.
+
+Though, if anyone would like a follow-up post on getting these other components running, let me know!
