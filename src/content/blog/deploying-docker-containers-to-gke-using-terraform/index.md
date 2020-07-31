@@ -410,6 +410,96 @@ module "gcp_network" {
 
 Note how `project_id = module.gcp_services.project_id`. You may wonder why we don't simply use `var.project_id`. Well, there's a good reason for it: Terraform will attempt to figure out the dependencies between different resources, and consequently execute sequentially or in parallel as appropriate. By using `module.gcp_services.project_id`, we are telling Terraform to wait until `module.gcp_services.project_id` is available. Without this, the next steps would fail, as relevant the Cloud APIs may not have been enabled.
 
+The next step is to actually spin up the cluster:
+
+```terraform
+# Build a zonal cluster
+module "gke" {
+  source = "terraform-google-modules/kubernetes-engine/google"
+  version = "~> 10.0"
+
+  project_id     = module.gcp_network.project_id
+  name           = var.cluster_name
+  region         = var.region
+  regional       = false
+  zones          = var.zones
+  network        = local.network
+  subnetwork     = local.subnet
+  network_policy = false
+
+  ip_range_pods     = local.ip_range_pods
+  ip_range_services = local.ip_range_services
+
+  create_service_account     = false
+  horizontal_pod_autoscaling = true
+
+  remove_default_node_pool = true
+
+  node_pools = [
+    {
+      name = "gke-pool"
+
+      machine_type = var.machine_type
+      preemptible  = var.preemptible
+
+      initial_node_count = var.min_nodes
+      min_count          = var.min_nodes
+      max_count          = var.max_nodes
+
+      disk_type    = var.disk_type
+      disk_size_gb = var.disk_size
 
 
+      auto_upgrade = true
+    }
+  ]
+}
 
+```
+
+It's very convenient to configure the defaults appropriate for your system, and expose anything that varies as, well, variables.
+
+We've forgotten one thing - define some outputs! This will allow other modules to access useful information - if we'd like to deploy to the cluster, we need to be able to authenticate with it, and so we must export that information from this module, in `outputs.tf`:
+
+```terraform
+output "cluster_endpoint" {
+  description = "The IP address of the cluster master"
+  sensitive   = true
+  value       = module.gke.endpoint
+}
+
+output "cluster_name" {
+  description = "The name of the cluster master"
+  sensitive   = true
+  value       = module.gke.name
+}
+
+output "ca_certificate" {
+  description = "The public certificate that is the root of trust for the cluster"
+  sensitive   = true
+  value       = module.gke.ca_certificate
+}
+
+output "access_token" {
+  description = "The access token to authenticate with the cluster"
+  sensitive   = true
+  value       = data.google_client_config.default.access_token
+}
+
+output "network_name" {
+  description = "The name of the VPC being created"
+  value       = module.gcp_network.network_name
+}
+
+output "subnet_name" {
+  description = "The name of the subnet being created"
+  value       = module.gcp_network.subnets_names
+}
+
+output "subnet_secondary_ranges" {
+  description = "The secondary ranges associated with the subnet"
+  value       = module.gcp_network.subnets_secondary_ranges
+}
+```
+
+We're done with defining our own Google Kubernetes Engine module, but how do we supply variables to it and spin it up?
