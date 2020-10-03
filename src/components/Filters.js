@@ -11,7 +11,7 @@ const useStyles = createUseStyles( {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
-    marginLeft: '-35vw',
+    marginLeft: '-75vw',
     [ widthLessThan( breakpoints.laptop ) ]: {
       display: 'none',
     },
