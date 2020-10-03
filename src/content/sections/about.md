@@ -7,7 +7,7 @@ skills:
   - HTML
   - Java
   - DevOps
-  - Typescript
+  - TypeScript
   - Python
   - Delphi
   - Php
