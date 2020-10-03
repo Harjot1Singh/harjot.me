@@ -9,6 +9,7 @@ const useStyles = createUseStyles( {
     color: color.white,
     fontWeight: 'bold',
     transition: '0.3s all ease-in-out',
+    display: 'flex',
     padding: '0.5em 1.25em',
     margin: '0.5em',
     fontSize: '1.25em',

@@ -14,6 +14,9 @@ import Navbar from '../components/FixedNavbar'
 import Tags from '../components/Tags'
 import PostContent from '../components/PostContent'
 import withTransition from '../components/withTransition'
+import Chip from '../components/Chip'
+
+import Download from '../../static/img/icons/download.inline.svg'
 
 const useStyles = createUseStyles( {
   container: {
@@ -54,13 +57,31 @@ const useStyles = createUseStyles( {
     width: '100%',
     alignItems: 'center',
   },
-  tagsHeader: {
+  footerHeader: {
     marginBottom: '0.5em',
     textTransform: 'uppercase',
     color: color.lightGrey,
   },
   comments: {
     marginTop: '1em',
+  },
+  files: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
+  download: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '0.75em',
+    '&': {
+      textDecoration: 'none',
+    },
+    '& svg': {
+      fill: color.white,
+      marginLeft: '0.75em',
+      width: '1em',
+    },
   },
 } )
 
@@ -78,7 +99,16 @@ const getImageProps = ( props ) => {
   return { sizes, srcSet, thumbnail: src, original: src }
 }
 
-export const ProjectPostTemplate = ( { name, year, html, description, images, tags, slug } ) => {
+export const ProjectPostTemplate = ( {
+  name,
+  year,
+  html,
+  description,
+  files,
+  images,
+  tags,
+  slug,
+} ) => {
   const classes = useStyles()
 
   const disqusConfig = { identifier: slug, title: name }
@@ -99,7 +129,24 @@ export const ProjectPostTemplate = ( { name, year, html, description, images, ta
       <PostContent>{html}</PostContent>
 
       <footer className={classes.footer}>
-        <h4 className={classes.tagsHeader}>Tags</h4>
+
+        {files && files.length && (
+          <>
+            <h4 className={classes.footerHeader}>Files</h4>
+            <div className={classes.files}>
+              {files.map( ( { name, file: { publicURL } } ) => (
+                <a className={classes.download} href={publicURL} rel="noreferrer" target="_blank">
+                  <Chip>
+                    {name}
+                    <Download />
+                  </Chip>
+                </a>
+              ) )}
+            </div>
+          </>
+        )}
+
+        <h4 className={classes.footerHeader}>Tags</h4>
         <Tags tags={tags} prefix="/projects" />
 
         <div className={classes.comments}>
@@ -118,6 +165,10 @@ ProjectPostTemplate.propTypes = {
   description: string,
   tags: arrayOf( string ),
   images: arrayOf( shape( { childImageSharp: {} } ) ),
+  files: arrayOf( shape( {
+    name: string,
+    file: shape( { publicURL: string } ),
+  } ) ),
   slug: string.isRequired,
 }
 
@@ -128,6 +179,7 @@ ProjectPostTemplate.defaultProps = {
   description: null,
   tags: [],
   images: [ {} ],
+  files: [],
 }
 
 export const query = graphql`
@@ -143,6 +195,12 @@ export const query = graphql`
         year
         description
         tags
+        files {
+          name
+          file {
+            publicURL
+          }
+        }
         images {
           childImageSharp {
             fluid(quality: 100, maxWidth: 1000) {

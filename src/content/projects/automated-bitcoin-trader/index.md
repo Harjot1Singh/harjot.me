@@ -7,6 +7,9 @@ images:
   - btc-trader-logo.png
   - btc-trader-macd.png
   - btc-trader-tema.png
+files:
+  - name: Bitcoin Trader Report
+    file: bitcoin-trader.pdf
 year: "2014"
 tags:
   - Node.js

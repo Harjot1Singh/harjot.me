@@ -65,6 +65,16 @@ collections:
           widget: list,
           field: { label: Image, name: image, widget: image },
         }
+      - {
+          label: Files,
+          name: files,
+          widget: list,
+          required: false,
+          fields: [
+            { label: name, name: name, widget: string },
+            { label: file, name: file, widget: file },
+          ]
+        }
       - { label: Year, name: year, widget: string }
       - { label: Tags, name: tags, widget: list }
       - { label: Body, name: body, widget: markdown }
