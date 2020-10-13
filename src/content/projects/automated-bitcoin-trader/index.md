@@ -35,7 +35,7 @@ Each bot analyses Bitcoin price data from various exchanges, to determine and ex
 
 This allows the user to run multiple strategies in parallel, and configure the signals which signify a trade.
 
-The full write-up can be download at the end of this post.
+The full write-up can be downloaded at the end of this post.
 
 ### Technology
 
