@@ -69,6 +69,12 @@ const useStyles = createUseStyles( {
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
+    '& > :first-child > div': {
+      marginLeft: 0,
+    },
+    '& svg': {
+      height: '1em',
+    },
   },
   download: {
     display: 'flex',
