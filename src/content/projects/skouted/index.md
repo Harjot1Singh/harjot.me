@@ -2,8 +2,8 @@
 templateKey: project-post
 featured: true
 name: Skouted
-description: Skouted is a social networking app for aspiring footballers, and
-  football lovers alike.
+description: Skouted is a talent discovery app and social network for aspiring
+  footballers and scouts.
 images:
   - skouted-cinematic-cover.png
   - 1.png
