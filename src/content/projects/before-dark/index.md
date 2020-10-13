@@ -21,10 +21,10 @@ The time that the sun sets varies throughout the year, and by country. Perhaps y
 
 ## Solution
 
-Before Dark is single page web app that uses your location to calculate the time the sun sets, and will then text you at the predefined and configurable intervals before the sun sets that day. Simply enter the phone number of whom you'd like to receive sunset notifications, and press send.
+Before Dark is a single page web app that uses your location to calculate the time the sun sets, and will then text you at the predefined and configurable intervals before the sun sets that day. Simply enter the phone number of whom you'd like to receive sunset notifications, and press send.
 
 We created this as part of the Young Rewired State Festival of Code 2014, and were nominated for the best in show award, reaching the semi-finals.
 
 ### Technology
 
-When a user enters a phone number, the browser's location is determined using the HTML5 Geolocation API. Is is the reverse-geolocated, using the Google Maps API, to provide longitude and latitude coordinates. and used to calculate the time that the sun sets. This calculated time is added to a queue for the day, stored in MySQL. A cronjob runs a PHP script at a 15 minute interval to determine which phone numbers are pending notification, and uses the Twilio SMS API to send out a message which lets the recipient know that it will be dark soon.
+When a user enters a phone number, the browser's location is determined using the HTML5 Geolocation API. Using the latitude and longitude coordinates, the time that the sun sets is calculated. This calculated time is added to a queue for the day, stored in a MySQL database. A cronjob runs a PHP script at a 15 minute interval to determine which phone numbers to use the Twilio SMS API to send out a message which lets the registered recipient know that it will be dark soon.
