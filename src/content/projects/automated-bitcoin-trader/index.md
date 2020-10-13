@@ -45,7 +45,7 @@ Pricing data is streamed from the various Bitcoin exchanges through a short-poll
 
 The data processing component involves transforming the data into viable inputs for any configured strategies. Data aggregation is a common requirement to strategies, as it is often a requirement to view pricing data in fixed intervals. Thus, if a strategy is configured to use 15-minute intervals for grouping the pricing data, each interval will expose the opening price, highest price, lowest price, and closing price for that interval. 
 
-The next data processing step involves carrying out computing the signals - for example, two moving averages that takes into account the last 21 and 10 days' pricing into account, respectively. Most of the technical analysis methods from [node-talib](https://github.com/oransel/node-talib) are supported currently.
+The next data processing step involves carrying out computing the signals using the aggregated pricing data - for example, computing two moving averages that take into account the last 21 and 10 days' pricing into account, respectively. The [node-talib](https://github.com/oransel/node-talib) library is leveraged for many of the technical analysis methods.
 
 Finally, the trade execution component will determine if a signal indicates a trade, and attempt to execute the trade using the exchange's API.
 
