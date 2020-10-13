@@ -15,14 +15,16 @@ tags:
   - Twilio SMS
   - Bootstrap
 ---
-## Why?
+## Motivation
 
-The time that the sun sets varies throughout the year, and by country. Perhaps you have children, and you'd like to make sure they receive a friendly reminder that it will be dark soon, or you're holidaying and want to make sure you get back home before dark.
+The time that the sun sets varies throughout the year, and by country. Perhaps you have children, and you'd like to make sure they receive a friendly SMS reminder that it will be dark soon, or you're holidaying and want to make sure you get back home before dark.
 
 ## Solution
 
-Before Dark is single page web app uses your location to calculate the time the sun sets, and will then text you at the predefined and configurable intervals before the sun sets that day.
+Before Dark is single page web app that uses your location to calculate the time the sun sets, and will then text you at the predefined and configurable intervals before the sun sets that day. Simply enter the phone number of whom you'd like to receive sunset notifications, and press send.
 
 We created this as part of the Young Rewired State Festival of Code 2014, and were nominated for the best in show award, reaching the semi-finals.
 
-The Google Maps API and HTML5 were used to reverse-geolocate the user, and calculate the sunset based on the longitude and latitude of the user. The Twilio API was then used to send out SMS messages to the number before the sun set.
+### Technology
+
+When a user enters a phone number, the browser's location is determined using the HTML5 Geolocation API. Is is the reverse-geolocated, using the Google Maps API, to provide longitude and latitude coordinates. and used to calculate the time that the sun sets. This calculated time is added to a queue for the day, stored in MySQL. A cronjob runs a PHP script at a 15 minute interval to determine which phone numbers are pending notification, and uses the Twilio SMS API to send out a message which lets the recipient know that it will be dark soon.
