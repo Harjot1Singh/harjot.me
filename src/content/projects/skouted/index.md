@@ -14,6 +14,7 @@ images:
   - 6.png
   - 7.png
   - 8.png
+files: []
 year: "2019"
 tags:
   - Football
@@ -25,4 +26,4 @@ tags:
   - Kubernetes
   - Google Cloud Platform
 ---
-a
+f
