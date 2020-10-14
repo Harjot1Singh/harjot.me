@@ -6,7 +6,7 @@ description: A talent discovery app and social network for aspiring footballers 
 images:
   - skouted-cinematic-cover.png
   - skouted-screenshots.png
-  - 5-a-side-screenshots.png
+  - 5-a-side-screenshot.png
   - signup-and-login-screenshots.png
   - match-feed-screenshot.png
   - player-profiles-screenshots.png
@@ -57,7 +57,7 @@ This platform was undertaken initially as the subject of my Master's Thesis at t
 
 * Register with name, age, attributes
 * Upload footage clips and statistics
-* Guardian-managed accounts for u16 players
+* Guardian-managed accounts for U16 players
 
 #### Scouts
 
@@ -76,7 +76,13 @@ This platform was undertaken initially as the subject of my Master's Thesis at t
 
 The initial mockups and prototyping focused on capturing and including relevant data, heavily inspired by existing social networks.
 
-![](initial-design-screenshots.png)
+![](initial-design-screenshots.png "A traditional-looking social media app.")
+
+### Logo Concept
+
+![](skouted-app-2-.png)
+
+![](skouted-15-.png)
 
 ### Beta Test
 
