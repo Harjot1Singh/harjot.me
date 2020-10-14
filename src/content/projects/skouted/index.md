@@ -6,14 +6,15 @@ description: Skouted is a talent discovery app and social network for aspiring
   footballers and scouts.
 images:
   - skouted-cinematic-cover.png
-  - 1.png
-  - 2.png
-  - 3.png
-  - 4.png
-  - 5.png
-  - 6.png
-  - 7.png
-  - 8.png
+  - skouted-screenshots.png
+  - 5-a-side-screenshots.png
+  - signup-and-login-screenshots.png
+  - match-feed-screenshot.png
+  - player-profiles-screenshots.png
+  - uploading-screenshot.png
+  - scout-profiles-screenshots.png
+  - searching-screenshots.png
+  - messaging-screenshots.png
 files:
   - name: Group Master's Thesis
     file: skouted-group-report.pdf
@@ -27,7 +28,16 @@ tags:
   - Microservices
   - Kubernetes
   - Google Cloud Platform
+  - Cordova
+  - iOS
+  - Android
 ---
-f
+## Problem
 
-## 
+## Design Iterations
+
+### Initial Conception
+
+### Beta Conception
+
+### Launch Conception
