@@ -14,7 +14,9 @@ images:
   - 6.png
   - 7.png
   - 8.png
-files: []
+files:
+  - name: Group Master's Thesis
+    file: skouted-group-report.pdf
 year: "2019"
 tags:
   - Football
@@ -27,3 +29,5 @@ tags:
   - Google Cloud Platform
 ---
 f
+
+## 
