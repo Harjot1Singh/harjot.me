@@ -44,9 +44,7 @@ Gatsby is huge help in building a blazing-fast static website, which will have a
 
 This is one of the things that the great [Gatsby](https://gatsbyjs.org) will provide us, being a wonderful static site generator. On a side note, do read the [novel.](https://en.wikipedia.org/wiki/The_Great_Gatsby)
 
-![](website-editor-preview.png)
-
-###### UI to the rescue! No need to dive into the code to amend any content-related details.
+![](website-editor-preview.png "UI to the rescue! No need to dive into the code to amend any content-related details.")
 
 #### What is [Netlify CMS](https://netlifycms.org)?
 
