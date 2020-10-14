@@ -25,7 +25,7 @@ tags:
 
 This project was an introduction into my curiosity over trading, as well as my desire to experiment with some emerging technology stacks at the time.
 
-With no prior economic knowledge, Bitcoin seemed like a great market to explore and learn through, and thus, I built an Automated Bitcoin Trader.
+With no prior economic knowledge, Bitcoin seemed like a great market to explore and learn through. Thus, I built an Automated Bitcoin Trader.
 
 ## Solution
 
@@ -45,7 +45,7 @@ Pricing data is streamed from the various Bitcoin exchanges through a short-poll
 
 The data processing component involves transforming the data into viable inputs for any configured strategies. Data aggregation is a common requirement to strategies, as it is often a requirement to view pricing data in fixed intervals. Thus, if a strategy is configured to use 15-minute intervals for grouping the pricing data, each interval will expose the opening price, highest price, lowest price, and closing price for that interval. 
 
-The next data processing step involves carrying out computing the signals using the aggregated pricing data - for example, computing two moving averages that take into account the last 21 and 10 days' pricing into account, respectively. The [node-talib](https://github.com/oransel/node-talib) library is leveraged for many of the technical analysis methods.
+The next data processing step involves carrying out computing the signals using the aggregated pricing data - for example, computing two moving averages that take into account the last 21 and 10 days of pricing into account, respectively. The [node-talib](https://github.com/oransel/node-talib) library is leveraged for many of the technical analysis methods.
 
 Finally, the trade execution component will determine if a signal indicates a trade, and attempt to execute the trade using the exchange's API.
 
