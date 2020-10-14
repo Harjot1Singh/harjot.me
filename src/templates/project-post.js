@@ -140,7 +140,7 @@ export const ProjectPostTemplate = ( {
           <>
             <h4 className={classes.footerHeader}>Files</h4>
             <div className={classes.files}>
-              {files.map( ( { name, file: { publicURL } } ) => (
+              {files.map( ( { name, file: { publicURL } = {} } ) => (
                 <a className={classes.download} href={publicURL} rel="noreferrer" target="_blank">
                   <Chip>
                     {name}
