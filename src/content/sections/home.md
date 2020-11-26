@@ -8,5 +8,5 @@ roles:
   - Software Developer
   - Product Engineer
   - Product Developer
-cv: /img/harjot-singh-cv.pdf
+cv: /img/harjot-singh-s-cv.pdf
 ---
