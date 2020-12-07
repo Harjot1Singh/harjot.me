@@ -74,22 +74,26 @@ This platform was undertaken initially as the subject of my Master's Thesis at t
 
 ### Initial Conception
 
-The initial mockups and prototyping focused on capturing and including relevant data, heavily inspired by existing social networks.
+The initial mockups and prototyping focused on capturing and including relevant data, heavily inspired by existing social networks. Although rudimentary, it gave us an opportunity to visually assess missed data and aspects to a fully-featured app, as well as highlight some UX pain-points early on.
 
 ![](initial-design-screenshots.png "A traditional-looking social media app.")
 
 ### Logo Concept
 
-![](skouted-app-2-.png)
+The logo was designed to have a standalone, identifiable graphic as the centrepiece, particularly as the app format requires a distinct icon for users. The full text logo and tagline emphasises uplifting energy and hope, the idea being that this would encourage users who are at all levels of their footballing journey.
 
-![](skouted-15-.png)
+![](skouted-15-.png "An electric-green on a blue to appeal to the young, energetic nature of the target demographic.")
 
 ### Beta Test
 
-![](beta-screenshots.png)
+We piloted the app with a small number of users, having completed all the MVP features required of any social network: liking, commenting, messaging, profiles, uploading, and notifications. The app began to shape up more uniquely, despite the further work required on design. This was a great chance to evaluate what features and UX patterns worked well, and what needed changing before our launch.
+
+![](beta-screenshots.png "More consistency and uniqueness in the UI, but still some ways to go.")
 
 ### Launch
 
-![](skouted-screenshots.png)
+By the time we got to the launch phase, the app had undergone a huge redesign, embracing stunning visuals and consistent branding throughout.
+
+![](skouted-screenshots.png "A truly unique look, with highly attractive visuals, don't you agree?")
 
 ## **Technology**
